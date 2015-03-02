@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Workspace
+   version = "1.0">
+   <Group
+      location = "container:"
+      name = "CXDurationPicker">
+      <FileRef
+         location = "group:CXDurationPicker/CXDurationPickerDate.h">
+      </FileRef>
+      <FileRef
+         location = "group:CXDurationPicker/CXDurationPickerDayView.h">
+      </FileRef>
+      <FileRef
+         location = "group:CXDurationPicker/CXDurationPickerDayView.m">
+      </FileRef>
+      <FileRef
+         location = "group:CXDurationPicker/CXDurationPickerMonthView.h">
+      </FileRef>
+      <FileRef
+         location = "group:CXDurationPicker/CXDurationPickerMonthView.m">
+      </FileRef>
+      <FileRef
+         location = "group:CXDurationPicker/CXDurationPickerUtils.h">
+      </FileRef>
+      <FileRef
+         location = "group:CXDurationPicker/CXDurationPickerUtils.m">
+      </FileRef>
+      <FileRef
+         location = "group:CXDurationPicker/CXDurationPickerView.h">
+      </FileRef>
+      <FileRef
+         location = "group:CXDurationPicker/CXDurationPickerView.m">
+      </FileRef>
+   </Group>
+</Workspace>
