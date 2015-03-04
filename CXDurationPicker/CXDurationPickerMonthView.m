@@ -22,26 +22,31 @@
 #import "CXDurationPickerUtils.h"
 
 @interface CXDurationPickerMonthView ()
-
 @property (strong, nonatomic) NSDate *date;
 @property (strong, nonatomic) NSString *dateString;
 @property (strong, nonatomic, strong) NSCalendar *calendar;
-@property (assign) CGFloat cellWidth;
-@property (assign) CGFloat cellHeight;
-@property (assign) CGFloat monthWidth;
-@property (assign) CGFloat monthOffset;
-@property (assign) CGFloat monthTitleHeight;
-@property (assign) CGFloat weekTitleHeight;
-
+@property (nonatomic) CGFloat cellWidth;
+@property (nonatomic) CGFloat cellHeight;
+@property (nonatomic) CGFloat monthWidth;
+@property (nonatomic) CGFloat monthOffset;
+@property (nonatomic) CGFloat monthTitleHeight;
+@property (nonatomic) CGFloat weekTitleHeight;
+@property (strong, nonatomic) UILabel *dateLabel;
+@property (nonatomic) NSDateComponents *components;
+@property (nonatomic) NSUInteger numDays;
 @end
 
 @implementation CXDurationPickerMonthView
 
 - (void)baseInit {
+    self.monthTitleHeight = 16;
+    self.weekTitleHeight = 12;
+    
     self.days = [[NSMutableArray alloc] init];
     
-    self.monthWidth = (floor(self.frame.size.width / 7) * 7) - 6;
-    self.monthOffset = (self.frame.size.width - self.monthWidth) / 2;
+    self.monthWidth = (floor(self.bounds.size.width / 7) * 7) - 6;
+    
+    self.monthOffset = (self.bounds.size.width - self.monthWidth) / 2;
     
     self.backgroundColor = [UIColor whiteColor];
     
@@ -67,22 +72,94 @@
     
     if (self) {
         [self baseInit];
-        
-        //NSLog(@"Cell init with frame %@", NSStringFromCGRect(frame));
     }
     
     return self;
 }
 
 - (void)layoutSubviews {
-
+    if (!self.date) {
+        NSLog(@"monthview layout: Nothing to do.");
+        return;
+    }
+    
+    float cellSize = self.bounds.size.width / 7;
+    
+    self.cellWidth = floor(cellSize);
+    self.cellHeight = floor(cellSize);
+    
+    self.dateLabel.frame = CGRectMake(self.monthOffset, 0,
+                                      self.bounds.size.width - self.monthOffset,
+                                      self.monthTitleHeight);
+    
+    float yOffset = self.monthTitleHeight + 10;
+    
+    for (int i = 0; i < 7; i++) {
+        float xOffset = 0;
+        
+        if (i != 0) {
+            xOffset = -1 * i;
+        }
+        
+        NSUInteger tag = 100 + i;
+        
+        UIView *dayLabel = [self viewWithTag:tag];
+        
+        dayLabel.frame = CGRectMake(i * self.cellWidth + self.monthOffset + xOffset,
+                                    yOffset,
+                                    self.cellWidth,
+                                    self.weekTitleHeight);
+    }
+    
+    yOffset += self.weekTitleHeight + 5;
+    
+    int colIndex = 0;
+    int rowIndex = 0;
+    
+    for (int i = 1; i < self.components.weekday; i++) {
+        colIndex++;
+    }
+    
+    for (int i = 0; i < self.numDays; i++) {
+        float x = colIndex * self.cellWidth;
+        float y = rowIndex * self.cellHeight;
+        
+        float xOffset = 0;
+        
+        if (colIndex != 0) {
+            xOffset = -1 * (colIndex);
+        }
+        
+        float yOffset2 = 0;
+        if (rowIndex != 0) {
+            yOffset2 = -1 * (rowIndex);
+        }
+        
+        NSUInteger tag = 200 + i;
+        
+        UIView *dayView = [self viewWithTag:tag];
+        
+        dayView.frame = CGRectMake(x + self.monthOffset + xOffset,
+                                   y + yOffset + yOffset2,
+                                   self.cellWidth,
+                                   self.cellHeight);
+        
+        colIndex++;
+        
+        if (colIndex % 7 == 0) {
+            colIndex = 0;
+            rowIndex++;
+        }
+    }
 }
 
 - (CGSize)sizeThatFits:(CGSize)size {
-    NSUInteger height = 0;
+    float cellSize = self.bounds.size.width / 7;
     
-    height += self.padding.top;
-    height += self.padding.bottom;
+    self.cellWidth = floor(cellSize);
+    self.cellHeight = floor(cellSize);
+    
+    NSUInteger height = 0;
     
     height += (self.monthTitleHeight + 10);
     height += (self.weekTitleHeight + 5);
@@ -90,12 +167,13 @@
     NSDate *date = [self dateForFirstDayInSection:self.monthIndex];
     NSUInteger numWeeks = [self numberOfWeeksForMonthOfDate:date];
     
-    //NSLog(@"num weeks for month %ld = %ld", self.monthIndex, numWeeks);
-    
     height += (numWeeks * self.cellHeight);
     
-    return CGSizeMake(self.frame.size.width, height);
-    //return CGSizeMake(dayCellWidth, height);
+    height += 20; // bottom
+    
+    CGSize viewSize = CGSizeMake(self.bounds.size.width, height);
+    
+    return viewSize;
 }
 
 #pragma mark - Gesture recognizers
@@ -120,39 +198,20 @@
 }
 
 - (void)setupViews {
-    self.monthTitleHeight = 16;
-    self.weekTitleHeight = 12;
-    
     self.dateString = [NSString stringWithFormat:@"%@", [self monthNameFromDate:self.date]];
-    
-    //NSLog(@"date string = %@", dateString);
     
     UIFont *dateFont = [UIFont fontWithName:@"HelveticaNeue" size:self.monthTitleHeight];
     
-    //CGSize dateTextSize = [dateString sizeWithAttributes:@{NSFontAttributeName: dateFont}];
+    self.dateLabel = [[UILabel alloc] init];
     
-    //NSLog(@"date text size = %@", NSStringFromCGSize(dateTextSize));
+    [self.dateLabel setFont:dateFont];
+    [self.dateLabel setTextAlignment:NSTextAlignmentCenter];
+    [self.dateLabel setTextColor:[UIColor colorWithRed:56/255.0 green:63/255.0 blue:70/255.0 alpha:1]];
+    [self.dateLabel setText:self.dateString];
     
-    //NSLog(@"day width = %f", self.frame.size.width / 7);
+    [self addSubview:self.dateLabel];
     
-    float cellSize = self.frame.size.width / 7;
-    
-    self.cellWidth = floor(cellSize);
-    self.cellHeight = floor(cellSize);
-    
-    UILabel *dateLabel = [[UILabel alloc] initWithFrame:CGRectMake(self.monthOffset, 0, self.frame.size.width - self.monthOffset, self.monthTitleHeight)];
-    
-    //[dateLabel setBackgroundColor:[UIColor redColor]];
-    [dateLabel setFont:dateFont];
-    [dateLabel setTextAlignment:NSTextAlignmentCenter];
-    [dateLabel setTextColor:[UIColor colorWithRed:56/255.0 green:63/255.0 blue:70/255.0 alpha:1]];
-    [dateLabel setText:self.dateString];
-    
-    [self addSubview:dateLabel];
-    
-    float yOffset = self.monthTitleHeight + self.padding.top;
-    
-    NSArray *days = [NSArray arrayWithObjects:@"SUN", @"MON", @"TUE", @"WED", @"THU", @"FRI", @"SAT", @"SUN", nil];
+    NSArray *days = @[@"SUN", @"MON", @"TUE", @"WED", @"THU", @"FRI", @"SAT", @"SUN"];
     
     UILabel *dayLabel;
     UIFont *dayFont = [UIFont fontWithName:@"HelveticaNeue" size:self.weekTitleHeight];
@@ -164,9 +223,11 @@
             xOffset = -1 * i;
         }
         
-        dayLabel = [[UILabel alloc] initWithFrame:CGRectMake(i * self.cellWidth + self.monthOffset + xOffset, yOffset, self.cellWidth, self.weekTitleHeight)];
+        NSUInteger tag = 100 + i;
         
-        //[dayLabel setBackgroundColor:[UIColor orangeColor]];
+        dayLabel = [[UILabel alloc] init];
+        
+        [dayLabel setTag:tag];
         [dayLabel setFont:dayFont];
         [dayLabel setTextAlignment:NSTextAlignmentCenter];
         [dayLabel setTextColor:[UIColor colorWithRed:127/255.0 green:143/255.0 blue:151/255.0 alpha:1]];
@@ -176,21 +237,10 @@
         [self addSubview:dayLabel];
     }
     
-    yOffset += self.weekTitleHeight + 5;
-    
     int colIndex = 0;
     int rowIndex = 0;
     
-    NSCalendar *c = [NSCalendar currentCalendar];
-    NSUInteger numDays = [c rangeOfUnit:NSCalendarUnitDay
-                                 inUnit:NSCalendarUnitMonth
-                                forDate:self.date].length;
-    
-    NSDateComponents *components = [[NSCalendar currentCalendar]
-                                    components:NSCalendarUnitWeekday | NSCalendarUnitMonth | NSCalendarUnitYear
-                                    fromDate:self.date];
-    
-    for (int i = 1; i < components.weekday; i++) {
+    for (int i = 1; i < self.components.weekday; i++) {
         colIndex++;
     }
     
@@ -199,10 +249,7 @@
                                          components:NSCalendarUnitDay | NSCalendarUnitMonth | NSCalendarUnitYear
                                          fromDate:today];
     
-    for (int i = 0; i < numDays; i++) {
-        float x = colIndex * self.cellWidth;
-        float y = rowIndex * self.cellHeight;
-        
+    for (int i = 0; i < self.numDays; i++) {
         float xOffset = 0;
         
         if (colIndex != 0) {
@@ -214,23 +261,26 @@
             yOffset2 = -1 * (rowIndex);
         }
         
-        CXDurationPickerDayView *v = [[CXDurationPickerDayView alloc] initWithFrame:CGRectMake(x + self.monthOffset + xOffset, y + yOffset + yOffset2, self.cellWidth, self.cellHeight)];
+        CXDurationPickerDayView *v = [[CXDurationPickerDayView alloc] init];
         
-        UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(daySelected:)];
+        UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self
+                                                                              action:@selector(daySelected:)];
         
         [v addGestureRecognizer:tap];
         
-        if (components.year == todayComponents.year
-            && components.month == todayComponents.month
+        if (self.components.year == todayComponents.year
+            && self.components.month == todayComponents.month
             && i == todayComponents.day - 1) {
             v.isToday = YES;
         }
         
         colIndex++;
         
+        v.tag = 200 + i;
+        
         NSString *day = [NSString stringWithFormat:@"%d", i + 1];
         
-        [v setDay:day];
+        v.day = day;
         
         CXDurationPickerDate pickerDate;
         pickerDate.day = i + 1;
@@ -254,10 +304,20 @@
     //NSLog(@"set month index to %ld", (long) index);
     
     _monthIndex = index;
-
+    
     self.date = [self dateForFirstDayInSection:index];
     
     self.pickerMonth = [self monthPickerDateFromDate:self.date];
+    
+    NSCalendar *c = [NSCalendar currentCalendar];
+    
+    self.numDays = [c rangeOfUnit:NSCalendarUnitDay
+                           inUnit:NSCalendarUnitMonth
+                          forDate:self.date].length;
+    
+    self.components = [[NSCalendar currentCalendar]
+                       components:NSCalendarUnitWeekday | NSCalendarUnitMonth | NSCalendarUnitYear
+                       fromDate:self.date];
     
     [self setupViews];
     
@@ -272,7 +332,7 @@
     components.month = 0;
     
     CXDurationPickerDate pickerDate = [CXDurationPickerUtils pickerDateFromDate:[self.calendar dateByAddingComponents:components toDate:now options:0]];
-
+    
     NSDateComponents *dateComponents = [NSDateComponents new];
     dateComponents.month = section;
     
@@ -283,9 +343,9 @@
 
 - (NSString *)monthNameFromDate:(NSDate *)date {
     NSDateFormatter* dateFormatter = [[NSDateFormatter alloc] init];
-
+    
     [dateFormatter setDateFormat:@"MMMM YYYY"];
-
+    
     NSString *stringFromDate = [dateFormatter stringFromDate:date];
     
     return stringFromDate;
@@ -336,23 +396,23 @@
 }
 
 /*
-- (void)setSelectedDayFromPickerDate:(CXDurationPickerDate)pickerDate {
-        NSLog(@"picker date = %lu/%lu/%lu",
-              (unsigned long)pickerDate.day,
-              (unsigned long)pickerDate.month,
-              (unsigned long)pickerDate.year);
-    
-    for (UIView *view in self.subviews) {
-        if ([view isKindOfClass:[CXDurationPickerDayView class]]) {
-            CXDurationPickerDayView *dayView = (CXDurationPickerDayView *) view;
-            
-            if ([dayView isPickerDate:pickerDate]) {
-                NSLog(@"Setting today");
-                dayView.isSelected = YES;
-            }
-        }
-    }
-}
+ - (void)setSelectedDayFromPickerDate:(CXDurationPickerDate)pickerDate {
+ NSLog(@"picker date = %lu/%lu/%lu",
+ (unsigned long)pickerDate.day,
+ (unsigned long)pickerDate.month,
+ (unsigned long)pickerDate.year);
+ 
+ for (UIView *view in self.subviews) {
+ if ([view isKindOfClass:[CXDurationPickerDayView class]]) {
+ CXDurationPickerDayView *dayView = (CXDurationPickerDayView *) view;
+ 
+ if ([dayView isPickerDate:pickerDate]) {
+ NSLog(@"Setting today");
+ dayView.isSelected = YES;
+ }
+ }
+ }
+ }
  */
 
 @end

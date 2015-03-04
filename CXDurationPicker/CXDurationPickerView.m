@@ -51,14 +51,10 @@
     [self initWithDefaultDuration];
 }
 
-- (id)initWithCoder:(NSCoder *)decoder {
-    self = [super initWithCoder:decoder];
+- (void)awakeFromNib {
+    [super awakeFromNib];
     
-    if (self) {
-        [self baseInit];
-    }
-    
-    return self;
+    [self baseInit];
 }
 
 - (id)initWithFrame:(CGRect)frame {
@@ -69,6 +65,14 @@
     }
     
     return self;
+}
+
+- (void)layoutSubviews {
+    [super layoutSubviews];
+    
+    self.table.frame = self.bounds;
+    
+    [self.table setNeedsLayout];
 }
 
 #pragma mark - UITableViewDataSource
@@ -112,18 +116,13 @@
 
 #pragma mark - UITableViewDelegate
 
-/*
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    [tableView deselectRowAtIndexPath:indexPath animated:YES];
-}
- */
-
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     CXDurationPickerMonthView *view = [self.monthViews objectAtIndex:indexPath.row];
     
-    CGFloat cellHeight = view.frame.size.height;
+    view.frame = self.bounds;
+    [view sizeToFit];
     
-    //NSLog(@"cell height for %ld = %f", indexPath.row, cellHeight);
+    CGFloat cellHeight = view.frame.size.height;
     
     return cellHeight;
 }
@@ -132,7 +131,7 @@
     CXDurationPickerMonthView *view;
     
     if (row >= [self.monthViews count]) {
-        view = [[CXDurationPickerMonthView alloc] initWithFrame:self.frame];
+        view = [[CXDurationPickerMonthView alloc] initWithFrame:self.bounds];
         
         view.monthIndex = row;
         
@@ -158,7 +157,7 @@
             return;
         }
     }
-
+    
     if (self.delegate != nil) {
         if (self.mode == CXDurationPickerModeStartDate) {
             _startDate = dayView.pickerDate;
@@ -168,7 +167,7 @@
             [self.delegate calendarView:self endDateChanged:dayView.pickerDate];
         }
     }
-
+    
     for (CXDurationPickerDayView *dayView in self.days) {
         dayView.type = CXDurationPickerDayTypeNormal;
     }
@@ -176,7 +175,7 @@
     [self.days removeAllObjects];
     
     [self createDuration];
-
+    
 }
 
 #pragma mark - Business
@@ -200,7 +199,7 @@
     NSUInteger latestMonthIndex = [self.monthViews count];
     
     for (int i = 0; i < 12; i++) {
-        CXDurationPickerMonthView *view = [[CXDurationPickerMonthView alloc] initWithFrame:self.frame];
+        CXDurationPickerMonthView *view = [[CXDurationPickerMonthView alloc] initWithFrame:self.bounds];
         
         view.padding = UIEdgeInsetsMake(5, 0, 20, 0);
         
@@ -272,11 +271,11 @@
                 
                 continue;
             }
-
+            
         }
         
         [days addObjectsFromArray:[self daysForMonthView:monthView forStartDate:startDate andEndDate:endDate]];
-
+        
         if ([monthView containsDate:endDate]) {
             break;
         }
@@ -350,13 +349,13 @@
 
 - (void)setEndDate:(CXDurationPickerDate)endDate {
     _endDate = endDate;
-
+    
     [self createDuration];
 }
 
 - (void)setStartDate:(CXDurationPickerDate)startDate {
     _startDate = startDate;
-
+    
     [self createDuration];
 }
 

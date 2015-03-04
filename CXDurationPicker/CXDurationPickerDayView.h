@@ -21,8 +21,6 @@
 
 @interface CXDurationPickerDayView : UIView
 
-- (CXDurationPickerDate)pickerDateFromDate:(NSDate *)date;
-
 @property (strong, nonatomic) NSString *day;
 @property (assign, nonatomic) BOOL isToday;
 @property (assign, nonatomic) CXDurationPickerDate pickerDate;

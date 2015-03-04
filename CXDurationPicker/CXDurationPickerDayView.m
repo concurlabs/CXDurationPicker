@@ -26,6 +26,8 @@
 @implementation CXDurationPickerDayView
 
 - (void)baseInit {
+    self.contentMode = UIViewContentModeRedraw;
+    
     self.opaque = NO;
     
     self.isToday = NO;
@@ -55,18 +57,25 @@
     // Draw highlighted background.
     //
     if (self.isToday) {
-        CGColorRef background = [[UIColor colorWithRed:198/255.0 green:208/255.0 blue:214/255.0 alpha:0.5] CGColor];
+        CGColorRef background = [[UIColor colorWithRed:198/255.0
+                                                 green:208/255.0
+                                                  blue:214/255.0
+                                                 alpha:0.5] CGColor];
         
         CGContextSetFillColorWithColor(context, background);
         
-        CGContextFillRect(context, CGRectMake(0.5, 0.5, self.bounds.size.width - 1, self.bounds.size.height - 1));
+        CGContextFillRect(context, CGRectMake(0.5, 0.5,
+                                              self.bounds.size.width - 1,
+                                              self.bounds.size.height - 1));
     }
     
     // Draw calendar day border.
     //
     CGContextSetStrokeColorWithColor(context, [[UIColor grayColor] CGColor]);
     
-    CGContextStrokeRect(context, CGRectMake(0.5, 0.5, self.bounds.size.width - 1, self.bounds.size.height - 1));
+    CGContextStrokeRect(context, CGRectMake(0.5, 0.5,
+                                            self.bounds.size.width - 1,
+                                            self.bounds.size.height - 1));
     
     [self drawText:self.day];
 }
@@ -75,7 +84,7 @@
     CGContextRef context = UIGraphicsGetCurrentContext();
     
     CTFontRef font = CTFontCreateUIFontForLanguage(kCTFontSystemFontType,
-                                                        14.0, NULL);
+                                                   self.bounds.size.height / 3, NULL);
     
     CGFloat ascenderHeight = CTFontGetAscent(font);
     
@@ -111,10 +120,10 @@
     // Draw rectangle for start day.
     //
     if (self.type == CXDurationPickerDayTypeStart) {
-        float a = labelWidth + 15;
-        float b = ascenderHeight + 15;
+        float notBiggerThan = self.bounds.size.height * 0.60;
+        float notSmallerThan = ascenderHeight + 5;
         
-        float rectangleHeight = fmaxf(a, b);
+        float rectangleHeight = fmaxf(notBiggerThan, notSmallerThan);
         float rectangleWidth = self.bounds.size.width / 2;
         
         float rectangleY = (self.bounds.size.height - rectangleHeight) / 2;
@@ -130,10 +139,10 @@
                                               rectangleWidth - 1,
                                               rectangleHeight - 1));
     } else if (self.type == CXDurationPickerDayTypeEnd) {
-        float a = labelWidth + 15;
-        float b = ascenderHeight + 15;
+        float notBiggerThan = self.bounds.size.height * 0.60;
+        float notSmallerThan = ascenderHeight + 5;
         
-        float rectangleHeight = fmaxf(a, b);
+        float rectangleHeight = fmaxf(notBiggerThan, notSmallerThan);
         float rectangleWidth = self.bounds.size.width / 2;
         
         float rectangleY = (self.bounds.size.height - rectangleHeight) / 2;
@@ -148,10 +157,10 @@
                                               rectangleWidth - 1,
                                               rectangleHeight - 1));
     } else if (self.type == CXDurationPickerDayTypeTransit) {
-        float a = labelWidth + 15;
-        float b = ascenderHeight + 15;
+        float notBiggerThan = self.bounds.size.height * 0.60;
+        float notSmallerThan = ascenderHeight + 5;
         
-        float rectangleHeight = fmaxf(a, b);
+        float rectangleHeight = fmaxf(notBiggerThan, notSmallerThan);
         
         float rectangleY = (self.bounds.size.height - rectangleHeight) / 2;
         
@@ -169,10 +178,10 @@
     // Draw circle.
     //
     if (self.type == CXDurationPickerDayTypeStart || self.type == CXDurationPickerDayTypeEnd) {
-        float circleWidth = labelWidth + 15;
-        float circleHeight = ascenderHeight + 15;
+        float notBiggerThan = self.bounds.size.height * 0.60;
+        float notSmallerThan = ascenderHeight + 5;
         
-        float circleDiameter = fmaxf(circleWidth, circleHeight);
+        float circleDiameter = fmaxf(notBiggerThan, notSmallerThan);
         
         float circleY = (self.bounds.size.height - circleDiameter) / 2;
         float circleX = (self.bounds.size.width - circleDiameter) / 2;
@@ -195,7 +204,7 @@
     // I can't find the right way to vertically align the text, but adding a couple DIPs here
     // makes it look right. :/
     //
-    float yOffset = (yCenter + 2);
+    float yOffset = (yCenter + 3);
     
     CTLineRef line = CTLineCreateWithAttributedString((CFAttributedStringRef)stringToDraw);
     CGContextSetTextPosition(context, xOffset, yOffset);
@@ -203,8 +212,6 @@
     
     CFRelease(line);
     CFRelease(font);
-    
-    //CGContextRestoreGState(context);
 }
 
 - (BOOL)isAfter:(CXDurationPickerDate)date {
