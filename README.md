@@ -1,7 +1,7 @@
 # CXDurationPicker
 Custom iOS view for picking a date range
 
-![Screenshot](https://raw.github.com/concurlabs/CXDurationPicker/master/Screenshots/Screnshot1.png)
+![Screenshot](https://raw.github.com/concurlabs/CXDurationPicker/master/Screenshots/Screenshot1.png)
 
 # Collaboration
 If you have any feature requests/bugfixes etc. feel free to help out and send a pull request, or create a new issue.
