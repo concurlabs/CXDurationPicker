@@ -32,15 +32,11 @@
 
 #pragma mark - CXDurationPickerViewDelegate
 
-- (void)calendarView:(CXDurationPickerView *)view endDateChanged:(CXDurationPickerDate)pickerDate {
-    NSLog(@"End date changed to %@", [CXDurationPickerUtils stringFromPickerDate:pickerDate]);
-    
+- (void)durationPicker:(CXDurationPickerView *)durationPicker endDateChanged:(CXDurationPickerDate)pickerDate {
     [self.switcher setEndDateString:[CXDurationPickerUtils stringFromPickerDate:pickerDate]];
 }
 
-- (void)calendarView:(CXDurationPickerView *)view startDateChanged:(CXDurationPickerDate)pickerDate {
-    NSLog(@"Start date changed to %@", [CXDurationPickerUtils stringFromPickerDate:pickerDate]);
-    
+- (void)durationPicker:(CXDurationPickerView *)durationPicker startDateChanged:(CXDurationPickerDate)pickerDate {
     [self.switcher setStartDateString:[CXDurationPickerUtils stringFromPickerDate:pickerDate]];
 }
 

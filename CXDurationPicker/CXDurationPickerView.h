@@ -23,8 +23,8 @@
 
 @protocol CXDurationPickerViewDelegate <NSObject>
 
-- (void)calendarView:(CXDurationPickerView *)view endDateChanged:(CXDurationPickerDate)date;
-- (void)calendarView:(CXDurationPickerView *)view startDateChanged:(CXDurationPickerDate)date;
+- (void)durationPicker:(CXDurationPickerView *)durationPicker endDateChanged:(CXDurationPickerDate)date;
+- (void)durationPicker:(CXDurationPickerView *)durationPicker startDateChanged:(CXDurationPickerDate)date;
 
 @end
 
