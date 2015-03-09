@@ -89,10 +89,10 @@
     }
     
     UITableViewCell *cell = [tableView
-                             dequeueReusableCellWithIdentifier:@"CalendarViewCell"];
+                             dequeueReusableCellWithIdentifier:@"DurationPickerCell"];
     
     if (cell == nil) {
-        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"CalendarViewCell"];
+        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"DurationPickerCell"];
     }
     
     UIView *oldMonthView = [[cell.contentView subviews] firstObject];
@@ -161,10 +161,10 @@
     if (self.delegate != nil) {
         if (self.mode == CXDurationPickerModeStartDate) {
             _startDate = dayView.pickerDate;
-            [self.delegate calendarView:self startDateChanged:dayView.pickerDate];
+            [self.delegate durationPicker:self startDateChanged:dayView.pickerDate];
         } else {
             _endDate = dayView.pickerDate;
-            [self.delegate calendarView:self endDateChanged:dayView.pickerDate];
+            [self.delegate durationPicker:self endDateChanged:dayView.pickerDate];
         }
     }
     
