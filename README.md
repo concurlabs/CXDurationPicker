@@ -1,6 +1,9 @@
 # CXDurationPicker
 Custom iOS view for picking a date range
 
+# Collaboration
+If you have any feature requests/bugfixes etc. feel free to help out and send a pull request, or create a new issue.
+
 # License
 
 Copyright 2015 Concur

@@ -1,0 +1,481 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		01987DE31AAD5097006F012F /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 01987DE21AAD5097006F012F /* main.m */; };
+		01987DE61AAD5097006F012F /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 01987DE51AAD5097006F012F /* AppDelegate.m */; };
+		01987DE91AAD5097006F012F /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 01987DE81AAD5097006F012F /* ViewController.m */; };
+		01987DEC1AAD5097006F012F /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 01987DEA1AAD5097006F012F /* Main.storyboard */; };
+		01987DEE1AAD5097006F012F /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 01987DED1AAD5097006F012F /* Images.xcassets */; };
+		01987DF11AAD5097006F012F /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 01987DEF1AAD5097006F012F /* LaunchScreen.xib */; };
+		01987DFD1AAD5097006F012F /* CXDurationPickerDemoTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 01987DFC1AAD5097006F012F /* CXDurationPickerDemoTests.m */; };
+		01987E101AAD550C006F012F /* CXDurationPickerDayView.m in Sources */ = {isa = PBXBuildFile; fileRef = 01987E091AAD550C006F012F /* CXDurationPickerDayView.m */; };
+		01987E111AAD550C006F012F /* CXDurationPickerMonthView.m in Sources */ = {isa = PBXBuildFile; fileRef = 01987E0B1AAD550C006F012F /* CXDurationPickerMonthView.m */; };
+		01987E121AAD550C006F012F /* CXDurationPickerUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 01987E0D1AAD550C006F012F /* CXDurationPickerUtils.m */; };
+		01987E131AAD550C006F012F /* CXDurationPickerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 01987E0F1AAD550C006F012F /* CXDurationPickerView.m */; };
+		01987E181AAD55DE006F012F /* CXDurationModeSwitch.m in Sources */ = {isa = PBXBuildFile; fileRef = 01987E161AAD55DE006F012F /* CXDurationModeSwitch.m */; };
+		01987E191AAD55DE006F012F /* CXDurationModeSwitch.xib in Resources */ = {isa = PBXBuildFile; fileRef = 01987E171AAD55DE006F012F /* CXDurationModeSwitch.xib */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		01987DF71AAD5097006F012F /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 01987DD51AAD5097006F012F /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 01987DDC1AAD5097006F012F;
+			remoteInfo = CXDurationPickerDemo;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		01987DDD1AAD5097006F012F /* CXDurationPickerDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CXDurationPickerDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		01987DE11AAD5097006F012F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		01987DE21AAD5097006F012F /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		01987DE41AAD5097006F012F /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
+		01987DE51AAD5097006F012F /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		01987DE71AAD5097006F012F /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
+		01987DE81AAD5097006F012F /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
+		01987DEB1AAD5097006F012F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		01987DED1AAD5097006F012F /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
+		01987DF01AAD5097006F012F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
+		01987DF61AAD5097006F012F /* CXDurationPickerDemoTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CXDurationPickerDemoTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		01987DFB1AAD5097006F012F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		01987DFC1AAD5097006F012F /* CXDurationPickerDemoTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CXDurationPickerDemoTests.m; sourceTree = "<group>"; };
+		01987E071AAD550C006F012F /* CXDurationPickerDate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CXDurationPickerDate.h; path = ../../CXDurationPicker/CXDurationPickerDate.h; sourceTree = "<group>"; };
+		01987E081AAD550C006F012F /* CXDurationPickerDayView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CXDurationPickerDayView.h; path = ../../CXDurationPicker/CXDurationPickerDayView.h; sourceTree = "<group>"; };
+		01987E091AAD550C006F012F /* CXDurationPickerDayView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CXDurationPickerDayView.m; path = ../../CXDurationPicker/CXDurationPickerDayView.m; sourceTree = "<group>"; };
+		01987E0A1AAD550C006F012F /* CXDurationPickerMonthView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CXDurationPickerMonthView.h; path = ../../CXDurationPicker/CXDurationPickerMonthView.h; sourceTree = "<group>"; };
+		01987E0B1AAD550C006F012F /* CXDurationPickerMonthView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CXDurationPickerMonthView.m; path = ../../CXDurationPicker/CXDurationPickerMonthView.m; sourceTree = "<group>"; };
+		01987E0C1AAD550C006F012F /* CXDurationPickerUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CXDurationPickerUtils.h; path = ../../CXDurationPicker/CXDurationPickerUtils.h; sourceTree = "<group>"; };
+		01987E0D1AAD550C006F012F /* CXDurationPickerUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CXDurationPickerUtils.m; path = ../../CXDurationPicker/CXDurationPickerUtils.m; sourceTree = "<group>"; };
+		01987E0E1AAD550C006F012F /* CXDurationPickerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CXDurationPickerView.h; path = ../../CXDurationPicker/CXDurationPickerView.h; sourceTree = "<group>"; };
+		01987E0F1AAD550C006F012F /* CXDurationPickerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CXDurationPickerView.m; path = ../../CXDurationPicker/CXDurationPickerView.m; sourceTree = "<group>"; };
+		01987E151AAD55DE006F012F /* CXDurationModeSwitch.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CXDurationModeSwitch.h; sourceTree = "<group>"; };
+		01987E161AAD55DE006F012F /* CXDurationModeSwitch.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CXDurationModeSwitch.m; sourceTree = "<group>"; };
+		01987E171AAD55DE006F012F /* CXDurationModeSwitch.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CXDurationModeSwitch.xib; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		01987DDA1AAD5097006F012F /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		01987DF31AAD5097006F012F /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		01987DD41AAD5097006F012F = {
+			isa = PBXGroup;
+			children = (
+				01987DDF1AAD5097006F012F /* CXDurationPickerDemo */,
+				01987DF91AAD5097006F012F /* CXDurationPickerDemoTests */,
+				01987DDE1AAD5097006F012F /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		01987DDE1AAD5097006F012F /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				01987DDD1AAD5097006F012F /* CXDurationPickerDemo.app */,
+				01987DF61AAD5097006F012F /* CXDurationPickerDemoTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		01987DDF1AAD5097006F012F /* CXDurationPickerDemo */ = {
+			isa = PBXGroup;
+			children = (
+				01987E141AAD55AC006F012F /* CXWidgets */,
+				01987E061AAD54F7006F012F /* CXDurationPicker */,
+				01987DE41AAD5097006F012F /* AppDelegate.h */,
+				01987DE51AAD5097006F012F /* AppDelegate.m */,
+				01987DE71AAD5097006F012F /* ViewController.h */,
+				01987DE81AAD5097006F012F /* ViewController.m */,
+				01987DEA1AAD5097006F012F /* Main.storyboard */,
+				01987DED1AAD5097006F012F /* Images.xcassets */,
+				01987DEF1AAD5097006F012F /* LaunchScreen.xib */,
+				01987DE01AAD5097006F012F /* Supporting Files */,
+			);
+			path = CXDurationPickerDemo;
+			sourceTree = "<group>";
+		};
+		01987DE01AAD5097006F012F /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				01987DE11AAD5097006F012F /* Info.plist */,
+				01987DE21AAD5097006F012F /* main.m */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		01987DF91AAD5097006F012F /* CXDurationPickerDemoTests */ = {
+			isa = PBXGroup;
+			children = (
+				01987DFC1AAD5097006F012F /* CXDurationPickerDemoTests.m */,
+				01987DFA1AAD5097006F012F /* Supporting Files */,
+			);
+			path = CXDurationPickerDemoTests;
+			sourceTree = "<group>";
+		};
+		01987DFA1AAD5097006F012F /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				01987DFB1AAD5097006F012F /* Info.plist */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		01987E061AAD54F7006F012F /* CXDurationPicker */ = {
+			isa = PBXGroup;
+			children = (
+				01987E071AAD550C006F012F /* CXDurationPickerDate.h */,
+				01987E081AAD550C006F012F /* CXDurationPickerDayView.h */,
+				01987E091AAD550C006F012F /* CXDurationPickerDayView.m */,
+				01987E0A1AAD550C006F012F /* CXDurationPickerMonthView.h */,
+				01987E0B1AAD550C006F012F /* CXDurationPickerMonthView.m */,
+				01987E0C1AAD550C006F012F /* CXDurationPickerUtils.h */,
+				01987E0D1AAD550C006F012F /* CXDurationPickerUtils.m */,
+				01987E0E1AAD550C006F012F /* CXDurationPickerView.h */,
+				01987E0F1AAD550C006F012F /* CXDurationPickerView.m */,
+			);
+			name = CXDurationPicker;
+			sourceTree = "<group>";
+		};
+		01987E141AAD55AC006F012F /* CXWidgets */ = {
+			isa = PBXGroup;
+			children = (
+				01987E151AAD55DE006F012F /* CXDurationModeSwitch.h */,
+				01987E161AAD55DE006F012F /* CXDurationModeSwitch.m */,
+				01987E171AAD55DE006F012F /* CXDurationModeSwitch.xib */,
+			);
+			name = CXWidgets;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		01987DDC1AAD5097006F012F /* CXDurationPickerDemo */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 01987E001AAD5097006F012F /* Build configuration list for PBXNativeTarget "CXDurationPickerDemo" */;
+			buildPhases = (
+				01987DD91AAD5097006F012F /* Sources */,
+				01987DDA1AAD5097006F012F /* Frameworks */,
+				01987DDB1AAD5097006F012F /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = CXDurationPickerDemo;
+			productName = CXDurationPickerDemo;
+			productReference = 01987DDD1AAD5097006F012F /* CXDurationPickerDemo.app */;
+			productType = "com.apple.product-type.application";
+		};
+		01987DF51AAD5097006F012F /* CXDurationPickerDemoTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 01987E031AAD5097006F012F /* Build configuration list for PBXNativeTarget "CXDurationPickerDemoTests" */;
+			buildPhases = (
+				01987DF21AAD5097006F012F /* Sources */,
+				01987DF31AAD5097006F012F /* Frameworks */,
+				01987DF41AAD5097006F012F /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				01987DF81AAD5097006F012F /* PBXTargetDependency */,
+			);
+			name = CXDurationPickerDemoTests;
+			productName = CXDurationPickerDemoTests;
+			productReference = 01987DF61AAD5097006F012F /* CXDurationPickerDemoTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		01987DD51AAD5097006F012F /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0610;
+				ORGANIZATIONNAME = "Concur Labs";
+				TargetAttributes = {
+					01987DDC1AAD5097006F012F = {
+						CreatedOnToolsVersion = 6.1.1;
+					};
+					01987DF51AAD5097006F012F = {
+						CreatedOnToolsVersion = 6.1.1;
+						TestTargetID = 01987DDC1AAD5097006F012F;
+					};
+				};
+			};
+			buildConfigurationList = 01987DD81AAD5097006F012F /* Build configuration list for PBXProject "CXDurationPickerDemo" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 01987DD41AAD5097006F012F;
+			productRefGroup = 01987DDE1AAD5097006F012F /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				01987DDC1AAD5097006F012F /* CXDurationPickerDemo */,
+				01987DF51AAD5097006F012F /* CXDurationPickerDemoTests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		01987DDB1AAD5097006F012F /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				01987DEC1AAD5097006F012F /* Main.storyboard in Resources */,
+				01987E191AAD55DE006F012F /* CXDurationModeSwitch.xib in Resources */,
+				01987DF11AAD5097006F012F /* LaunchScreen.xib in Resources */,
+				01987DEE1AAD5097006F012F /* Images.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		01987DF41AAD5097006F012F /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		01987DD91AAD5097006F012F /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				01987E121AAD550C006F012F /* CXDurationPickerUtils.m in Sources */,
+				01987E181AAD55DE006F012F /* CXDurationModeSwitch.m in Sources */,
+				01987E101AAD550C006F012F /* CXDurationPickerDayView.m in Sources */,
+				01987DE91AAD5097006F012F /* ViewController.m in Sources */,
+				01987DE61AAD5097006F012F /* AppDelegate.m in Sources */,
+				01987E111AAD550C006F012F /* CXDurationPickerMonthView.m in Sources */,
+				01987E131AAD550C006F012F /* CXDurationPickerView.m in Sources */,
+				01987DE31AAD5097006F012F /* main.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		01987DF21AAD5097006F012F /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				01987DFD1AAD5097006F012F /* CXDurationPickerDemoTests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		01987DF81AAD5097006F012F /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 01987DDC1AAD5097006F012F /* CXDurationPickerDemo */;
+			targetProxy = 01987DF71AAD5097006F012F /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		01987DEA1AAD5097006F012F /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				01987DEB1AAD5097006F012F /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		01987DEF1AAD5097006F012F /* LaunchScreen.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				01987DF01AAD5097006F012F /* Base */,
+			);
+			name = LaunchScreen.xib;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		01987DFE1AAD5097006F012F /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		01987DFF1AAD5097006F012F /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = YES;
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.1;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		01987E011AAD5097006F012F /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				INFOPLIST_FILE = CXDurationPickerDemo/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		01987E021AAD5097006F012F /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				INFOPLIST_FILE = CXDurationPickerDemo/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+		01987E041AAD5097006F012F /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(inherited)",
+				);
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = CXDurationPickerDemoTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/CXDurationPickerDemo.app/CXDurationPickerDemo";
+			};
+			name = Debug;
+		};
+		01987E051AAD5097006F012F /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = CXDurationPickerDemoTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/CXDurationPickerDemo.app/CXDurationPickerDemo";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		01987DD81AAD5097006F012F /* Build configuration list for PBXProject "CXDurationPickerDemo" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				01987DFE1AAD5097006F012F /* Debug */,
+				01987DFF1AAD5097006F012F /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		01987E001AAD5097006F012F /* Build configuration list for PBXNativeTarget "CXDurationPickerDemo" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				01987E011AAD5097006F012F /* Debug */,
+				01987E021AAD5097006F012F /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+		01987E031AAD5097006F012F /* Build configuration list for PBXNativeTarget "CXDurationPickerDemoTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				01987E041AAD5097006F012F /* Debug */,
+				01987E051AAD5097006F012F /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 01987DD51AAD5097006F012F /* Project object */;
+}

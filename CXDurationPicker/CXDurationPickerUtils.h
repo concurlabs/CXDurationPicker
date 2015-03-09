@@ -16,6 +16,8 @@
 
 #import <Foundation/Foundation.h>
 
+#import "CXDurationPickerDate.h"
+
 @interface CXDurationPickerUtils : NSObject
 
 + (NSDateComponents *)dateComponentsFromPickerDate:(CXDurationPickerDate)pickerDate;

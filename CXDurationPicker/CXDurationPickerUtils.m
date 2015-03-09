@@ -50,10 +50,12 @@
 }
 
 + (NSString *)stringFromPickerDate:(CXDurationPickerDate)pickerDate {
-    return [NSString stringWithFormat:@"%lu/%lu/%lu",
-            (unsigned long)pickerDate.month,
-            (unsigned long)pickerDate.day,
-            (unsigned long)pickerDate.year];
+    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+    [formatter setDateFormat:@"E, MMM d"];
+    
+    NSDate *date = [CXDurationPickerUtils dateFromPickerDate:pickerDate];
+    
+    return [formatter stringFromDate:date];
 }
 
 @end
