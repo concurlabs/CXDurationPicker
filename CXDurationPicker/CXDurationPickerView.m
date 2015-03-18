@@ -21,6 +21,7 @@
 
 @interface CXDurationPickerView ()
 
+@property (strong, nonatomic) NSCalendar *calendar;
 @property (strong, nonatomic) UITableView *table;
 @property (strong, nonatomic) NSMutableArray *monthViews;
 @property (strong, nonatomic) NSMutableArray *days;
@@ -30,6 +31,8 @@
 @implementation CXDurationPickerView
 
 - (void)baseInit {
+    self.calendar = [NSCalendar currentCalendar];
+    
     self.startDate = (CXDurationPickerDate) { 0, 0, 0 };
     self.endDate = (CXDurationPickerDate) { 0, 0, 0 };
     
@@ -147,13 +150,27 @@
 
 - (void)monthView:(CXDurationPickerMonthView *)view daySelected:(CXDurationPickerDayView *)dayView {
     if (self.mode == CXDurationPickerModeStartDate) {
-        if (![self isDurationValidForStart:dayView.pickerDate andEnd:_endDate]) {
-            NSLog(@"Invalid duration");
+        if (![self isDurationValidForStartPickerDate:dayView.pickerDate andEndPickerDate:_endDate]) {
+            if ([self.delegate respondsToSelector:@selector(durationPicker:invalidStartDateSelected:)]) {
+                [self.delegate durationPicker:self invalidStartDateSelected:dayView.pickerDate];
+            }
             return;
         }
     } else if (self.mode == CXDurationPickerModeEndDate) {
-        if (![self isDurationValidForStart:_startDate andEnd:dayView.pickerDate]) {
-            NSLog(@"Invalid duration");
+        if (![self isDurationValidForStartPickerDate:_startDate andEndPickerDate:dayView.pickerDate]) {
+            if ([self.delegate respondsToSelector:@selector(durationPicker:invalidEndDateSelected:)]) {
+                [self.delegate durationPicker:self invalidEndDateSelected:dayView.pickerDate];
+            }
+            return;
+        }
+    }
+    
+    if (self.mode == CXDurationPickerModeStartDate) {
+        if ([self isPickerDate:dayView.pickerDate equalTo:_endDate]) {
+            return;
+        }
+    } else if (self.mode == CXDurationPickerModeEndDate) {
+        if ([self isPickerDate:_startDate equalTo:dayView.pickerDate]) {
             return;
         }
     }
@@ -168,19 +185,101 @@
         }
     }
     
-    for (CXDurationPickerDayView *dayView in self.days) {
-        dayView.type = CXDurationPickerDayTypeNormal;
-    }
-    
-    [self.days removeAllObjects];
+    [self clearCurrentDuration];
     
     [self createDuration];
-    
 }
 
-#pragma mark - Business
+#pragma mark - Public API
 
-- (BOOL)isDurationValidForStart:(CXDurationPickerDate)startPickerDate andEnd:(CXDurationPickerDate)endPickerDate {
+- (void)shiftDurationToEndPickerDate:(CXDurationPickerDate)pickerDate {
+    [self clearCurrentDuration];
+    
+    // Convert picker-dates to NSDates so we easily can do some calcs on them.
+    //
+    NSDate *d1 = [CXDurationPickerUtils dateFromPickerDate:self.startDate];
+    NSDate *d2 = [CXDurationPickerUtils dateFromPickerDate:self.endDate];
+    NSDate *n1 = [CXDurationPickerUtils dateFromPickerDate:pickerDate];
+    
+    // Calculate number of days in current duration, accounting for days in month.
+    //
+    NSDateComponents *diff = [self.calendar
+                              components:NSCalendarUnitYear|NSCalendarUnitMonth|NSCalendarUnitDay
+                              fromDate:d2 toDate:d1 options:0];
+    
+    NSLog(@"diff = %@", diff);
+    
+    // Calculate new ending date by adding difference.
+    //
+    NSDate *n2 = [self.calendar dateByAddingComponents:diff toDate:n1 options:0];
+    
+    // Convert back to our convenience model.
+    //
+    CXDurationPickerDate newStartDate = [CXDurationPickerUtils pickerDateFromDate:n2];
+    
+    _startDate.day = newStartDate.day;
+    _startDate.month = newStartDate.month;
+    _startDate.year = newStartDate.year;
+    
+    _endDate.day = pickerDate.day;
+    _endDate.month = pickerDate.month;
+    _endDate.year = pickerDate.year;
+    
+    [self createDuration];
+}
+
+- (void)shiftDurationToStartPickerDate:(CXDurationPickerDate)pickerDate {
+    [self clearCurrentDuration];
+    
+    // Convert picker-dates to NSDates so we easily can do some calcs on them.
+    //
+    NSDate *d1 = [CXDurationPickerUtils dateFromPickerDate:self.startDate];
+    NSDate *d2 = [CXDurationPickerUtils dateFromPickerDate:self.endDate];
+    NSDate *n1 = [CXDurationPickerUtils dateFromPickerDate:pickerDate];
+    
+    // Calculate number of days in current duration, accounting for days in month.
+    //
+    NSDateComponents *diff = [self.calendar
+                                    components:NSCalendarUnitYear|NSCalendarUnitMonth|NSCalendarUnitDay
+                                    fromDate:d1 toDate:d2 options:0];
+
+    // Calculate new ending date by adding difference.
+    //
+    NSDate *n2 = [self.calendar dateByAddingComponents:diff toDate:n1 options:0];
+    
+    // Convert back to our convenience model.
+    //
+    CXDurationPickerDate newEndDate = [CXDurationPickerUtils pickerDateFromDate:n2];
+    
+    _startDate.day = pickerDate.day;
+    _startDate.month = pickerDate.month;
+    _startDate.year = pickerDate.year;
+
+    _endDate.day = newEndDate.day;
+    _endDate.month = newEndDate.month;
+    _endDate.year = newEndDate.year;
+    
+    [self createDuration];
+}
+
+#pragma mark - Internal
+
+- (BOOL)isPickerDate:(CXDurationPickerDate)startPickerDate
+             equalTo:(CXDurationPickerDate)endPickerDate {
+    
+    NSDate *startDate = [CXDurationPickerUtils dateFromPickerDate:startPickerDate];
+    NSDate *endDate = [CXDurationPickerUtils dateFromPickerDate:endPickerDate];
+    
+    if ([startDate timeIntervalSinceDate:endDate] == 0) {
+        return YES;
+    }
+    
+    return NO;
+}
+
+- (BOOL)isDurationValidForStartPickerDate:(CXDurationPickerDate)startPickerDate
+                         andEndPickerDate:(CXDurationPickerDate)endPickerDate {
+    
     NSDate *startDate = [CXDurationPickerUtils dateFromPickerDate:startPickerDate];
     NSDate *endDate = [CXDurationPickerUtils dateFromPickerDate:endPickerDate];
     
@@ -223,6 +322,14 @@
     });
 }
 
+- (void)clearCurrentDuration {
+    for (long i = 0, ii = [self.days count]; i < ii; i++) {
+        CXDurationPickerDayView *day = (CXDurationPickerDayView *) [self.days objectAtIndex:i];
+        
+        day.type = CXDurationPickerDayTypeNormal;
+    }
+}
+
 - (void)createDuration {
     // Quick sanity test.
     //
@@ -251,6 +358,28 @@
         
         day.type = CXDurationPickerDayTypeTransit;
     }
+}
+
+- (CXDurationPickerDate)pickerDateBetweenStartDate:(NSDate*)startDate andEndDate:(NSDate*)endDate {
+    NSDate *d1;
+    NSDate *d2;
+    
+    [self.calendar rangeOfUnit:NSCalendarUnitDay startDate:&d1
+                      interval:nil forDate:startDate];
+    
+    [self.calendar rangeOfUnit:NSCalendarUnitDay startDate:&d2
+                      interval:nil forDate:endDate];
+    
+    NSDateComponents *components = [self.calendar
+                                    components:NSCalendarUnitYear|NSCalendarUnitMonth|NSCalendarUnitDay
+                                    fromDate:d1 toDate:d2 options:0];
+    
+    
+    return (CXDurationPickerDate) {
+        components.year,
+        components.month,
+        components.day
+    };
 }
 
 - (NSMutableArray *)daysBetween:(CXDurationPickerDate)startDate and:(CXDurationPickerDate)endDate {

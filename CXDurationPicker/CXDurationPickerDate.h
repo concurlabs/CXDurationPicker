@@ -30,6 +30,12 @@ typedef struct {
     NSUInteger month;
 } CXDurationPickerMonth;
 
+typedef NS_ENUM(NSUInteger, CXDurationPickerComparison) {
+    CXDurationPickerComparisonEqual,
+    CXDurationPickerComparisonBefore,
+    CXDurationPickerComparisonAfter
+};
+
 typedef NS_ENUM(NSUInteger, CXDurationPickerMode) {
     CXDurationPickerModeStartDate,
     CXDurationPickerModeEndDate

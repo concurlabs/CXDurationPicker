@@ -26,6 +26,11 @@
 - (void)durationPicker:(CXDurationPickerView *)durationPicker endDateChanged:(CXDurationPickerDate)date;
 - (void)durationPicker:(CXDurationPickerView *)durationPicker startDateChanged:(CXDurationPickerDate)date;
 
+@optional
+
+- (void)durationPicker:(CXDurationPickerView *)durationPicker invalidEndDateSelected:(CXDurationPickerDate)date;
+- (void)durationPicker:(CXDurationPickerView *)durationPicker invalidStartDateSelected:(CXDurationPickerDate)date;
+
 @end
 
 @interface CXDurationPickerView : UIView <CXDurationPickerMonthViewDelegate, UITableViewDataSource, UITableViewDelegate>
@@ -34,5 +39,8 @@
 @property (assign, nonatomic) CXDurationPickerDate startDate;
 @property (assign, nonatomic) CXDurationPickerDate endDate;
 @property (assign, nonatomic) CXDurationPickerMode mode;
+
+- (void)shiftDurationToEndPickerDate:(CXDurationPickerDate)pickerDate;
+- (void)shiftDurationToStartPickerDate:(CXDurationPickerDate)pickerDate;
 
 @end

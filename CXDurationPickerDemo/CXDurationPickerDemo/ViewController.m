@@ -48,4 +48,18 @@
     [self.switcher setStartDateString:[CXDurationPickerUtils stringFromPickerDate:pickerDate]];
 }
 
+#pragma mark - CXDurationPickerViewDelegate Optionals
+
+- (void)durationPicker:(CXDurationPickerView *)durationPicker invalidEndDateSelected:(CXDurationPickerDate)date {
+    NSLog(@"Invalid end date selected.");
+    
+    [self.picker shiftDurationToEndPickerDate:date];
+}
+
+- (void)durationPicker:(CXDurationPickerView *)durationPicker invalidStartDateSelected:(CXDurationPickerDate)date {
+    NSLog(@"Invalid start date selected.");
+    
+    [self.picker shiftDurationToStartPickerDate:date];
+}
+
 @end

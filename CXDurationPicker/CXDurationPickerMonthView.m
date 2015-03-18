@@ -301,8 +301,6 @@
 }
 
 - (void)setMonthIndex:(NSInteger)index {
-    //NSLog(@"set month index to %ld", (long) index);
-    
     _monthIndex = index;
     
     self.date = [self dateForFirstDayInSection:index];
@@ -394,25 +392,5 @@
         components.month
     };
 }
-
-/*
- - (void)setSelectedDayFromPickerDate:(CXDurationPickerDate)pickerDate {
- NSLog(@"picker date = %lu/%lu/%lu",
- (unsigned long)pickerDate.day,
- (unsigned long)pickerDate.month,
- (unsigned long)pickerDate.year);
- 
- for (UIView *view in self.subviews) {
- if ([view isKindOfClass:[CXDurationPickerDayView class]]) {
- CXDurationPickerDayView *dayView = (CXDurationPickerDayView *) view;
- 
- if ([dayView isPickerDate:pickerDate]) {
- NSLog(@"Setting today");
- dayView.isSelected = YES;
- }
- }
- }
- }
- */
 
 @end
