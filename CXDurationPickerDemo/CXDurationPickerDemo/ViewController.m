@@ -30,6 +30,8 @@
     self.picker.delegate = self;
     
     self.picker.mode = self.switcher.mode;
+    
+    [self synchronizeComponents];
 }
 
 #pragma mark - CXDurationModeSwitchDelegate
@@ -58,12 +60,26 @@
     NSLog(@"Invalid end date selected.");
     
     [self.picker shiftDurationToEndPickerDate:date];
+    
+    [self synchronizeComponents];
 }
 
 - (void)durationPicker:(CXDurationPickerView *)durationPicker invalidStartDateSelected:(CXDurationPickerDate)date {
     NSLog(@"Invalid start date selected.");
     
     [self.picker shiftDurationToStartPickerDate:date];
+    
+    [self synchronizeComponents];
+}
+
+#pragma mark - Utilities
+
+- (void)synchronizeComponents {
+    CXDurationPickerDate startDate = self.picker.startDate;
+    [self.switcher setStartDateString:[CXDurationPickerUtils stringFromPickerDate:startDate]];
+    
+    CXDurationPickerDate endDate = self.picker.endDate;
+    [self.switcher setEndDateString:[CXDurationPickerUtils stringFromPickerDate:endDate]];
 }
 
 @end

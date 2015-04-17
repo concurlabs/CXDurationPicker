@@ -206,9 +206,7 @@
     NSDateComponents *diff = [self.calendar
                               components:NSCalendarUnitYear|NSCalendarUnitMonth|NSCalendarUnitDay
                               fromDate:d2 toDate:d1 options:0];
-    
-    NSLog(@"diff = %@", diff);
-    
+
     // Calculate new ending date by adding difference.
     //
     NSDate *n2 = [self.calendar dateByAddingComponents:diff toDate:n1 options:0];
