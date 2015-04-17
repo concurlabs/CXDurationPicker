@@ -44,8 +44,12 @@
     [self.switcher setEndDateString:[CXDurationPickerUtils stringFromPickerDate:pickerDate]];
 }
 
+// For this demo, we show how to automatically adjust the mode switch (and mode)
+// programmatically. Once user selects start date we switch to end date mode.
+//
 - (void)durationPicker:(CXDurationPickerView *)durationPicker startDateChanged:(CXDurationPickerDate)pickerDate {
     [self.switcher setStartDateString:[CXDurationPickerUtils stringFromPickerDate:pickerDate]];
+    [self.switcher setMode:CXDurationPickerModeEndDate];
 }
 
 #pragma mark - CXDurationPickerViewDelegate Optionals

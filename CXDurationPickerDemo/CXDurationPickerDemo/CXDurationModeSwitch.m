@@ -23,7 +23,6 @@
 @property (weak, nonatomic) IBOutlet UILabel *endDateLabel;
 @property (strong, nonatomic) UIView *containerView;
 @property (strong, nonatomic) NSMutableArray *customConstraints;
-@property (readwrite, nonatomic) CXDurationPickerMode mode;
 @end
 
 @implementation CXDurationModeSwitch
@@ -105,30 +104,52 @@
 #pragma mark - Gesture Recognizers
 
 - (IBAction)didTapButton1:(id)sender {
-    CGPoint newCenter = CGPointMake(self.button1.center.x, self.indicator.center.y);
-    
-    [UIView animateWithDuration:0.25 animations:^{
-        self.indicator.center = newCenter;
-    } completion:nil];
-    
-    self.mode = CXDurationPickerModeStartDate;
-    
-    if (self.delegate) {
-        [self.delegate modeSwitch:self modeChanged:self.mode];
-    }
+    [self setStartMode];
 }
 
 - (IBAction)didTapButton2:(id)sender {
+    [self setEndMode];
+}
+
+- (void)setMode:(CXDurationPickerMode)mode {
+    switch (mode) {
+        case CXDurationPickerModeEndDate:
+            [self setEndMode];
+            break;
+        case CXDurationPickerModeStartDate:
+            [self setStartMode];
+            break;
+        default:
+            NSLog(@"Unrecognized duration picker mode: %lu", mode);
+            break;
+    }
+}
+
+- (void)setEndMode {
     CGPoint newCenter = CGPointMake(self.button2.center.x, self.indicator.center.y);
     
     [UIView animateWithDuration:0.25 animations:^{
         self.indicator.center = newCenter;
     } completion:nil];
     
-    self.mode = CXDurationPickerModeEndDate;
+    _mode = CXDurationPickerModeEndDate;
     
     if (self.delegate) {
-        [self.delegate modeSwitch:self modeChanged:self.mode];
+        [self.delegate modeSwitch:self modeChanged:_mode];
+    }
+}
+
+- (void)setStartMode {
+    CGPoint newCenter = CGPointMake(self.button1.center.x, self.indicator.center.y);
+    
+    [UIView animateWithDuration:0.25 animations:^{
+        self.indicator.center = newCenter;
+    } completion:nil];
+    
+    _mode = CXDurationPickerModeStartDate;
+    
+    if (self.delegate) {
+        [self.delegate modeSwitch:self modeChanged:_mode];
     }
 }
 

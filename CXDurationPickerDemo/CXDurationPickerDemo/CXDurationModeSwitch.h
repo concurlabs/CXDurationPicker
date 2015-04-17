@@ -33,7 +33,7 @@
 @property (weak, nonatomic) IBOutlet UIImageView *indicator;
 @property (weak, nonatomic) IBOutlet UIView *button1;
 @property (weak, nonatomic) IBOutlet UIView *button2;
-@property (readonly, nonatomic) CXDurationPickerMode mode;
+@property (nonatomic) CXDurationPickerMode mode;
 
 - (void)setStartDateString:(NSString *)startDateString;
 - (void)setEndDateString:(NSString *)endDateString;
