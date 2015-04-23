@@ -33,6 +33,8 @@
     self.isToday = NO;
     
     self.type = CXDurationPickerDayTypeNormal;
+    
+    self.gridColor = [UIColor grayColor];
 }
 
 - (NSString *)description {
@@ -71,7 +73,7 @@
     
     // Draw calendar day border.
     //
-    CGContextSetStrokeColorWithColor(context, [[UIColor grayColor] CGColor]);
+    CGContextSetStrokeColorWithColor(context, [self.gridColor CGColor]);
     
     CGContextStrokeRect(context, CGRectMake(0.5, 0.5,
                                             self.bounds.size.width - 1,

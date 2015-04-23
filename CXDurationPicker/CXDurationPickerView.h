@@ -39,10 +39,11 @@
 
 @interface CXDurationPickerView : UIView <CXDurationPickerMonthViewDelegate, UITableViewDataSource, UITableViewDelegate>
 
-@property (assign, nonatomic) id<CXDurationPickerViewDelegate> delegate;
-@property (assign, nonatomic) CXDurationPickerDate startDate;
-@property (assign, nonatomic) CXDurationPickerDate endDate;
-@property (assign, nonatomic) CXDurationPickerMode mode;
+@property (weak, nonatomic) id<CXDurationPickerViewDelegate> delegate;
+@property (strong, nonatomic) UIColor *gridColor;
+@property (nonatomic) CXDurationPickerDate startDate;
+@property (nonatomic) CXDurationPickerDate endDate;
+@property (nonatomic) CXDurationPickerMode mode;
 @property (nonatomic) BOOL allowSelectionsInPast;
 
 // Maintained for backward-compat. Will be removed in v1.0

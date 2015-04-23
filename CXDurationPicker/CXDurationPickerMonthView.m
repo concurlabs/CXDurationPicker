@@ -42,6 +42,8 @@
     self.monthTitleHeight = 16;
     self.weekTitleHeight = 12;
     
+    self.gridColor = [UIColor grayColor];
+    
     self.days = [[NSMutableArray alloc] init];
     
     self.monthWidth = (floor(self.bounds.size.width / 7) * 7) - 6;
@@ -149,6 +151,24 @@
         if (colIndex % 7 == 0) {
             colIndex = 0;
             rowIndex++;
+        }
+    }
+}
+
+- (void)setGridColor:(UIColor *)gridColor {
+    _gridColor = gridColor;
+    
+    for (int i = 0; i < self.numDays; i++) {
+        NSUInteger tag = 200 + i;
+        
+        UIView *view = [self viewWithTag:tag];
+        
+        if ([view isKindOfClass:[CXDurationPickerDayView class]]) {
+            CXDurationPickerDayView *dayView = (CXDurationPickerDayView *) view;
+            
+            dayView.gridColor = _gridColor;
+            
+            [dayView setNeedsDisplay];
         }
     }
 }
@@ -288,6 +308,8 @@
         pickerDate.year = self.pickerMonth.year;
         
         v.pickerDate = pickerDate;
+        
+        v.gridColor = self.gridColor;
         
         [self.days addObject:v];
         

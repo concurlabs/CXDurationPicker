@@ -22,9 +22,10 @@
 @interface CXDurationPickerDayView : UIView
 
 @property (strong, nonatomic) NSString *day;
-@property (assign, nonatomic) BOOL isToday;
-@property (assign, nonatomic) CXDurationPickerDate pickerDate;
-@property (assign, nonatomic) CXDurationPickerDayType type;
+@property (strong, nonatomic) UIColor *gridColor;
+@property (nonatomic) BOOL isToday;
+@property (nonatomic) CXDurationPickerDate pickerDate;
+@property (nonatomic) CXDurationPickerDayType type;
 
 - (BOOL)isAfter:(CXDurationPickerDate)date;
 - (BOOL)isBefore:(CXDurationPickerDate)date;

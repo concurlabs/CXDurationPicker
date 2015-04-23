@@ -30,11 +30,12 @@
 
 @interface CXDurationPickerMonthView : UIView
 
-@property (assign, nonatomic) id<CXDurationPickerMonthViewDelegate> delegate;
+@property (weak, nonatomic) id<CXDurationPickerMonthViewDelegate> delegate;
 @property (strong, nonatomic) NSMutableArray *days;
-@property (assign, nonatomic) NSInteger monthIndex;
-@property (assign, nonatomic) UIEdgeInsets padding;
-@property (assign, nonatomic) CXDurationPickerMonth pickerMonth;
+@property (strong, nonatomic) UIColor *gridColor;
+@property (nonatomic) NSInteger monthIndex;
+@property (nonatomic) UIEdgeInsets padding;
+@property (nonatomic) CXDurationPickerMonth pickerMonth;
 
 - (BOOL)containsDate:(CXDurationPickerDate)pickerDate;
 

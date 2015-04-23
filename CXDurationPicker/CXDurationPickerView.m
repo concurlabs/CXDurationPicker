@@ -33,6 +33,8 @@
 - (void)baseInit {
     self.calendar = [NSCalendar currentCalendar];
     
+    self.gridColor = [UIColor grayColor];
+    
     self.allowSelectionsInPast = NO;
     self.startDate = (CXDurationPickerDate) { 0, 0, 0 };
     self.endDate = (CXDurationPickerDate) { 0, 0, 0 };
@@ -108,6 +110,7 @@
     NSInteger row = indexPath.row;
     
     CXDurationPickerMonthView *v = [self monthViewForRow:row];
+    v.gridColor = self.gridColor;
     
     [cell.contentView addSubview:v];
     
@@ -211,6 +214,20 @@
 }
 
 #pragma mark - Public API
+
+- (void)setGridColor:(UIColor *)gridColor {
+    _gridColor = gridColor;
+    
+    [self.table reloadData];
+    
+//    CXDurationPickerDayView *day;
+//    
+//    for (long i = 1, ii = [self.days count] - 1; i < ii; i++) {
+//        day = (CXDurationPickerDayView *) [self.days objectAtIndex:i];
+//        
+//
+//    }
+}
 
 - (void)shiftDurationToEndPickerDate:(CXDurationPickerDate)pickerDate {
     NSError *error;
