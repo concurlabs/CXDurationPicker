@@ -58,4 +58,19 @@
     return [formatter stringFromDate:date];
 }
 
++ (NSDate *)today {
+    NSDate *date = [NSDate date];
+    
+    NSCalendar *calendar = [NSCalendar currentCalendar];
+    
+    NSDateComponents *components = [calendar components:NSCalendarUnitYear|NSCalendarUnitMonth|NSCalendarUnitDay
+                                               fromDate:date];
+    
+    //[components setHour:0];
+    //[components setMinute:0];
+    //[components setSecond:0];
+    
+    return [calendar dateFromComponents:components];
+}
+
 @end

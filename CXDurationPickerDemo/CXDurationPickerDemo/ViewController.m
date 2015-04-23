@@ -59,17 +59,38 @@
 - (void)durationPicker:(CXDurationPickerView *)durationPicker invalidEndDateSelected:(CXDurationPickerDate)date {
     NSLog(@"Invalid end date selected.");
     
-    [self.picker shiftDurationToEndPickerDate:date];
+    NSError *error;
     
-    [self synchronizeComponents];
+    BOOL didShift = [self.picker shiftDurationToEndPickerDate:date error:&error];
+    
+    if (didShift) {
+        [self synchronizeComponents];
+    } else {
+        NSLog(@"Unable to shift end date: %@", error.localizedDescription);
+    }
 }
 
 - (void)durationPicker:(CXDurationPickerView *)durationPicker invalidStartDateSelected:(CXDurationPickerDate)date {
     NSLog(@"Invalid start date selected.");
     
-    [self.picker shiftDurationToStartPickerDate:date];
+    NSError *error;
     
-    [self synchronizeComponents];
+    BOOL didShift = [self.picker shiftDurationToStartPickerDate:date error:&error];
+    
+    if (didShift) {
+        [self synchronizeComponents];
+    } else {
+        NSLog(@"Unable to shift start date: %@", error.localizedDescription);
+    }
+    
+    [self.switcher setMode:CXDurationPickerModeEndDate];
+}
+
+- (void)durationPicker:(CXDurationPickerView *)durationPicker
+   didSelectDateInPast:(CXDurationPickerDate)date
+               forMode:(CXDurationPickerMode)mode {
+    
+    NSLog(@"Date was selected in the past. Ignoring.");
 }
 
 #pragma mark - Utilities

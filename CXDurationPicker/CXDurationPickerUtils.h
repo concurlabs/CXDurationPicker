@@ -24,5 +24,6 @@
 + (NSDate *)dateFromPickerDate:(CXDurationPickerDate)pickerDate;
 + (CXDurationPickerDate)pickerDateFromDate:(NSDate *)date;
 + (NSString *)stringFromPickerDate:(CXDurationPickerDate)pickerDate;
++ (NSDate *)today;
 
 @end

@@ -33,6 +33,7 @@
 - (void)baseInit {
     self.calendar = [NSCalendar currentCalendar];
     
+    self.allowSelectionsInPast = NO;
     self.startDate = (CXDurationPickerDate) { 0, 0, 0 };
     self.endDate = (CXDurationPickerDate) { 0, 0, 0 };
     
@@ -149,6 +150,35 @@
 #pragma mark - CXCalendarMonthViewDelegate
 
 - (void)monthView:(CXDurationPickerMonthView *)view daySelected:(CXDurationPickerDayView *)dayView {
+    // Did user select a zero-day range?
+    //
+    if (self.mode == CXDurationPickerModeStartDate) {
+        if ([self isPickerDate:dayView.pickerDate equalTo:_endDate]) {
+            return;
+        }
+    } else if (self.mode == CXDurationPickerModeEndDate) {
+        if ([self isPickerDate:_startDate equalTo:dayView.pickerDate]) {
+            return;
+        }
+    }
+    
+    // Did user select a date in the past? If so, is this allowed?
+    if (self.mode == CXDurationPickerModeStartDate) {
+        if ([self isPickerDateInPast:dayView.pickerDate]) {
+            if ([self.delegate respondsToSelector:@selector(durationPicker:didSelectDateInPast:forMode:)]) {
+                [self.delegate durationPicker:self didSelectDateInPast:dayView.pickerDate forMode:_mode];
+            }
+            return;
+        }
+    } else if (self.mode == CXDurationPickerModeEndDate) {
+        if ([self isPickerDateInPast:dayView.pickerDate]) {
+            if ([self.delegate respondsToSelector:@selector(durationPicker:didSelectDateInPast:forMode:)]) {
+                [self.delegate durationPicker:self didSelectDateInPast:dayView.pickerDate forMode:_mode];
+            }
+            return;
+        }
+    }
+    
     if (self.mode == CXDurationPickerModeStartDate) {
         if (![self isDurationValidForStartPickerDate:dayView.pickerDate andEndPickerDate:_endDate]) {
             if ([self.delegate respondsToSelector:@selector(durationPicker:invalidStartDateSelected:)]) {
@@ -161,16 +191,6 @@
             if ([self.delegate respondsToSelector:@selector(durationPicker:invalidEndDateSelected:)]) {
                 [self.delegate durationPicker:self invalidEndDateSelected:dayView.pickerDate];
             }
-            return;
-        }
-    }
-    
-    if (self.mode == CXDurationPickerModeStartDate) {
-        if ([self isPickerDate:dayView.pickerDate equalTo:_endDate]) {
-            return;
-        }
-    } else if (self.mode == CXDurationPickerModeEndDate) {
-        if ([self isPickerDate:_startDate equalTo:dayView.pickerDate]) {
             return;
         }
     }
@@ -193,8 +213,18 @@
 #pragma mark - Public API
 
 - (void)shiftDurationToEndPickerDate:(CXDurationPickerDate)pickerDate {
-    [self clearCurrentDuration];
+    NSError *error;
     
+    [self shiftDurationToEndPickerDate:pickerDate error:&error];
+}
+
+- (void)shiftDurationToStartPickerDate:(CXDurationPickerDate)pickerDate {
+    NSError *error;
+    
+    [self shiftDurationToStartPickerDate:pickerDate error:&error];
+}
+
+- (BOOL)shiftDurationToEndPickerDate:(CXDurationPickerDate)pickerDate error:(NSError **)error {
     // Convert picker-dates to NSDates so we easily can do some calcs on them.
     //
     NSDate *d1 = [CXDurationPickerUtils dateFromPickerDate:self.startDate];
@@ -215,6 +245,18 @@
     //
     CXDurationPickerDate newStartDate = [CXDurationPickerUtils pickerDateFromDate:n2];
     
+    if ([self isPickerDateInPast:newStartDate] && !self.allowSelectionsInPast) {
+        NSMutableDictionary *details = [NSMutableDictionary dictionary];
+        
+        [details setValue:@"Unable to set start date in the past." forKey:NSLocalizedDescriptionKey];
+        
+        *error = [NSError errorWithDomain:@"CXDurationPicker" code:100 userInfo:details];
+        
+        return NO;
+    }
+    
+    [self clearCurrentDuration];
+    
     _startDate.day = newStartDate.day;
     _startDate.month = newStartDate.month;
     _startDate.year = newStartDate.year;
@@ -224,9 +266,11 @@
     _endDate.year = pickerDate.year;
     
     [self createDuration];
+    
+    return YES;
 }
 
-- (void)shiftDurationToStartPickerDate:(CXDurationPickerDate)pickerDate {
+- (BOOL)shiftDurationToStartPickerDate:(CXDurationPickerDate)pickerDate error:(NSError **)error {
     [self clearCurrentDuration];
     
     // Convert picker-dates to NSDates so we easily can do some calcs on them.
@@ -258,6 +302,8 @@
     _endDate.year = newEndDate.year;
     
     [self createDuration];
+    
+    return YES;
 }
 
 #pragma mark - Internal
@@ -269,6 +315,19 @@
     NSDate *endDate = [CXDurationPickerUtils dateFromPickerDate:endPickerDate];
     
     if ([startDate timeIntervalSinceDate:endDate] == 0) {
+        return YES;
+    }
+    
+    return NO;
+}
+
+- (BOOL)isPickerDateInPast:(CXDurationPickerDate)pickerDate {
+    NSDate *today = [CXDurationPickerUtils today];
+    NSDate *date = [CXDurationPickerUtils dateFromPickerDate:pickerDate];
+    
+    NSTimeInterval interval = [date timeIntervalSinceDate:today];
+    
+    if (interval < 0) {
         return YES;
     }
     

@@ -31,6 +31,10 @@
 - (void)durationPicker:(CXDurationPickerView *)durationPicker invalidEndDateSelected:(CXDurationPickerDate)date;
 - (void)durationPicker:(CXDurationPickerView *)durationPicker invalidStartDateSelected:(CXDurationPickerDate)date;
 
+- (void)durationPicker:(CXDurationPickerView *)durationPicker
+   didSelectDateInPast:(CXDurationPickerDate)date
+               forMode:(CXDurationPickerMode)mode;
+
 @end
 
 @interface CXDurationPickerView : UIView <CXDurationPickerMonthViewDelegate, UITableViewDataSource, UITableViewDelegate>
@@ -39,8 +43,14 @@
 @property (assign, nonatomic) CXDurationPickerDate startDate;
 @property (assign, nonatomic) CXDurationPickerDate endDate;
 @property (assign, nonatomic) CXDurationPickerMode mode;
+@property (nonatomic) BOOL allowSelectionsInPast;
 
-- (void)shiftDurationToEndPickerDate:(CXDurationPickerDate)pickerDate;
-- (void)shiftDurationToStartPickerDate:(CXDurationPickerDate)pickerDate;
+// Maintained for backward-compat. Will be removed in v1.0
+//
+- (void)shiftDurationToEndPickerDate:(CXDurationPickerDate)pickerDate __attribute__((deprecated));
+- (void)shiftDurationToStartPickerDate:(CXDurationPickerDate)pickerDate __attribute__((deprecated));
+
+- (BOOL)shiftDurationToEndPickerDate:(CXDurationPickerDate)pickerDate error:(NSError **)error;
+- (BOOL)shiftDurationToStartPickerDate:(CXDurationPickerDate)pickerDate error:(NSError **)error;
 
 @end
