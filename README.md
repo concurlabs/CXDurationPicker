@@ -18,7 +18,7 @@ If you have any feature requests/bugfixes etc. feel free to help out and send a 
 ### Maintainers
 
 - [Concur Labs](http://github.com/concurlabs)
-- 
+
 # License
 
 Copyright 2015 Concur
