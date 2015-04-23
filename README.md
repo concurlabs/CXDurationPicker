@@ -12,6 +12,10 @@ platform :ios, '7.0'
 pod 'CXDurationPicker', :git => 'https://github.com/concurlabs/CXDurationPicker.git', :tag => '0.1.0'
 ```
 
+## Usage
+###Grid Color
+Every calendar month shows a grid to delineate days. This can be changed via the `CXDurationPickerView` `gridColor` property. 
+
 ## Collaboration
 If you have any feature requests/bugfixes etc. feel free to help out and send a pull request, or create a new issue.
 
