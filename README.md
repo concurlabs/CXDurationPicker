@@ -15,6 +15,10 @@ pod 'CXDurationPicker', :git => 'https://github.com/concurlabs/CXDurationPicker.
 # Collaboration
 If you have any feature requests/bugfixes etc. feel free to help out and send a pull request, or create a new issue.
 
+### Maintainers
+
+- [Concur Labs](http://github.com/concurlabs)
+- 
 # License
 
 Copyright 2015 Concur
