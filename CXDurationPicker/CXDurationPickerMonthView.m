@@ -20,6 +20,7 @@
 #import "CXDurationPickerDayView.h"
 #import "CXDurationPickerMonthView.h"
 #import "CXDurationPickerUtils.h"
+#import "UIColor+Defaults.h"
 
 @interface CXDurationPickerMonthView ()
 @property (strong, nonatomic) NSDate *date;
@@ -50,7 +51,7 @@
     
     self.monthOffset = (self.bounds.size.width - self.monthWidth) / 2;
     
-    self.backgroundColor = [UIColor whiteColor];
+    self.backgroundColor = [UIColor defaultMonthBackgroundColor];
     
     self.calendar = [NSCalendar currentCalendar];
 }
@@ -155,24 +156,6 @@
     }
 }
 
-- (void)setGridColor:(UIColor *)gridColor {
-    _gridColor = gridColor;
-    
-    for (int i = 0; i < self.numDays; i++) {
-        NSUInteger tag = 200 + i;
-        
-        UIView *view = [self viewWithTag:tag];
-        
-        if ([view isKindOfClass:[CXDurationPickerDayView class]]) {
-            CXDurationPickerDayView *dayView = (CXDurationPickerDayView *) view;
-            
-            dayView.gridColor = _gridColor;
-            
-            [dayView setNeedsDisplay];
-        }
-    }
-}
-
 - (CGSize)sizeThatFits:(CGSize)size {
     float cellSize = self.bounds.size.width / 7;
     
@@ -226,7 +209,7 @@
     
     [self.dateLabel setFont:dateFont];
     [self.dateLabel setTextAlignment:NSTextAlignmentCenter];
-    [self.dateLabel setTextColor:[UIColor colorWithRed:56/255.0 green:63/255.0 blue:70/255.0 alpha:1]];
+    [self.dateLabel setTextColor:self.monthLabelColor];
     [self.dateLabel setText:self.dateString];
     
     [self addSubview:self.dateLabel];
@@ -250,7 +233,7 @@
         [dayLabel setTag:tag];
         [dayLabel setFont:dayFont];
         [dayLabel setTextAlignment:NSTextAlignmentCenter];
-        [dayLabel setTextColor:[UIColor colorWithRed:127/255.0 green:143/255.0 blue:151/255.0 alpha:1]];
+        [dayLabel setTextColor:self.dayLabelColor];
         [dayLabel setFont:dayFont];
         [dayLabel setText:days[i]];
         
@@ -287,6 +270,12 @@
                                                                               action:@selector(daySelected:)];
         
         [v addGestureRecognizer:tap];
+        
+        if (self.components.year <= todayComponents.year
+            && self.components.month <= todayComponents.month
+            && i < todayComponents.day - 1) {
+            v.isDisabled = YES;
+        }
         
         if (self.components.year == todayComponents.year
             && self.components.month == todayComponents.month
@@ -413,6 +402,109 @@
         components.year,
         components.month
     };
+}
+
+#pragma mark - Colors
+
+- (void)setDayLabelsToColor:(UIColor *)color {
+    for (int i = 0; i < 7; i++) {
+        NSUInteger tag = 100 + i;
+        
+        UIView *view = [self viewWithTag:tag];
+        
+        if ([view isKindOfClass:[UILabel class]]) {
+            UILabel *dayLabel = (UILabel *) view;
+            
+            [dayLabel setTextColor:self.dayLabelColor];
+            
+            [dayLabel setNeedsDisplay];
+        }
+    }
+}
+
+- (void)setDaysToColor:(UIColor *)color forKey:(NSString *)key {
+    for (int i = 0; i < self.numDays; i++) {
+        NSUInteger tag = 200 + i;
+        
+        UIView *view = [self viewWithTag:tag];
+        
+        if ([view isKindOfClass:[CXDurationPickerDayView class]]) {
+            CXDurationPickerDayView *dayView = (CXDurationPickerDayView *) view;
+            
+            [dayView setValue:color forKey:key];
+            
+            [dayView setNeedsDisplay];
+        }
+    }
+}
+
+// Month-specific colors
+//
+- (void)setDayLabelColor:(UIColor *)color {
+    _dayLabelColor = color;
+    [self setDayLabelsToColor:_dayLabelColor];
+}
+
+- (void)setMonthLabelColor:(UIColor *)color {
+    _monthLabelColor = color;
+    [self.dateLabel setTextColor:self.monthLabelColor];
+}
+
+// Day-specific colors
+//
+- (void)setDayBackgroundColor:(UIColor *)color {
+    _dayBackgroundColor = color;
+    [self setDaysToColor:_dayBackgroundColor forKey:@"dayBackgroundColor"];
+}
+
+- (void)setDayForegroundColor:(UIColor *)color {
+    _dayForegroundColor = color;
+    [self setDaysToColor:_dayForegroundColor forKey:@"dayForegroundColor"];
+}
+
+- (void)setDisabledDayBackgroundColor:(UIColor *)color {
+    _disabledDayBackgroundColor = color;
+    [self setDaysToColor:_disabledDayBackgroundColor forKey:@"disabledDayBackgroundColor"];
+}
+
+- (void)setDisabledDayForegroundColor:(UIColor *)color {
+    _disabledDayBackgroundColor = color;
+    [self setDaysToColor:_disabledDayBackgroundColor forKey:@"disabledDayForegroundColor"];
+}
+
+- (void)setGridColor:(UIColor *)color {
+    _gridColor = color;
+    [self setDaysToColor:_gridColor forKey:@"gridColor"];
+}
+
+- (void)setTerminalBackgroundColor:(UIColor *)color {
+    _terminalBackgroundColor = color;
+    [self setDaysToColor:_terminalBackgroundColor forKey:@"terminalBackgroundColor"];
+}
+
+- (void)setTerminalForegroundColor:(UIColor *)color {
+    _terminalForegroundColor = color;
+    [self setDaysToColor:_terminalForegroundColor forKey:@"terminalForegroundColor"];
+}
+
+- (void)setTodayBackgroundColor:(UIColor *)color {
+    _todayBackgroundColor = color;
+    [self setDaysToColor:_todayBackgroundColor forKey:@"todayBackgroundColor"];
+}
+
+- (void)setTodayForegroundColor:(UIColor *)color {
+    _todayForegroundColor = color;
+    [self setDaysToColor:_todayForegroundColor forKey:@"todayForegroundColor"];
+}
+
+- (void)setTransitBackgroundColor:(UIColor *)color {
+    _transitBackgroundColor = color;
+    [self setDaysToColor:_transitBackgroundColor forKey:@"transitBackgroundColor"];
+}
+
+- (void)setTransitForegroundColor:(UIColor *)color {
+    _transitForegroundColor = color;
+    [self setDaysToColor:_transitForegroundColor forKey:@"transitForegroundColor"];
 }
 
 @end

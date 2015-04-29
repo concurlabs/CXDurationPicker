@@ -22,11 +22,32 @@
 @interface CXDurationPickerDayView : UIView
 
 @property (strong, nonatomic) NSString *day;
-@property (strong, nonatomic) UIColor *gridColor;
+@property (nonatomic) BOOL isDisabled;
 @property (nonatomic) BOOL isToday;
 @property (nonatomic) CXDurationPickerDate pickerDate;
 @property (nonatomic) CXDurationPickerDayType type;
 
+// Colors
+//
+@property (strong, nonatomic) UIColor *dayBackgroundColor;
+@property (strong, nonatomic) UIColor *dayForegroundColor;
+
+@property (strong, nonatomic) UIColor *disabledDayBackgroundColor;
+@property (strong, nonatomic) UIColor *disabledDayForegroundColor;
+
+@property (strong, nonatomic) UIColor *gridColor;
+
+@property (strong, nonatomic) UIColor *terminalBackgroundColor;
+@property (strong, nonatomic) UIColor *terminalForegroundColor;
+
+@property (strong, nonatomic) UIColor *todayBackgroundColor;
+@property (strong, nonatomic) UIColor *todayForegroundColor;
+
+@property (strong, nonatomic) UIColor *transitBackgroundColor;
+@property (strong, nonatomic) UIColor *transitForegroundColor;
+
+// API
+//
 - (BOOL)isAfter:(CXDurationPickerDate)date;
 - (BOOL)isBefore:(CXDurationPickerDate)date;
 - (BOOL)isBetween:(CXDurationPickerDate)startDate and:(CXDurationPickerDate)endDate;

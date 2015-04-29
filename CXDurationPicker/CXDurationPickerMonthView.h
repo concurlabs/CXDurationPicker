@@ -32,13 +32,35 @@
 
 @property (weak, nonatomic) id<CXDurationPickerMonthViewDelegate> delegate;
 @property (strong, nonatomic) NSMutableArray *days;
-@property (strong, nonatomic) UIColor *gridColor;
 @property (nonatomic) NSInteger monthIndex;
 @property (nonatomic) UIEdgeInsets padding;
 @property (nonatomic) CXDurationPickerMonth pickerMonth;
+@property (nonatomic) BOOL disableDaysBeforeToday;
+
+// Month-specific colors
+//
+@property (strong, nonatomic) UIColor *dayLabelColor;
+@property (strong, nonatomic) UIColor *monthLabelColor;
+
+// Day-specific colors
+//
+@property (strong, nonatomic) UIColor *dayBackgroundColor;
+@property (strong, nonatomic) UIColor *dayForegroundColor;
+
+@property (strong, nonatomic) UIColor *disabledDayBackgroundColor;
+@property (strong, nonatomic) UIColor *disabledDayForegroundColor;
+
+@property (strong, nonatomic) UIColor *gridColor;
+
+@property (strong, nonatomic) UIColor *terminalBackgroundColor;
+@property (strong, nonatomic) UIColor *terminalForegroundColor;
+
+@property (strong, nonatomic) UIColor *todayBackgroundColor;
+@property (strong, nonatomic) UIColor *todayForegroundColor;
+
+@property (strong, nonatomic) UIColor *transitBackgroundColor;
+@property (strong, nonatomic) UIColor *transitForegroundColor;
 
 - (BOOL)containsDate:(CXDurationPickerDate)pickerDate;
-
-//- (void)setSelectedDayFromPickerDate:(CXDurationPickerDate)pickerDate;
 
 @end

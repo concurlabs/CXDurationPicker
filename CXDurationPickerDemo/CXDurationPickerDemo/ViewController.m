@@ -51,7 +51,7 @@
 //
 - (void)durationPicker:(CXDurationPickerView *)durationPicker startDateChanged:(CXDurationPickerDate)pickerDate {
     [self.switcher setStartDateString:[CXDurationPickerUtils stringFromPickerDate:pickerDate]];
-    [self.switcher setMode:CXDurationPickerModeEndDate];
+    //[self.switcher setMode:CXDurationPickerModeEndDate];
 }
 
 #pragma mark - CXDurationPickerViewDelegate Optionals
@@ -82,8 +82,6 @@
     } else {
         NSLog(@"Unable to shift start date: %@", error.localizedDescription);
     }
-    
-    [self.switcher setMode:CXDurationPickerModeEndDate];
 }
 
 - (void)durationPicker:(CXDurationPickerView *)durationPicker

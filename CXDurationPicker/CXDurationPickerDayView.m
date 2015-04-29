@@ -18,6 +18,7 @@
 
 #import "CXDurationPickerDayView.h"
 #import "CXDurationPickerUtils.h"
+#import "UIColor+Defaults.h"
 
 @interface CXDurationPickerDayView ()
 
@@ -34,7 +35,17 @@
     
     self.type = CXDurationPickerDayTypeNormal;
     
-    self.gridColor = [UIColor grayColor];
+    self.dayBackgroundColor = [UIColor defaultDayBackgroundColor];
+    self.dayForegroundColor = [UIColor defaultDayForegroundColor];
+    self.disabledDayBackgroundColor = [UIColor defaultDisabledDayBackgroundColor];
+    self.disabledDayForegroundColor = [UIColor defaultDisabledDayForegroundColor];
+    self.gridColor = [UIColor defaultGridColor];
+    self.terminalBackgroundColor = [UIColor defaultTerminalBackgroundColor];
+    self.terminalForegroundColor = [UIColor defaultTerminalForegroundColor];
+    self.todayBackgroundColor = [UIColor defaultTodayBackgroundColor];
+    self.todayForegroundColor = [UIColor defaultTodayForegroundColor];
+    self.transitBackgroundColor = [UIColor defaultTransitBackgroundColor];
+    self.transitForegroundColor = [UIColor defaultTransitForegroundColor];
 }
 
 - (NSString *)description {
@@ -59,12 +70,19 @@
     // Draw highlighted background.
     //
     if (self.isToday) {
-        CGColorRef background = [[UIColor colorWithRed:198/255.0
-                                                 green:208/255.0
-                                                  blue:214/255.0
-                                                 alpha:0.5] CGColor];
+        CGContextSetFillColorWithColor(context, self.todayBackgroundColor.CGColor);
         
-        CGContextSetFillColorWithColor(context, background);
+        CGContextFillRect(context, CGRectMake(0.5, 0.5,
+                                              self.bounds.size.width - 1,
+                                              self.bounds.size.height - 1));
+    } else if (self.isDisabled) {
+        CGContextSetFillColorWithColor(context, self.disabledDayBackgroundColor.CGColor);
+        
+        CGContextFillRect(context, CGRectMake(0.5, 0.5,
+                                              self.bounds.size.width - 1,
+                                              self.bounds.size.height - 1));
+    } else {
+        CGContextSetFillColorWithColor(context, self.dayBackgroundColor.CGColor);
         
         CGContextFillRect(context, CGRectMake(0.5, 0.5,
                                               self.bounds.size.width - 1,
@@ -73,7 +91,7 @@
     
     // Draw calendar day border.
     //
-    CGContextSetStrokeColorWithColor(context, [self.gridColor CGColor]);
+    CGContextSetStrokeColorWithColor(context, self.gridColor.CGColor);
     
     CGContextStrokeRect(context, CGRectMake(0.5, 0.5,
                                             self.bounds.size.width - 1,
@@ -94,10 +112,14 @@
     //
     CGColorRef color;
     
-    if (self.type == CXDurationPickerDayTypeStart || self.type == CXDurationPickerDayTypeEnd) {
-        color = [UIColor whiteColor].CGColor;
+    if (self.isDisabled) {
+        color = self.disabledDayForegroundColor.CGColor;
+    } else if (self.type == CXDurationPickerDayTypeStart || self.type == CXDurationPickerDayTypeEnd) {
+        color = self.terminalForegroundColor.CGColor;
+    } else if (self.type == CXDurationPickerDayTypeTransit) {
+        color = self.transitForegroundColor.CGColor;
     } else {
-        color = [UIColor blackColor].CGColor;
+        color = self.dayForegroundColor.CGColor;
     }
     
     NSDictionary *attributesDict = [NSDictionary dictionaryWithObjectsAndKeys:
@@ -131,10 +153,7 @@
         float rectangleY = (self.bounds.size.height - rectangleHeight) / 2;
         float rectangleX = rectangleWidth;
         
-        CGContextSetFillColorWithColor(context, [[UIColor colorWithRed:0
-                                                                 green:120/255.0
-                                                                  blue:200/255.0
-                                                                 alpha:0.25] CGColor]);
+        CGContextSetFillColorWithColor(context, self.transitBackgroundColor.CGColor);
         
         CGContextFillRect(context, CGRectMake(rectangleX + 0.5,
                                               rectangleY + 0.5,
@@ -149,10 +168,7 @@
         
         float rectangleY = (self.bounds.size.height - rectangleHeight) / 2;
         
-        CGContextSetFillColorWithColor(context, [[UIColor colorWithRed:0
-                                                                 green:120/255.0
-                                                                  blue:200/255.0
-                                                                 alpha:0.25] CGColor]);
+        CGContextSetFillColorWithColor(context, self.transitBackgroundColor.CGColor);
         
         CGContextFillRect(context, CGRectMake(0.5,
                                               rectangleY + 0.5,
@@ -166,10 +182,7 @@
         
         float rectangleY = (self.bounds.size.height - rectangleHeight) / 2;
         
-        CGContextSetFillColorWithColor(context, [[UIColor colorWithRed:0
-                                                                 green:120/255.0
-                                                                  blue:200/255.0
-                                                                 alpha:0.25] CGColor]);
+        CGContextSetFillColorWithColor(context, self.transitBackgroundColor.CGColor);
         
         CGContextFillRect(context, CGRectMake(0.5,
                                               rectangleY + 0.5,
@@ -188,10 +201,7 @@
         float circleY = (self.bounds.size.height - circleDiameter) / 2;
         float circleX = (self.bounds.size.width - circleDiameter) / 2;
         
-        CGContextSetFillColorWithColor(context, [[UIColor colorWithRed:0
-                                                                 green:120/255.0
-                                                                  blue:200/255.0
-                                                                 alpha:1] CGColor]);
+        CGContextSetFillColorWithColor(context, self.terminalBackgroundColor.CGColor);
         
         CGContextBeginPath(context);
         CGContextAddEllipseInRect(context, CGRectMake(circleX, circleY, circleDiameter, circleDiameter));

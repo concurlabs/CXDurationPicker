@@ -18,6 +18,9 @@
 #import "CXDurationPickerMonthView.h"
 #import "CXDurationPickerView.h"
 #import "CXDurationPickerUtils.h"
+#import "UIColor+Defaults.h"
+
+#define defaultTodayColor [UIColor colorWithRed:0.1f green:0.004f blue:0.3f alpha:0.3f]
 
 @interface CXDurationPickerView ()
 
@@ -33,7 +36,20 @@
 - (void)baseInit {
     self.calendar = [NSCalendar currentCalendar];
     
-    self.gridColor = [UIColor grayColor];
+    self.dayLabelColor = [UIColor defaultDayLabelColor];
+    self.monthLabelColor = [UIColor defaultMonthLabelColor];
+    
+    self.dayBackgroundColor = [UIColor defaultDayBackgroundColor];
+    self.dayForegroundColor = [UIColor defaultDayForegroundColor];
+    self.disabledDayBackgroundColor = [UIColor defaultDisabledDayBackgroundColor];
+    self.disabledDayForegroundColor = [UIColor defaultDisabledDayForegroundColor];
+    self.gridColor = [UIColor defaultGridColor];
+    self.terminalBackgroundColor = [UIColor defaultTerminalBackgroundColor];
+    self.terminalForegroundColor = [UIColor defaultTerminalForegroundColor];
+    self.todayBackgroundColor = [UIColor defaultTodayBackgroundColor];
+    self.todayForegroundColor = [UIColor defaultTodayForegroundColor];
+    self.transitBackgroundColor = [UIColor defaultTransitBackgroundColor];
+    self.transitForegroundColor = [UIColor defaultTransitForegroundColor];
     
     self.allowSelectionsInPast = NO;
     self.startDate = (CXDurationPickerDate) { 0, 0, 0 };
@@ -110,7 +126,23 @@
     NSInteger row = indexPath.row;
     
     CXDurationPickerMonthView *v = [self monthViewForRow:row];
+    
+    v.backgroundColor = self.backgroundColor;
+    
+    v.dayLabelColor = self.dayLabelColor;
+    v.monthLabelColor = self.monthLabelColor;
+    
+    v.dayBackgroundColor = self.dayBackgroundColor;
+    v.dayForegroundColor = self.dayForegroundColor;
+    v.disabledDayBackgroundColor = self.disabledDayBackgroundColor;
+    v.disabledDayForegroundColor = self.disabledDayForegroundColor;
     v.gridColor = self.gridColor;
+    v.terminalBackgroundColor = self.terminalBackgroundColor;
+    v.terminalForegroundColor = self.terminalForegroundColor;
+    v.todayBackgroundColor = self.todayBackgroundColor;
+    v.todayForegroundColor = self.todayForegroundColor;
+    v.transitBackgroundColor = self.transitBackgroundColor;
+    v.transitForegroundColor = self.transitForegroundColor;
     
     [cell.contentView addSubview:v];
     
@@ -214,20 +246,6 @@
 }
 
 #pragma mark - Public API
-
-- (void)setGridColor:(UIColor *)gridColor {
-    _gridColor = gridColor;
-    
-    [self.table reloadData];
-    
-//    CXDurationPickerDayView *day;
-//    
-//    for (long i = 1, ii = [self.days count] - 1; i < ii; i++) {
-//        day = (CXDurationPickerDayView *) [self.days objectAtIndex:i];
-//        
-//
-//    }
-}
 
 - (void)shiftDurationToEndPickerDate:(CXDurationPickerDate)pickerDate {
     NSError *error;
@@ -560,6 +578,69 @@
     _startDate = startDate;
     
     [self createDuration];
+}
+
+#pragma mark - Colors
+
+- (void)setDayLabelColor:(UIColor *)color {
+    _dayLabelColor = color;
+    [self.table reloadData];
+}
+
+- (void)setMonthLabelColor:(UIColor *)color {
+    _monthLabelColor = color;
+    [self.table reloadData];
+}
+
+- (void)setBackgroundColor:(UIColor *)color {
+    [super setBackgroundColor:color];
+    
+    [self.table reloadData];
+}
+
+- (void)setDisabledDayBackgroundColor:(UIColor *)color {
+    _disabledDayBackgroundColor = color;
+    [self.table reloadData];
+}
+
+- (void)setDisabledDayForegroundColor:(UIColor *)color {
+    _disabledDayForegroundColor = color;
+    [self.table reloadData];
+}
+
+- (void)setGridColor:(UIColor *)color {
+    _gridColor = color;
+    [self.table reloadData];
+}
+
+- (void)setTerminalBackgroundColor:(UIColor *)color {
+    _terminalBackgroundColor = color;
+    [self.table reloadData];
+}
+
+- (void)setTerminalForegroundColor:(UIColor *)color {
+    _terminalForegroundColor = color;
+    [self.table reloadData];
+}
+
+- (void)setTodayBackgroundColor:(UIColor *)color {
+    _todayBackgroundColor = color;
+    [self.table reloadData];
+}
+
+- (void)setTodayForegroundColor:(UIColor *)color {
+    _todayForegroundColor = color;
+    [self.table reloadData];
+}
+
+- (void)setTransitBackgroundColor:(UIColor *)color {
+    _transitBackgroundColor = color;
+    [self.table reloadData];
+}
+
+- (void)setTransitForegroundColor:(UIColor *)color {
+    _transitForegroundColor = color;
+    [self.table reloadData];
 }
 
 @end

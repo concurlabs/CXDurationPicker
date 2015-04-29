@@ -40,11 +40,34 @@
 @interface CXDurationPickerView : UIView <CXDurationPickerMonthViewDelegate, UITableViewDataSource, UITableViewDelegate>
 
 @property (weak, nonatomic) id<CXDurationPickerViewDelegate> delegate;
-@property (strong, nonatomic) UIColor *gridColor;
 @property (nonatomic) CXDurationPickerDate startDate;
 @property (nonatomic) CXDurationPickerDate endDate;
 @property (nonatomic) CXDurationPickerMode mode;
 @property (nonatomic) BOOL allowSelectionsInPast;
+
+// Month-specific colors
+//
+@property (strong, nonatomic) UIColor *dayLabelColor;
+@property (strong, nonatomic) UIColor *monthLabelColor;
+
+// Day-specific colors
+//
+@property (strong, nonatomic) UIColor *dayBackgroundColor;
+@property (strong, nonatomic) UIColor *dayForegroundColor;
+
+@property (strong, nonatomic) UIColor *disabledDayBackgroundColor;
+@property (strong, nonatomic) UIColor *disabledDayForegroundColor;
+
+@property (strong, nonatomic) UIColor *gridColor;
+
+@property (strong, nonatomic) UIColor *terminalBackgroundColor;
+@property (strong, nonatomic) UIColor *terminalForegroundColor;
+
+@property (strong, nonatomic) UIColor *todayBackgroundColor;
+@property (strong, nonatomic) UIColor *todayForegroundColor;
+
+@property (strong, nonatomic) UIColor *transitBackgroundColor;
+@property (strong, nonatomic) UIColor *transitForegroundColor;
 
 // Maintained for backward-compat. Will be removed in v1.0
 //

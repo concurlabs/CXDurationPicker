@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		010FB5401AEFED1200048201 /* UIColor+Defaults.m in Sources */ = {isa = PBXBuildFile; fileRef = 010FB53F1AEFED1200048201 /* UIColor+Defaults.m */; };
 		01987DE31AAD5097006F012F /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 01987DE21AAD5097006F012F /* main.m */; };
 		01987DE61AAD5097006F012F /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 01987DE51AAD5097006F012F /* AppDelegate.m */; };
 		01987DE91AAD5097006F012F /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 01987DE81AAD5097006F012F /* ViewController.m */; };
@@ -33,6 +34,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		010FB53E1AEFED1200048201 /* UIColor+Defaults.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UIColor+Defaults.h"; path = "../../CXDurationPicker/UIColor+Defaults.h"; sourceTree = "<group>"; };
+		010FB53F1AEFED1200048201 /* UIColor+Defaults.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UIColor+Defaults.m"; path = "../../CXDurationPicker/UIColor+Defaults.m"; sourceTree = "<group>"; };
 		01987DDD1AAD5097006F012F /* CXDurationPickerDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CXDurationPickerDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		01987DE11AAD5097006F012F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		01987DE21AAD5097006F012F /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -151,6 +154,8 @@
 				01987E0D1AAD550C006F012F /* CXDurationPickerUtils.m */,
 				01987E0E1AAD550C006F012F /* CXDurationPickerView.h */,
 				01987E0F1AAD550C006F012F /* CXDurationPickerView.m */,
+				010FB53E1AEFED1200048201 /* UIColor+Defaults.h */,
+				010FB53F1AEFED1200048201 /* UIColor+Defaults.m */,
 			);
 			name = CXDurationPicker;
 			sourceTree = "<group>";
@@ -268,6 +273,7 @@
 			files = (
 				01987E121AAD550C006F012F /* CXDurationPickerUtils.m in Sources */,
 				01987E181AAD55DE006F012F /* CXDurationModeSwitch.m in Sources */,
+				010FB5401AEFED1200048201 /* UIColor+Defaults.m in Sources */,
 				01987E101AAD550C006F012F /* CXDurationPickerDayView.m in Sources */,
 				01987DE91AAD5097006F012F /* ViewController.m in Sources */,
 				01987DE61AAD5097006F012F /* AppDelegate.m in Sources */,
@@ -466,6 +472,7 @@
 				01987E021AAD5097006F012F /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		01987E031AAD5097006F012F /* Build configuration list for PBXNativeTarget "CXDurationPickerDemoTests" */ = {
 			isa = XCConfigurationList;
@@ -474,6 +481,7 @@
 				01987E051AAD5097006F012F /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
