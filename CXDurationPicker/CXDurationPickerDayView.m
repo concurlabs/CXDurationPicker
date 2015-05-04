@@ -49,8 +49,7 @@
 }
 
 - (NSString *)description {
-    return [NSString stringWithFormat:@"%@ %lu",
-            [CXDurationPickerUtils stringFromPickerDate:self.pickerDate], self.type];
+    return [CXDurationPickerUtils stringFromPickerDate:self.pickerDate];
 }
 
 - (id)initWithFrame:(CGRect)frame {
