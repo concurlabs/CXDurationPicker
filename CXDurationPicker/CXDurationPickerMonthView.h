@@ -62,5 +62,6 @@
 @property (strong, nonatomic) UIColor *transitForegroundColor;
 
 - (BOOL)containsDate:(CXDurationPickerDate)pickerDate;
+- (CXDurationPickerDayView *)dayForPickerDate:(CXDurationPickerDate)pickerDate;
 
 @end

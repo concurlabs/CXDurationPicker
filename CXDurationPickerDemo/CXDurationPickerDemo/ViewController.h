@@ -23,6 +23,9 @@
 
 @property (weak, nonatomic) IBOutlet CXDurationModeSwitch *switcher;
 @property (weak, nonatomic) IBOutlet CXDurationPickerView *picker;
+@property (weak, nonatomic) IBOutlet UIView *singleDateView;
+@property (weak, nonatomic) IBOutlet UILabel *singleDateViewLabel;
+@property (weak, nonatomic) IBOutlet UISegmentedControl *segmentedModeSwitcher;
 
 @end
 

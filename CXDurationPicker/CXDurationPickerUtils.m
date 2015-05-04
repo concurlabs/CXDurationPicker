@@ -66,10 +66,6 @@
     NSDateComponents *components = [calendar components:NSCalendarUnitYear|NSCalendarUnitMonth|NSCalendarUnitDay
                                                fromDate:date];
     
-    //[components setHour:0];
-    //[components setMinute:0];
-    //[components setSecond:0];
-    
     return [calendar dateFromComponents:components];
 }
 

@@ -49,7 +49,8 @@
 }
 
 - (NSString *)description {
-    return [CXDurationPickerUtils stringFromPickerDate:self.pickerDate];
+    return [NSString stringWithFormat:@"%@ %lu",
+            [CXDurationPickerUtils stringFromPickerDate:self.pickerDate], self.type];
 }
 
 - (id)initWithFrame:(CGRect)frame {
@@ -114,7 +115,9 @@
     
     if (self.isDisabled) {
         color = self.disabledDayForegroundColor.CGColor;
-    } else if (self.type == CXDurationPickerDayTypeStart || self.type == CXDurationPickerDayTypeEnd) {
+    } else if (self.type == CXDurationPickerDayTypeStart
+               || self.type == CXDurationPickerDayTypeEnd
+               || self.type == CXDurationPickerDayTypeSingle) {
         color = self.terminalForegroundColor.CGColor;
     } else if (self.type == CXDurationPickerDayTypeTransit) {
         color = self.transitForegroundColor.CGColor;
@@ -192,7 +195,10 @@
     
     // Draw circle.
     //
-    if (self.type == CXDurationPickerDayTypeStart || self.type == CXDurationPickerDayTypeEnd) {
+    if (self.type == CXDurationPickerDayTypeStart
+        || self.type == CXDurationPickerDayTypeEnd
+        || self.type == CXDurationPickerDayTypeSingle) {
+        
         float notBiggerThan = self.bounds.size.height * 0.60;
         float notSmallerThan = ascenderHeight + 5;
         

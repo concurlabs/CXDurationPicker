@@ -185,7 +185,12 @@
 #pragma mark - CXCalendarMonthViewDelegate
 
 - (void)monthView:(CXDurationPickerMonthView *)view daySelected:(CXDurationPickerDayView *)dayView {
-    // Did user select a zero-day range?
+    
+    // Duration Mode:
+    //   Did user select a zero-day range?
+    //
+    // Single Mode:
+    //   Did user select "today"?
     //
     if (self.mode == CXDurationPickerModeStartDate) {
         if ([self isPickerDate:dayView.pickerDate equalTo:_endDate]) {
@@ -195,9 +200,14 @@
         if ([self isPickerDate:_startDate equalTo:dayView.pickerDate]) {
             return;
         }
+    } else if (self.mode == CXDurationPickerModeSingleDate) {
+        if ([self isPickerDate:_singleDate equalTo:dayView.pickerDate]) {
+            return;
+        }
     }
     
-    // Did user select a date in the past? If so, is this allowed?
+    // Did user select a date before "today"? If so, is this allowed?
+    //
     if (self.mode == CXDurationPickerModeStartDate) {
         if ([self isPickerDateInPast:dayView.pickerDate]) {
             if ([self.delegate respondsToSelector:@selector(durationPicker:didSelectDateInPast:forMode:)]) {
@@ -212,8 +222,19 @@
             }
             return;
         }
+    } else if (self.mode == CXDurationPickerModeSingleDate) {
+        if ([self isPickerDateInPast:dayView.pickerDate]) {
+            if ([self.delegate respondsToSelector:@selector(durationPicker:didSelectDateInPast:forMode:)]) {
+                [self.delegate durationPicker:self didSelectDateInPast:dayView.pickerDate forMode:_mode];
+            }
+            return;
+        }
     }
     
+    // Duration Mode:
+    //   If user selected a start date which occurs after current end date, or
+    //   If user selected a end date which occurs before current start date
+    //
     if (self.mode == CXDurationPickerModeStartDate) {
         if (![self isDurationValidForStartPickerDate:dayView.pickerDate andEndPickerDate:_endDate]) {
             if ([self.delegate respondsToSelector:@selector(durationPicker:invalidStartDateSelected:)]) {
@@ -230,19 +251,28 @@
         }
     }
     
+    // Notify delegate of date changes.
+    //
     if (self.delegate != nil) {
         if (self.mode == CXDurationPickerModeStartDate) {
             _startDate = dayView.pickerDate;
             [self.delegate durationPicker:self startDateChanged:dayView.pickerDate];
-        } else {
+        } else if (self.mode == CXDurationPickerModeEndDate) {
             _endDate = dayView.pickerDate;
             [self.delegate durationPicker:self endDateChanged:dayView.pickerDate];
+        } else if (self.mode == CXDurationPickerModeSingleDate) {
+            [self changeSingleDateForDayView:dayView];
+            [self.delegate durationPicker:self singleDateChanged:dayView.pickerDate];
         }
     }
     
-    [self clearCurrentDuration];
-    
-    [self createDuration];
+    // Duration Mode:
+    //    Update the duration.
+    //
+    if (self.mode == CXDurationPickerModeStartDate || self.mode == CXDurationPickerModeEndDate) {
+        [self clearCurrentDuration];
+        [self createDuration];
+    }
 }
 
 #pragma mark - Public API
@@ -343,49 +373,6 @@
 
 #pragma mark - Internal
 
-- (BOOL)isPickerDate:(CXDurationPickerDate)startPickerDate
-             equalTo:(CXDurationPickerDate)endPickerDate {
-    
-    NSDate *startDate = [CXDurationPickerUtils dateFromPickerDate:startPickerDate];
-    NSDate *endDate = [CXDurationPickerUtils dateFromPickerDate:endPickerDate];
-    
-    if ([startDate timeIntervalSinceDate:endDate] == 0) {
-        return YES;
-    }
-    
-    return NO;
-}
-
-- (BOOL)isPickerDateInPast:(CXDurationPickerDate)pickerDate {
-    NSDate *today = [CXDurationPickerUtils today];
-    NSDate *date = [CXDurationPickerUtils dateFromPickerDate:pickerDate];
-    
-    NSTimeInterval interval = [date timeIntervalSinceDate:today];
-    
-    if (interval < 0) {
-        return YES;
-    }
-    
-    return NO;
-}
-
-- (BOOL)isDurationValidForStartPickerDate:(CXDurationPickerDate)startPickerDate
-                         andEndPickerDate:(CXDurationPickerDate)endPickerDate {
-    
-    NSDate *startDate = [CXDurationPickerUtils dateFromPickerDate:startPickerDate];
-    NSDate *endDate = [CXDurationPickerUtils dateFromPickerDate:endPickerDate];
-    
-    if ([startDate timeIntervalSinceDate:endDate] > 0) {
-        return NO;
-    }
-    
-    if ([endDate timeIntervalSinceDate:startDate] < 0) {
-        return NO;
-    }
-    
-    return YES;
-}
-
 - (void)addMonths {
     NSUInteger latestMonthIndex = [self.monthViews count];
     
@@ -414,12 +401,29 @@
     });
 }
 
+- (void)changeSingleDateForDayView:(CXDurationPickerDayView *)dayView {
+    CXDurationPickerDayView *oldDayView = [self dayForPickerDate:self.singleDate];
+    oldDayView.type = CXDurationPickerDayTypeNormal;
+    
+    dayView.type = CXDurationPickerDayTypeSingle;
+    
+    self.singleDate = dayView.pickerDate;
+}
+
 - (void)clearCurrentDuration {
     for (long i = 0, ii = [self.days count]; i < ii; i++) {
         CXDurationPickerDayView *day = (CXDurationPickerDayView *) [self.days objectAtIndex:i];
         
         day.type = CXDurationPickerDayTypeNormal;
     }
+}
+
+- (void)clearSingle {
+    CXDurationPickerDayView *oldDayView = [self dayForPickerDate:self.singleDate];
+    
+    oldDayView.type = CXDurationPickerDayTypeNormal;
+    
+    oldDayView = nil;
 }
 
 - (void)createDuration {
@@ -452,26 +456,31 @@
     }
 }
 
-- (CXDurationPickerDate)pickerDateBetweenStartDate:(NSDate*)startDate andEndDate:(NSDate*)endDate {
-    NSDate *d1;
-    NSDate *d2;
+- (void)createSingle {
+    CXDurationPickerDate today = [self pickerDateForToday];
     
-    [self.calendar rangeOfUnit:NSCalendarUnitDay startDate:&d1
-                      interval:nil forDate:startDate];
+    self.singleDate = today;
     
-    [self.calendar rangeOfUnit:NSCalendarUnitDay startDate:&d2
-                      interval:nil forDate:endDate];
+    CXDurationPickerDayView *dayView = [self dayForPickerDate:self.singleDate];
     
-    NSDateComponents *components = [self.calendar
-                                    components:NSCalendarUnitYear|NSCalendarUnitMonth|NSCalendarUnitDay
-                                    fromDate:d1 toDate:d2 options:0];
+    dayView.type = CXDurationPickerDayTypeSingle;
+}
+
+- (CXDurationPickerDayView *)dayForPickerDate:(CXDurationPickerDate)pickerDate {
+    if (pickerDate.year == 0) {
+        return nil;
+    }
     
+    CXDurationPickerDayView *day;
     
-    return (CXDurationPickerDate) {
-        components.year,
-        components.month,
-        components.day
-    };
+    for (CXDurationPickerMonthView *monthView in self.monthViews) {
+        if ([monthView containsDate:pickerDate]) {
+            day = [monthView dayForPickerDate:pickerDate];
+            break;
+        }
+    }
+    
+    return day;
 }
 
 - (NSMutableArray *)daysBetween:(CXDurationPickerDate)startDate and:(CXDurationPickerDate)endDate {
@@ -529,11 +538,78 @@
 - (void)initWithDefaultDuration {
     CXDurationPickerDate today = [self pickerDateForToday];
     
-    [self setStartDate:today];
+    _startDate = today;
     
     CXDurationPickerDate tomorrow = [self pickerDateForTomorrow];
     
-    [self setEndDate:tomorrow];
+    _endDate = tomorrow;
+    
+    [self createDuration];
+}
+
+- (BOOL)isPickerDate:(CXDurationPickerDate)startPickerDate
+             equalTo:(CXDurationPickerDate)endPickerDate {
+    
+    NSDate *startDate = [CXDurationPickerUtils dateFromPickerDate:startPickerDate];
+    NSDate *endDate = [CXDurationPickerUtils dateFromPickerDate:endPickerDate];
+    
+    if ([startDate timeIntervalSinceDate:endDate] == 0) {
+        return YES;
+    }
+    
+    return NO;
+}
+
+- (BOOL)isPickerDateInPast:(CXDurationPickerDate)pickerDate {
+    NSDate *today = [CXDurationPickerUtils today];
+    NSDate *date = [CXDurationPickerUtils dateFromPickerDate:pickerDate];
+    
+    NSTimeInterval interval = [date timeIntervalSinceDate:today];
+    
+    if (interval < 0) {
+        return YES;
+    }
+    
+    return NO;
+}
+
+- (BOOL)isDurationValidForStartPickerDate:(CXDurationPickerDate)startPickerDate
+                         andEndPickerDate:(CXDurationPickerDate)endPickerDate {
+    
+    NSDate *startDate = [CXDurationPickerUtils dateFromPickerDate:startPickerDate];
+    NSDate *endDate = [CXDurationPickerUtils dateFromPickerDate:endPickerDate];
+    
+    if ([startDate timeIntervalSinceDate:endDate] > 0) {
+        return NO;
+    }
+    
+    if ([endDate timeIntervalSinceDate:startDate] < 0) {
+        return NO;
+    }
+    
+    return YES;
+}
+
+- (CXDurationPickerDate)pickerDateBetweenStartDate:(NSDate*)startDate andEndDate:(NSDate*)endDate {
+    NSDate *d1;
+    NSDate *d2;
+    
+    [self.calendar rangeOfUnit:NSCalendarUnitDay startDate:&d1
+                      interval:nil forDate:startDate];
+    
+    [self.calendar rangeOfUnit:NSCalendarUnitDay startDate:&d2
+                      interval:nil forDate:endDate];
+    
+    NSDateComponents *components = [self.calendar
+                                    components:NSCalendarUnitYear|NSCalendarUnitMonth|NSCalendarUnitDay
+                                    fromDate:d1 toDate:d2 options:0];
+    
+    
+    return (CXDurationPickerDate) {
+        components.year,
+        components.month,
+        components.day
+    };
 }
 
 - (CXDurationPickerDate)pickerDateForToday {
@@ -572,6 +648,24 @@
     _endDate = endDate;
     
     [self createDuration];
+}
+
+- (void)setType:(CXDurationPickerType)type {
+    if (type == CXDurationPickerTypeSingle) {
+        [self clearCurrentDuration];
+        [self createSingle];
+        self.mode = CXDurationPickerModeSingleDate;
+    } else {
+        [self clearSingle];
+        [self initWithDefaultDuration];
+        [self createDuration];
+        self.mode = CXDurationPickerModeStartDate;
+    }
+    
+    _type = type;
+    
+    //CXDurationPickerMonthView *monthView = [self.monthViews firstObject];
+    //[monthView dump];
 }
 
 - (void)setStartDate:(CXDurationPickerDate)startDate {

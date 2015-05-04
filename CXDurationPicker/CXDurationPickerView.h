@@ -24,6 +24,7 @@
 @protocol CXDurationPickerViewDelegate <NSObject>
 
 - (void)durationPicker:(CXDurationPickerView *)durationPicker endDateChanged:(CXDurationPickerDate)date;
+- (void)durationPicker:(CXDurationPickerView *)durationPicker singleDateChanged:(CXDurationPickerDate)date;
 - (void)durationPicker:(CXDurationPickerView *)durationPicker startDateChanged:(CXDurationPickerDate)date;
 
 @optional
@@ -40,9 +41,11 @@
 @interface CXDurationPickerView : UIView <CXDurationPickerMonthViewDelegate, UITableViewDataSource, UITableViewDelegate>
 
 @property (weak, nonatomic) id<CXDurationPickerViewDelegate> delegate;
+@property (nonatomic) CXDurationPickerDate singleDate;
 @property (nonatomic) CXDurationPickerDate startDate;
 @property (nonatomic) CXDurationPickerDate endDate;
 @property (nonatomic) CXDurationPickerMode mode;
+@property (nonatomic) CXDurationPickerType type;    
 @property (nonatomic) BOOL allowSelectionsInPast;
 
 // Month-specific colors

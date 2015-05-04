@@ -46,12 +46,12 @@
     [self.switcher setEndDateString:[CXDurationPickerUtils stringFromPickerDate:pickerDate]];
 }
 
-// For this demo, we show how to automatically adjust the mode switch (and mode)
-// programmatically. Once user selects start date we switch to end date mode.
-//
+- (void)durationPicker:(CXDurationPickerView *)durationPicker singleDateChanged:(CXDurationPickerDate)pickerDate {
+    self.singleDateViewLabel.text = [CXDurationPickerUtils stringFromPickerDate:pickerDate];
+}
+
 - (void)durationPicker:(CXDurationPickerView *)durationPicker startDateChanged:(CXDurationPickerDate)pickerDate {
     [self.switcher setStartDateString:[CXDurationPickerUtils stringFromPickerDate:pickerDate]];
-    //[self.switcher setMode:CXDurationPickerModeEndDate];
 }
 
 #pragma mark - CXDurationPickerViewDelegate Optionals
@@ -91,14 +91,44 @@
     NSLog(@"Date was selected in the past. Ignoring.");
 }
 
+#pragma mark - Segmented Mode Switcher
+
+- (IBAction)segmentedModeSwitcherChanged {
+    if (self.segmentedModeSwitcher.selectedSegmentIndex == 0) {
+        self.switcher.alpha = 1;
+        self.singleDateView.alpha = 0;
+        self.picker.type = CXDurationPickerTypeDuration;
+        self.switcher.mode = CXDurationPickerModeStartDate;
+    } else if (self.segmentedModeSwitcher.selectedSegmentIndex == 1) {
+        self.switcher.alpha = 0;
+        self.singleDateView.alpha = 1;
+        self.picker.type = CXDurationPickerTypeSingle;
+    }
+    
+    [self synchronizeComponents];
+}
+
 #pragma mark - Utilities
 
 - (void)synchronizeComponents {
+    if (self.segmentedModeSwitcher.selectedSegmentIndex == 0) {
+        [self synchronizeRange];
+    } else if (self.segmentedModeSwitcher.selectedSegmentIndex == 1) {
+        [self synchronizeSingle];
+    }
+}
+
+- (void)synchronizeRange {
     CXDurationPickerDate startDate = self.picker.startDate;
     [self.switcher setStartDateString:[CXDurationPickerUtils stringFromPickerDate:startDate]];
     
     CXDurationPickerDate endDate = self.picker.endDate;
     [self.switcher setEndDateString:[CXDurationPickerUtils stringFromPickerDate:endDate]];
+}
+
+- (void)synchronizeSingle {
+    CXDurationPickerDate pickerDate = self.picker.singleDate;
+    self.singleDateViewLabel.text = [CXDurationPickerUtils stringFromPickerDate:pickerDate];
 }
 
 @end

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6254" systemVersion="14B25" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7531" systemVersion="14D131" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="BYZ-38-t0r">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6247"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7520"/>
     </dependencies>
     <scenes>
         <!--View Controller-->
@@ -16,24 +16,81 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="yxi-eq-vYG" customClass="CXDurationModeSwitch">
-                                <rect key="frame" x="0.0" y="20" width="414" height="85"/>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="yxi-eq-vYG" customClass="CXDurationModeSwitch">
+                                <rect key="frame" x="0.0" y="56" width="414" height="85"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="85" id="6wf-K8-WEe"/>
+                                </constraints>
+                            </view>
+                            <view alpha="0.0" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="aVL-AN-xWU">
+                                <rect key="frame" x="0.0" y="56" width="414" height="85"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Foo" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uTj-E9-MFW">
+                                        <rect key="frame" x="192" y="32" width="30" height="21"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                                <color key="backgroundColor" red="0.0" green="0.47058823529411764" blue="0.78431372549019607" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="tintColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="85" id="3Sl-9n-goX"/>
+                                    <constraint firstAttribute="centerX" secondItem="uTj-E9-MFW" secondAttribute="centerX" id="fhE-Z5-TG7"/>
+                                    <constraint firstAttribute="centerY" secondItem="uTj-E9-MFW" secondAttribute="centerY" id="wub-2h-7MU"/>
+                                </constraints>
+                            </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="e6v-9n-hsg" customClass="CXDurationPickerView">
+                                <rect key="frame" x="0.0" y="149" width="414" height="587"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             </view>
-                            <view contentMode="scaleToFill" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="e6v-9n-hsg" customClass="CXDurationPickerView">
-                                <rect key="frame" x="0.0" y="113" width="414" height="623"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                            </view>
+                            <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="Tzv-Ep-rID">
+                                <rect key="frame" x="109" y="20" width="197" height="29"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="197" id="3We-uy-Bcd"/>
+                                </constraints>
+                                <segments>
+                                    <segment title="Date Range"/>
+                                    <segment title="Single Date"/>
+                                </segments>
+                                <connections>
+                                    <action selector="segmentedModeSwitcherChanged" destination="BYZ-38-t0r" eventType="valueChanged" id="9Sc-KY-k8p"/>
+                                </connections>
+                            </segmentedControl>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="yxi-eq-vYG" firstAttribute="width" secondItem="8bC-Xf-vdC" secondAttribute="width" id="qh8-5c-UWJ"/>
-                            <constraint firstItem="e6v-9n-hsg" firstAttribute="width" secondItem="8bC-Xf-vdC" secondAttribute="width" id="rib-zs-4nb"/>
+                            <constraint firstItem="aVL-AN-xWU" firstAttribute="width" secondItem="8bC-Xf-vdC" secondAttribute="width" id="45V-18-z6g"/>
+                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="e6v-9n-hsg" secondAttribute="bottom" id="BIg-8y-0oF"/>
+                            <constraint firstItem="aVL-AN-xWU" firstAttribute="top" secondItem="Tzv-Ep-rID" secondAttribute="bottom" constant="8" symbolic="YES" id="Jrq-T2-aBg"/>
+                            <constraint firstAttribute="width" secondItem="e6v-9n-hsg" secondAttribute="width" id="QHx-Sh-aDZ"/>
+                            <constraint firstItem="Tzv-Ep-rID" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="WHc-FF-gXz"/>
+                            <constraint firstItem="yxi-eq-vYG" firstAttribute="width" secondItem="8bC-Xf-vdC" secondAttribute="width" id="WfF-hx-hGd"/>
+                            <constraint firstItem="Tzv-Ep-rID" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" id="WkN-SJ-Jcd"/>
+                            <constraint firstItem="aVL-AN-xWU" firstAttribute="top" secondItem="Tzv-Ep-rID" secondAttribute="top" constant="36" id="Xcl-gG-NUo"/>
+                            <constraint firstAttribute="bottom" secondItem="yxi-eq-vYG" secondAttribute="bottom" constant="595" id="YIf-5T-nTc"/>
+                            <constraint firstItem="Tzv-Ep-rID" firstAttribute="centerX" secondItem="aVL-AN-xWU" secondAttribute="centerX" id="Zwg-gi-S6Z"/>
+                            <constraint firstItem="yxi-eq-vYG" firstAttribute="top" secondItem="Tzv-Ep-rID" secondAttribute="top" constant="36" id="aEH-wf-qDR"/>
+                            <constraint firstItem="yxi-eq-vYG" firstAttribute="top" secondItem="e6v-9n-hsg" secondAttribute="top" constant="-93" id="eJg-6g-qxu"/>
+                            <constraint firstItem="Tzv-Ep-rID" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" id="juM-hz-kvC"/>
+                            <constraint firstAttribute="centerX" secondItem="yxi-eq-vYG" secondAttribute="centerX" id="oov-eN-zAq"/>
+                            <constraint firstItem="yxi-eq-vYG" firstAttribute="height" secondItem="8bC-Xf-vdC" secondAttribute="height" id="oso-9g-P14"/>
+                            <constraint firstAttribute="centerX" secondItem="e6v-9n-hsg" secondAttribute="centerX" id="zsP-ki-wbO"/>
                         </constraints>
+                        <variation key="default">
+                            <mask key="constraints">
+                                <exclude reference="YIf-5T-nTc"/>
+                                <exclude reference="oso-9g-P14"/>
+                            </mask>
+                        </variation>
                     </view>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina55"/>
                     <connections>
                         <outlet property="picker" destination="e6v-9n-hsg" id="3Tq-62-Ugz"/>
+                        <outlet property="segmentedModeSwitcher" destination="Tzv-Ep-rID" id="oTf-tA-DfE"/>
+                        <outlet property="singleDateView" destination="aVL-AN-xWU" id="Byd-A3-6JB"/>
+                        <outlet property="singleDateViewLabel" destination="uTj-E9-MFW" id="XGr-ns-OWw"/>
                         <outlet property="switcher" destination="yxi-eq-vYG" id="JQ2-h6-I6Z"/>
                     </connections>
                 </viewController>

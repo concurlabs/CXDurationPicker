@@ -200,6 +200,19 @@
     return NO;
 }
 
+- (CXDurationPickerDayView *)dayForPickerDate:(CXDurationPickerDate)pickerDate {
+    CXDurationPickerDayView *day;
+    
+    for (CXDurationPickerDayView *dayView in self.days) {
+        if (dayView.pickerDate.day == pickerDate.day) {
+            day = dayView;
+            break;
+        }
+    }
+    
+    return day;
+}
+
 - (void)setupViews {
     self.dateString = [NSString stringWithFormat:@"%@", [self monthNameFromDate:self.date]];
     
