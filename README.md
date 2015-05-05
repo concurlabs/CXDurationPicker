@@ -1,4 +1,4 @@
-[![Build Status](http://img.shields.io/travis/concurlabs/CXDurationPicker.svg?style=flat)](https://travis-ci.org/concurlabs/CXDurationPicker) [![Version](http://img.shields.io/cocoapods/v/CXDurationPicker.svg?style=flat)](http://cocoapods.org/?q=CXDurationPicker) [![Platform](http://img.shields.io/cocoapods/p/CXDurationPicker.svg?style=flat)](http://cocoapods.org/?q=CXDurationPicker) [![License](http://img.shields.io/cocoapods/l/CXDurationPicker.svg?style=flat)](LICENSE)
+[![Build Status](http://img.shields.io/travis/concurlabs/CXDurationPicker.svg?style=flat)](https://travis-ci.org/concurlabs/CXDurationPicker) [![Coverage Status](https://coveralls.io/repos/concurlabs/CXDurationPicker/badge.svg)](https://coveralls.io/r/concurlabs/CXDurationPicker) [![Version](http://img.shields.io/cocoapods/v/CXDurationPicker.svg?style=flat)](http://cocoapods.org/?q=CXDurationPicker) [![Platform](http://img.shields.io/cocoapods/p/CXDurationPicker.svg?style=flat)](http://cocoapods.org/?q=CXDurationPicker) [![License](http://img.shields.io/cocoapods/l/CXDurationPicker.svg?style=flat)](LICENSE)
 
 # CXDurationPicker
 Custom iOS view for picking a date range
