@@ -1,0 +1,5 @@
+sudo: false
+language: objective-c
+xcode_project: CXDurationPickerDemo/CXDurationPickerDemo.xcodeproj
+xcode_scheme: CXDurationPickerDemo
+xcode_sdk: iphonesimulator
