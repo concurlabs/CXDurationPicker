@@ -35,6 +35,24 @@
     XCTAssertEqual(testComponents.year, 2015, @"Incorrect year returned.");
 }
 
+- (void)testUtilToday {
+    NSDate *t1 = [CXDurationPickerUtils today];
+    
+    NSDate *t2 = [NSDate date];
+    
+    NSCalendar *calendar = [NSCalendar currentCalendar];
+    
+    NSDateComponents *c1 = [calendar components:NSCalendarUnitYear|NSCalendarUnitMonth|NSCalendarUnitDay
+                                               fromDate:t1];
+    
+    NSDateComponents *c2 = [calendar components:NSCalendarUnitYear|NSCalendarUnitMonth|NSCalendarUnitDay
+                                       fromDate:t2];
+    
+    XCTAssertEqual(c1.day, c2.day, "Day is not the same");
+    XCTAssertEqual(c1.month, c2.month, "Month is not the same");
+    XCTAssertEqual(c1.year, c2.year, "Year is not the same");
+}
+
 /*
 - (void)testPerformanceExample {
     // This is an example of a performance test case.
