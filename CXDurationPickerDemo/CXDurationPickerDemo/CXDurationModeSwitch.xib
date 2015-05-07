@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="6254" systemVersion="14B25" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="7531" systemVersion="14D131" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6247"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7520"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="CXDurationModeSwitch">
@@ -21,21 +21,21 @@
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="RsA-Jv-dxc" userLabel="Button 1">
                     <rect key="frame" x="8" y="8" width="192" height="67"/>
                     <subviews>
-                        <label opaque="NO" userInteractionEnabled="NO" alpha="0.70000000000000018" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Check-in Date" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="R73-PB-hpN">
-                            <rect key="frame" x="47" y="13" width="98" height="21"/>
+                        <label opaque="NO" userInteractionEnabled="NO" alpha="0.70000000000000018" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Check-in Date" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="R73-PB-hpN">
+                            <rect key="frame" x="0.0" y="13" width="192" height="21"/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="21" id="65V-0P-ea2"/>
-                                <constraint firstAttribute="width" constant="98" id="RqB-d8-2Fw"/>
+                                <constraint firstAttribute="width" constant="192" id="RqB-d8-2Fw"/>
                             </constraints>
                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
                             <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                             <nil key="highlightedColor"/>
                         </label>
-                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Wed, Dec 4" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="100" translatesAutoresizingMaskIntoConstraints="NO" id="oB5-ci-SUj">
-                            <rect key="frame" x="47" y="34" width="100" height="21"/>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Wed, Dec 4" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="100" translatesAutoresizingMaskIntoConstraints="NO" id="oB5-ci-SUj">
+                            <rect key="frame" x="0.0" y="34" width="192" height="21"/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="21" id="lLh-St-l3W"/>
-                                <constraint firstAttribute="width" constant="100" id="mSH-d8-VGp"/>
+                                <constraint firstAttribute="width" constant="192" id="mSH-d8-VGp"/>
                             </constraints>
                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
                             <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
@@ -57,20 +57,20 @@
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="vMw-Sp-K1M" userLabel="Button 2">
                     <rect key="frame" x="217" y="8" width="191" height="67"/>
                     <subviews>
-                        <label opaque="NO" userInteractionEnabled="NO" alpha="0.69999999999999973" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Check-out Date" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EpV-we-Oog">
-                            <rect key="frame" x="42" y="13" width="107" height="21"/>
+                        <label opaque="NO" userInteractionEnabled="NO" alpha="0.69999999999999973" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Check-out Date" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="EpV-we-Oog">
+                            <rect key="frame" x="0.0" y="13" width="191" height="21"/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="21" id="BQO-vI-4Nl"/>
-                                <constraint firstAttribute="width" constant="107" id="HWR-8U-8t7"/>
+                                <constraint firstAttribute="width" constant="191" id="HWR-8U-8t7"/>
                             </constraints>
                             <fontDescription key="fontDescription" type="system" pointSize="14"/>
                             <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                             <nil key="highlightedColor"/>
                         </label>
-                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Thu, Dec 5" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="150" translatesAutoresizingMaskIntoConstraints="NO" id="hxC-iC-C2C">
-                            <rect key="frame" x="42" y="34" width="100" height="21"/>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Thu, Dec 5" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="150" translatesAutoresizingMaskIntoConstraints="NO" id="hxC-iC-C2C">
+                            <rect key="frame" x="0.0" y="38" width="191" height="21"/>
                             <constraints>
-                                <constraint firstAttribute="width" constant="100" id="YuW-Vv-Xyj"/>
+                                <constraint firstAttribute="width" constant="191" id="YuW-Vv-Xyj"/>
                                 <constraint firstAttribute="height" constant="21" id="gqF-J4-OX5"/>
                             </constraints>
                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
@@ -81,7 +81,7 @@
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                     <gestureRecognizers/>
                     <constraints>
-                        <constraint firstItem="hxC-iC-C2C" firstAttribute="top" secondItem="EpV-we-Oog" secondAttribute="bottom" id="FAZ-Ao-DZq"/>
+                        <constraint firstItem="hxC-iC-C2C" firstAttribute="top" secondItem="EpV-we-Oog" secondAttribute="bottom" constant="4" id="FAZ-Ao-DZq"/>
                         <constraint firstItem="hxC-iC-C2C" firstAttribute="leading" secondItem="EpV-we-Oog" secondAttribute="leading" id="GGX-0m-xU1"/>
                         <constraint firstAttribute="centerX" secondItem="EpV-we-Oog" secondAttribute="centerX" id="Ga7-bM-NV9"/>
                         <constraint firstItem="EpV-we-Oog" firstAttribute="top" secondItem="vMw-Sp-K1M" secondAttribute="top" constant="13" id="gm9-18-qBC"/>
