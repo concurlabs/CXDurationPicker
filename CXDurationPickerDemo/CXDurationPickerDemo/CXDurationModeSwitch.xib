@@ -68,7 +68,7 @@
                             <nil key="highlightedColor"/>
                         </label>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Thu, Dec 5" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="150" translatesAutoresizingMaskIntoConstraints="NO" id="hxC-iC-C2C">
-                            <rect key="frame" x="0.0" y="38" width="191" height="21"/>
+                            <rect key="frame" x="0.0" y="34" width="191" height="21"/>
                             <constraints>
                                 <constraint firstAttribute="width" constant="191" id="YuW-Vv-Xyj"/>
                                 <constraint firstAttribute="height" constant="21" id="gqF-J4-OX5"/>
@@ -81,7 +81,7 @@
                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                     <gestureRecognizers/>
                     <constraints>
-                        <constraint firstItem="hxC-iC-C2C" firstAttribute="top" secondItem="EpV-we-Oog" secondAttribute="bottom" constant="4" id="FAZ-Ao-DZq"/>
+                        <constraint firstItem="hxC-iC-C2C" firstAttribute="top" secondItem="EpV-we-Oog" secondAttribute="bottom" id="FAZ-Ao-DZq"/>
                         <constraint firstItem="hxC-iC-C2C" firstAttribute="leading" secondItem="EpV-we-Oog" secondAttribute="leading" id="GGX-0m-xU1"/>
                         <constraint firstAttribute="centerX" secondItem="EpV-we-Oog" secondAttribute="centerX" id="Ga7-bM-NV9"/>
                         <constraint firstItem="EpV-we-Oog" firstAttribute="top" secondItem="vMw-Sp-K1M" secondAttribute="top" constant="13" id="gm9-18-qBC"/>
