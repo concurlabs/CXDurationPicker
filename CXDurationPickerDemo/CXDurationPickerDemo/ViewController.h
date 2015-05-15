@@ -15,13 +15,13 @@
  */
 
 #import <UIKit/UIKit.h>
+#import <CXTabView/CXTabView.h>
 
-#import "CXDurationModeSwitch.h"
 #import "CXDurationPickerView.h"
 
-@interface ViewController : UIViewController <CXDurationModeSwitchDelegate, CXDurationPickerViewDelegate>
+@interface ViewController : UIViewController <CXTabViewDelegate, CXDurationPickerViewDelegate>
 
-@property (weak, nonatomic) IBOutlet CXDurationModeSwitch *switcher;
+@property (weak, nonatomic) IBOutlet CXTabView *tabView;
 @property (weak, nonatomic) IBOutlet CXDurationPickerView *picker;
 @property (weak, nonatomic) IBOutlet UIView *singleDateView;
 @property (weak, nonatomic) IBOutlet UILabel *singleDateViewLabel;

@@ -16,18 +16,18 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="yxi-eq-vYG" customClass="CXDurationModeSwitch">
-                                <rect key="frame" x="0.0" y="56" width="414" height="85"/>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="yxi-eq-vYG" userLabel="CXTabView" customClass="CXTabView">
+                                <rect key="frame" x="0.0" y="56" width="414" height="64"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="85" id="6wf-K8-WEe"/>
+                                    <constraint firstAttribute="height" constant="64" id="6wf-K8-WEe"/>
                                 </constraints>
                             </view>
-                            <view alpha="0.0" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="aVL-AN-xWU">
-                                <rect key="frame" x="0.0" y="56" width="414" height="85"/>
+                            <view alpha="0.0" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="aVL-AN-xWU" userLabel="Single Date View">
+                                <rect key="frame" x="0.0" y="56" width="414" height="64"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Foo" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uTj-E9-MFW">
-                                        <rect key="frame" x="192" y="32" width="30" height="21"/>
+                                        <rect key="frame" x="192" y="22" width="30" height="21"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                         <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
@@ -36,13 +36,13 @@
                                 <color key="backgroundColor" red="0.0" green="0.47058823529411764" blue="0.78431372549019607" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <color key="tintColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="85" id="3Sl-9n-goX"/>
+                                    <constraint firstAttribute="height" constant="64" id="3Sl-9n-goX"/>
                                     <constraint firstAttribute="centerX" secondItem="uTj-E9-MFW" secondAttribute="centerX" id="fhE-Z5-TG7"/>
                                     <constraint firstAttribute="centerY" secondItem="uTj-E9-MFW" secondAttribute="centerY" id="wub-2h-7MU"/>
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="e6v-9n-hsg" customClass="CXDurationPickerView">
-                                <rect key="frame" x="0.0" y="149" width="414" height="587"/>
+                                <rect key="frame" x="0.0" y="128" width="414" height="608"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             </view>
                             <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="Tzv-Ep-rID">
@@ -72,7 +72,7 @@
                             <constraint firstAttribute="bottom" secondItem="yxi-eq-vYG" secondAttribute="bottom" constant="595" id="YIf-5T-nTc"/>
                             <constraint firstItem="Tzv-Ep-rID" firstAttribute="centerX" secondItem="aVL-AN-xWU" secondAttribute="centerX" id="Zwg-gi-S6Z"/>
                             <constraint firstItem="yxi-eq-vYG" firstAttribute="top" secondItem="Tzv-Ep-rID" secondAttribute="top" constant="36" id="aEH-wf-qDR"/>
-                            <constraint firstItem="yxi-eq-vYG" firstAttribute="top" secondItem="e6v-9n-hsg" secondAttribute="top" constant="-93" id="eJg-6g-qxu"/>
+                            <constraint firstItem="yxi-eq-vYG" firstAttribute="top" secondItem="e6v-9n-hsg" secondAttribute="top" constant="-72" id="eJg-6g-qxu"/>
                             <constraint firstItem="Tzv-Ep-rID" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" id="juM-hz-kvC"/>
                             <constraint firstAttribute="centerX" secondItem="yxi-eq-vYG" secondAttribute="centerX" id="oov-eN-zAq"/>
                             <constraint firstItem="yxi-eq-vYG" firstAttribute="height" secondItem="8bC-Xf-vdC" secondAttribute="height" id="oso-9g-P14"/>
@@ -91,7 +91,7 @@
                         <outlet property="segmentedModeSwitcher" destination="Tzv-Ep-rID" id="oTf-tA-DfE"/>
                         <outlet property="singleDateView" destination="aVL-AN-xWU" id="Byd-A3-6JB"/>
                         <outlet property="singleDateViewLabel" destination="uTj-E9-MFW" id="XGr-ns-OWw"/>
-                        <outlet property="switcher" destination="yxi-eq-vYG" id="JQ2-h6-I6Z"/>
+                        <outlet property="tabView" destination="yxi-eq-vYG" id="MN2-I6-0yK"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
