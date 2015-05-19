@@ -23,6 +23,7 @@
 + (NSDateComponents *)dateComponentsFromPickerDate:(CXDurationPickerDate)pickerDate;
 + (NSDate *)dateFromPickerDate:(CXDurationPickerDate)pickerDate;
 + (CXDurationPickerDate)pickerDateFromDate:(NSDate *)date;
++ (CXDurationPickerDate)pickerDateShiftedByDays:(NSUInteger)days fromPickerDate:(CXDurationPickerDate)pickerDate;
 + (NSString *)stringFromPickerDate:(CXDurationPickerDate)pickerDate;
 + (NSDate *)today;
 

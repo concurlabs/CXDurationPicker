@@ -59,6 +59,7 @@
 		01987E0F1AAD550C006F012F /* CXDurationPickerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CXDurationPickerView.m; path = ../../CXDurationPicker/CXDurationPickerView.m; sourceTree = "<group>"; };
 		42E9336D6E9B544FD5CDDDE0 /* Pods-CXDurationPickerDemo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CXDurationPickerDemo.debug.xcconfig"; path = "Pods/Target Support Files/Pods-CXDurationPickerDemo/Pods-CXDurationPickerDemo.debug.xcconfig"; sourceTree = "<group>"; };
 		85E43D292B7B55B586BE704B /* Pods-CXDurationPickerDemo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CXDurationPickerDemo.release.xcconfig"; path = "Pods/Target Support Files/Pods-CXDurationPickerDemo/Pods-CXDurationPickerDemo.release.xcconfig"; sourceTree = "<group>"; };
+		91818EB62720CF7386DD2D5F /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		B7CD12B693DC5CCBD5F886EF /* libPods-CXDurationPickerDemo.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-CXDurationPickerDemo.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -174,6 +175,7 @@
 			isa = PBXGroup;
 			children = (
 				B7CD12B693DC5CCBD5F886EF /* libPods-CXDurationPickerDemo.a */,
+				91818EB62720CF7386DD2D5F /* libPods.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";

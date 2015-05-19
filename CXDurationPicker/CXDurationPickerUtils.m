@@ -49,6 +49,20 @@
     };
 }
 
++ (CXDurationPickerDate)pickerDateShiftedByDays:(NSUInteger)days fromPickerDate:(CXDurationPickerDate)pickerDate {
+    NSDate *startDate = [CXDurationPickerUtils dateFromPickerDate:pickerDate];
+    
+    NSCalendar *calendar = [NSCalendar currentCalendar];
+    
+    NSDateComponents *components = [NSDateComponents new];
+    
+    components.day = days;
+    
+    NSDate *shiftedDate = [calendar dateByAddingComponents:components toDate:startDate options:0];
+    
+    return [CXDurationPickerUtils pickerDateFromDate:shiftedDate];
+}
+
 + (NSString *)stringFromPickerDate:(CXDurationPickerDate)pickerDate {
     NSDate *date = [CXDurationPickerUtils dateFromPickerDate:pickerDate];
     

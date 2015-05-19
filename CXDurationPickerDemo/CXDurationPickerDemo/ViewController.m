@@ -31,6 +31,24 @@
     
     self.picker.mode = CXDurationPickerModeStartDate;
     
+//    CXDurationPickerDate endPickerDate;
+//    endPickerDate.day = 23;
+//    endPickerDate.month = 5;
+//    endPickerDate.year = 2015;
+//    
+//    [self.picker setStartDate:endPickerDate];
+//    
+//    self.picker.mode = CXDurationPickerModeStartDate;
+//    
+//    CXDurationPickerDate startPickerDate;
+//    startPickerDate.day = 19;
+//    startPickerDate.month = 5;
+//    startPickerDate.year = 2015;
+//    
+//    [self.picker setStartDate:startPickerDate];
+//
+//    [self.picker setStartPickerDate:d withDuration:5];
+    
     [self synchronizeComponents];
 }
 

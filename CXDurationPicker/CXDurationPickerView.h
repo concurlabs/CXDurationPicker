@@ -80,4 +80,7 @@
 - (BOOL)shiftDurationToEndPickerDate:(CXDurationPickerDate)pickerDate error:(NSError **)error;
 - (BOOL)shiftDurationToStartPickerDate:(CXDurationPickerDate)pickerDate error:(NSError **)error;
 
+- (void)setStartDate:(NSDate *)date withDuration:(NSUInteger)days;
+- (void)setStartPickerDate:(CXDurationPickerDate)pickerDate withDuration:(NSUInteger)days;
+
 @end

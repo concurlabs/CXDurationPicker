@@ -277,6 +277,22 @@
 
 #pragma mark - Public API
 
+- (void)setStartDate:(NSDate *)date withDuration:(NSUInteger)days {
+    CXDurationPickerDate pickerDate = [CXDurationPickerUtils pickerDateFromDate:date];
+    
+    [self setStartPickerDate:pickerDate withDuration:days];
+}
+
+- (void)setStartPickerDate:(CXDurationPickerDate)pickerDate withDuration:(NSUInteger)days {
+    [self clearCurrentDuration];
+    
+    _startDate = pickerDate;
+    
+    _endDate = [CXDurationPickerUtils pickerDateShiftedByDays:days fromPickerDate:pickerDate];
+    
+    [self createDuration];
+}
+
 - (void)shiftDurationToEndPickerDate:(CXDurationPickerDate)pickerDate {
     NSError *error;
     
@@ -436,6 +452,8 @@
     if (self.endDate.year == 0) {
         return;
     }
+    
+    [self clearCurrentDuration];
     
     self.days = [self daysBetween:self.startDate and:self.endDate];
     

@@ -1,3 +1,8 @@
 platform :ios, '7.0'
 
-pod 'CXTabView', '~> 0.1.0'
+target 'CXDurationPickerDemo' do
+    pod 'CXTabView', '~> 0.1.0'
+end
+
+target 'CXDurationPickerDemoTests' do
+end
