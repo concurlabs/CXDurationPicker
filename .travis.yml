@@ -3,10 +3,9 @@ language: objective-c
 xcode_workspace: CXDurationPickerDemo/CXDurationPickerDemo.xcworkspace
 xcode_scheme: CXDurationPickerDemo
 xcode_sdk: iphonesimulator
+podfile: CXDurationPickerDemo/Podfile
 
 before_install:
-  - gem install cocoapods --no-rdoc --no-ri --no-document --quiet
   - gem install slather --no-ri --no-rdoc
-  - pod install
 
 after_success: slather
