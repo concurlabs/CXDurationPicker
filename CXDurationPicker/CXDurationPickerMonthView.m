@@ -93,9 +93,9 @@
     
     self.dateLabel.frame = CGRectMake(self.monthOffset, 0,
                                       self.bounds.size.width - self.monthOffset,
-                                      self.monthTitleHeight);
-    
-    float yOffset = self.monthTitleHeight + 10;
+                                      self.monthTitleHeight + 4);
+
+    float yOffset = self.dateLabel.frame.size.height + 10;
     
     for (int i = 0; i < 7; i++) {
         float xOffset = 0;
@@ -164,7 +164,7 @@
     
     NSUInteger height = 0;
     
-    height += (self.monthTitleHeight + 10);
+    height += (self.dateLabel.frame.size.height + 10);
     height += (self.weekTitleHeight + 5);
     
     NSDate *date = [self dateForFirstDayInSection:self.monthIndex];
