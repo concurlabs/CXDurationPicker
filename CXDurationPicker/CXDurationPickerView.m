@@ -57,6 +57,8 @@
     
     self.monthViews = [[NSMutableArray alloc] init];
     
+    NSLog(@"view frame = %@", NSStringFromCGRect(self.frame));
+    
     self.table = [[UITableView alloc] initWithFrame:self.bounds];
     
     [self addSubview:self.table];
@@ -166,22 +168,6 @@
     return cellHeight;
 }
 
-- (CXDurationPickerMonthView *)monthViewForRow:(NSInteger)row {
-    CXDurationPickerMonthView *view;
-    
-    if (row >= [self.monthViews count]) {
-        view = [[CXDurationPickerMonthView alloc] initWithFrame:self.bounds];
-        
-        view.monthIndex = row;
-        
-        [view sizeToFit];
-    } else {
-        view = [self.monthViews objectAtIndex:row];
-    }
-    
-    return view;
-}
-
 #pragma mark - CXCalendarMonthViewDelegate
 
 - (void)monthView:(CXDurationPickerMonthView *)view daySelected:(CXDurationPickerDayView *)dayView {
@@ -276,6 +262,16 @@
 }
 
 #pragma mark - Public API
+
+- (void)scrollToStartMonth:(BOOL)animated {
+    dispatch_async(dispatch_get_main_queue(), ^{
+        NSIndexPath *path = [self indexPathForPickerDate:self.startDate];
+        
+        if (path) {
+            [self.table scrollToRowAtIndexPath:path atScrollPosition:UITableViewScrollPositionTop animated:animated];
+        }
+    });
+}
 
 - (void)setStartDate:(NSDate *)date withDuration:(NSUInteger)days {
     CXDurationPickerDate pickerDate = [CXDurationPickerUtils pickerDateFromDate:date];
@@ -392,7 +388,7 @@
 - (void)addMonths {
     NSUInteger latestMonthIndex = [self.monthViews count];
     
-    for (int i = 0; i < 12; i++) {
+    for (int i = 0; i < 24; i++) {
         CXDurationPickerMonthView *view = [[CXDurationPickerMonthView alloc] initWithFrame:self.bounds];
         
         view.padding = UIEdgeInsetsMake(5, 0, 20, 0);
@@ -606,6 +602,49 @@
     }
     
     return YES;
+}
+
+- (NSIndexPath *)indexPathForPickerDate:(CXDurationPickerDate)pickerDate {
+    CXDurationPickerMonthView *monthView = [self monthForPickerDate:pickerDate];
+    
+    if (monthView) {
+        return [NSIndexPath indexPathForRow:monthView.monthIndex inSection:0];
+    } else {
+        return nil;
+    }
+}
+
+- (CXDurationPickerMonthView *)monthForPickerDate:(CXDurationPickerDate)pickerDate {
+    if (pickerDate.year == 0) {
+        return nil;
+    }
+    
+    CXDurationPickerMonthView *month;
+    
+    for (CXDurationPickerMonthView *monthView in self.monthViews) {
+        if ([monthView containsDate:pickerDate]) {
+            month = monthView;
+            break;
+        }
+    }
+    
+    return month;
+}
+
+- (CXDurationPickerMonthView *)monthViewForRow:(NSInteger)row {
+    CXDurationPickerMonthView *view;
+    
+    if (row >= [self.monthViews count]) {
+        view = [[CXDurationPickerMonthView alloc] initWithFrame:self.bounds];
+        
+        view.monthIndex = row;
+        
+        [view sizeToFit];
+    } else {
+        view = [self.monthViews objectAtIndex:row];
+    }
+    
+    return view;
 }
 
 - (CXDurationPickerDate)pickerDateBetweenStartDate:(NSDate*)startDate andEndDate:(NSDate*)endDate {

@@ -72,6 +72,8 @@
 @property (strong, nonatomic) UIColor *transitBackgroundColor;
 @property (strong, nonatomic) UIColor *transitForegroundColor;
 
+- (void)scrollToStartMonth:(BOOL)animated;
+
 // Maintained for backward-compat. Will be removed in v1.0
 //
 - (void)shiftDurationToEndPickerDate:(CXDurationPickerDate)pickerDate __attribute__((deprecated));
