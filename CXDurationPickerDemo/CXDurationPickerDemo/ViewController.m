@@ -49,6 +49,8 @@
 //
 //    [self.picker setStartPickerDate:d withDuration:5];
     
+    self.picker.allowSelectionsInPast = YES;
+    
     [self synchronizeComponents];
 }
 
@@ -69,21 +71,29 @@
 
 #pragma mark - CXDurationPickerViewDelegate
 
-- (void)durationPicker:(CXDurationPickerView *)durationPicker endDateChanged:(CXDurationPickerDate)pickerDate {
+- (void)durationPicker:(CXDurationPickerView *)durationPicker
+        endDateChanged:(CXDurationPickerDate)pickerDate {
+    
     self.tabView.durationEndString = [CXDurationPickerUtils stringFromPickerDate:pickerDate];
 }
 
-- (void)durationPicker:(CXDurationPickerView *)durationPicker singleDateChanged:(CXDurationPickerDate)pickerDate {
+- (void)durationPicker:(CXDurationPickerView *)durationPicker
+     singleDateChanged:(CXDurationPickerDate)pickerDate {
+    
     self.singleDateViewLabel.text = [CXDurationPickerUtils stringFromPickerDate:pickerDate];
 }
 
-- (void)durationPicker:(CXDurationPickerView *)durationPicker startDateChanged:(CXDurationPickerDate)pickerDate {
+- (void)durationPicker:(CXDurationPickerView *)durationPicker
+      startDateChanged:(CXDurationPickerDate)pickerDate {
+    
     self.tabView.durationStartString = [CXDurationPickerUtils stringFromPickerDate:pickerDate];
 }
 
 #pragma mark - CXDurationPickerViewDelegate Optionals
 
-- (void)durationPicker:(CXDurationPickerView *)durationPicker invalidEndDateSelected:(CXDurationPickerDate)date {
+- (void)durationPicker:(CXDurationPickerView *)durationPicker
+invalidEndDateSelected:(CXDurationPickerDate)date {
+    
     NSLog(@"Invalid end date selected.");
     
     NSError *error;

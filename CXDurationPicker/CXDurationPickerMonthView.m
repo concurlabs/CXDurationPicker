@@ -39,6 +39,8 @@
 
 @implementation CXDurationPickerMonthView
 
+#pragma mark - Lifecycle
+
 - (void)baseInit {
     self.monthTitleHeight = 16;
     self.weekTitleHeight = 12;
@@ -189,7 +191,7 @@
     }
 }
 
-#pragma mark - Business logic
+#pragma mark - Internal
 
 - (BOOL)containsDate:(CXDurationPickerDate)pickerDate {
     if (self.pickerMonth.month == pickerDate.month
@@ -284,10 +286,17 @@
         
         [v addGestureRecognizer:tap];
         
-        if (self.components.year <= todayComponents.year
-            && self.components.month <= todayComponents.month
-            && i < todayComponents.day - 1) {
+        if (self.components.year < todayComponents.year) {
             v.isDisabled = YES;
+        } else if (self.components.year <= todayComponents.year
+                   && self.components.month < todayComponents.month) {
+            v.isDisabled = YES;
+        } else if (self.components.year == todayComponents.year
+                   && self.components.month == todayComponents.month
+                   && i < todayComponents.day - 1) {
+            v.isDisabled = YES;
+        } else {
+            v.isDisabled = NO;
         }
         
         if (self.components.year == todayComponents.year
@@ -347,6 +356,8 @@
 }
 
 - (NSDate *)dateForFirstDayInSection:(NSInteger)section {
+    section = section - 12;
+    
     NSDate *now = [_calendar dateFromComponents:[_calendar components:NSCalendarUnitYear|NSCalendarUnitMonth
                                                              fromDate:[NSDate date]]];
     
@@ -458,11 +469,6 @@
     [self setDayLabelsToColor:_dayLabelColor];
 }
 
-- (void)setMonthLabelColor:(UIColor *)color {
-    _monthLabelColor = color;
-    [self.dateLabel setTextColor:self.monthLabelColor];
-}
-
 // Day-specific colors
 //
 - (void)setDayBackgroundColor:(UIColor *)color {
@@ -488,6 +494,11 @@
 - (void)setGridColor:(UIColor *)color {
     _gridColor = color;
     [self setDaysToColor:_gridColor forKey:@"gridColor"];
+}
+
+- (void)setMonthLabelColor:(UIColor *)color {
+    _monthLabelColor = color;
+    [self.dateLabel setTextColor:self.monthLabelColor];
 }
 
 - (void)setTerminalBackgroundColor:(UIColor *)color {

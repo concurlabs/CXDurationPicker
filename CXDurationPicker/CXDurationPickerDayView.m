@@ -112,12 +112,12 @@
     //
     CGColorRef color;
     
-    if (self.isDisabled) {
-        color = self.disabledDayForegroundColor.CGColor;
-    } else if (self.type == CXDurationPickerDayTypeStart
+     if (self.type == CXDurationPickerDayTypeStart
                || self.type == CXDurationPickerDayTypeEnd
                || self.type == CXDurationPickerDayTypeSingle) {
         color = self.terminalForegroundColor.CGColor;
+    } else if (self.isDisabled) {
+        color = self.disabledDayForegroundColor.CGColor;
     } else if (self.type == CXDurationPickerDayTypeTransit) {
         color = self.transitForegroundColor.CGColor;
     } else {

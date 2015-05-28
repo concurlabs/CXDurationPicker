@@ -33,6 +33,8 @@
 
 @implementation CXDurationPickerView
 
+#pragma mark - Lifecycle
+
 - (void)baseInit {
     self.calendar = [NSCalendar currentCalendar];
     
@@ -57,8 +59,6 @@
     
     self.monthViews = [[NSMutableArray alloc] init];
     
-    NSLog(@"view frame = %@", NSStringFromCGRect(self.frame));
-    
     self.table = [[UITableView alloc] initWithFrame:self.bounds];
     
     [self addSubview:self.table];
@@ -73,6 +73,8 @@
     [self addMonths];
     
     [self initWithDefaultDuration];
+    
+    [self scrollToToday:NO];
 }
 
 - (void)awakeFromNib {
@@ -196,24 +198,30 @@
     //
     if (self.mode == CXDurationPickerModeStartDate) {
         if ([self isPickerDateInPast:dayView.pickerDate]) {
-            if ([self.delegate respondsToSelector:@selector(durationPicker:didSelectDateInPast:forMode:)]) {
-                [self.delegate durationPicker:self didSelectDateInPast:dayView.pickerDate forMode:_mode];
+            if (!self.allowSelectionsInPast) {
+                if ([self.delegate respondsToSelector:@selector(durationPicker:didSelectDateInPast:forMode:)]) {
+                    [self.delegate durationPicker:self didSelectDateInPast:dayView.pickerDate forMode:_mode];
+                }
+                return;
             }
-            return;
         }
     } else if (self.mode == CXDurationPickerModeEndDate) {
         if ([self isPickerDateInPast:dayView.pickerDate]) {
-            if ([self.delegate respondsToSelector:@selector(durationPicker:didSelectDateInPast:forMode:)]) {
-                [self.delegate durationPicker:self didSelectDateInPast:dayView.pickerDate forMode:_mode];
+            if (!self.allowSelectionsInPast) {
+                if ([self.delegate respondsToSelector:@selector(durationPicker:didSelectDateInPast:forMode:)]) {
+                    [self.delegate durationPicker:self didSelectDateInPast:dayView.pickerDate forMode:_mode];
+                }
+                return;
             }
-            return;
         }
     } else if (self.mode == CXDurationPickerModeSingleDate) {
         if ([self isPickerDateInPast:dayView.pickerDate]) {
-            if ([self.delegate respondsToSelector:@selector(durationPicker:didSelectDateInPast:forMode:)]) {
-                [self.delegate durationPicker:self didSelectDateInPast:dayView.pickerDate forMode:_mode];
+            if (!self.allowSelectionsInPast) {
+                if ([self.delegate respondsToSelector:@selector(durationPicker:didSelectDateInPast:forMode:)]) {
+                    [self.delegate durationPicker:self didSelectDateInPast:dayView.pickerDate forMode:_mode];
+                }
+                return;
             }
-            return;
         }
     }
     
@@ -268,7 +276,21 @@
         NSIndexPath *path = [self indexPathForPickerDate:self.startDate];
         
         if (path) {
-            [self.table scrollToRowAtIndexPath:path atScrollPosition:UITableViewScrollPositionTop animated:animated];
+            [self.table scrollToRowAtIndexPath:path
+                              atScrollPosition:UITableViewScrollPositionTop
+                                      animated:animated];
+        }
+    });
+}
+
+- (void)scrollToToday:(BOOL)animated {
+    dispatch_async(dispatch_get_main_queue(), ^{
+        NSIndexPath *path = [NSIndexPath indexPathForRow:12 inSection:0];
+        
+        if (path) {
+            [self.table scrollToRowAtIndexPath:path
+                              atScrollPosition:UITableViewScrollPositionTop
+                                      animated:animated];
         }
     });
 }
