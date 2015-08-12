@@ -69,25 +69,28 @@
     
     // Draw highlighted background.
     //
-    if (self.isToday) {
-        CGContextSetFillColorWithColor(context, self.todayBackgroundColor.CGColor);
-        
-        CGContextFillRect(context, CGRectMake(0.5, 0.5,
-                                              self.bounds.size.width - 1,
-                                              self.bounds.size.height - 1));
-    } else if (self.isDisabled) {
-        CGContextSetFillColorWithColor(context, self.disabledDayBackgroundColor.CGColor);
-        
-        CGContextFillRect(context, CGRectMake(0.5, 0.5,
-                                              self.bounds.size.width - 1,
-                                              self.bounds.size.height - 1));
-    } else {
-        CGContextSetFillColorWithColor(context, self.dayBackgroundColor.CGColor);
-        
-        CGContextFillRect(context, CGRectMake(0.5, 0.5,
-                                              self.bounds.size.width - 1,
-                                              self.bounds.size.height - 1));
-    }
+    // If we're an overlap then don't draw the background as that will overwrite
+    // any previous day grpahics.
+    //
+        if (self.isToday) {
+            CGContextSetFillColorWithColor(context, self.todayBackgroundColor.CGColor);
+            
+            CGContextFillRect(context, CGRectMake(0.5, 0.5,
+                                                  self.bounds.size.width - 1,
+                                                  self.bounds.size.height - 1));
+        } else if (self.isDisabled) {
+            CGContextSetFillColorWithColor(context, self.disabledDayBackgroundColor.CGColor);
+            
+            CGContextFillRect(context, CGRectMake(0.5, 0.5,
+                                                  self.bounds.size.width - 1,
+                                                  self.bounds.size.height - 1));
+        } else {
+            CGContextSetFillColorWithColor(context, self.dayBackgroundColor.CGColor);
+            
+            CGContextFillRect(context, CGRectMake(0.5, 0.5,
+                                                  self.bounds.size.width - 1,
+                                                  self.bounds.size.height - 1));
+        }
     
     // Draw calendar day border.
     //
@@ -112,9 +115,10 @@
     //
     CGColorRef color;
     
-     if (self.type == CXDurationPickerDayTypeStart
-               || self.type == CXDurationPickerDayTypeEnd
-               || self.type == CXDurationPickerDayTypeSingle) {
+    if (self.type == CXDurationPickerDayTypeStart
+        || self.type == CXDurationPickerDayTypeEnd
+        || self.type == CXDurationPickerDayTypeSingle
+        || self.type == CXDurationPickerDayTypeOverlap) {
         color = self.terminalForegroundColor.CGColor;
     } else if (self.isDisabled) {
         color = self.disabledDayForegroundColor.CGColor;
@@ -196,21 +200,38 @@
     //
     if (self.type == CXDurationPickerDayTypeStart
         || self.type == CXDurationPickerDayTypeEnd
-        || self.type == CXDurationPickerDayTypeSingle) {
+        || self.type == CXDurationPickerDayTypeSingle
+        || self.type == CXDurationPickerDayTypeOverlap) {
         
         float notBiggerThan = self.bounds.size.height * 0.60;
         float notSmallerThan = ascenderHeight + 5;
         
         float circleDiameter = fmaxf(notBiggerThan, notSmallerThan);
         
-        float circleY = (self.bounds.size.height - circleDiameter) / 2;
         float circleX = (self.bounds.size.width - circleDiameter) / 2;
+        float circleY = (self.bounds.size.height - circleDiameter) / 2;
         
         CGContextSetFillColorWithColor(context, self.terminalBackgroundColor.CGColor);
         
         CGContextBeginPath(context);
         CGContextAddEllipseInRect(context, CGRectMake(circleX, circleY, circleDiameter, circleDiameter));
         CGContextDrawPath(context, kCGPathFill);
+    }
+    
+    if (self.type == CXDurationPickerDayTypeOverlap) {
+        float notBiggerThan = self.bounds.size.height * 0.80;
+        float notSmallerThan = ascenderHeight + 7;
+        
+        float circleDiameter = fmaxf(notBiggerThan, notSmallerThan);
+        float circleRadius = circleDiameter / 2;
+        
+        float circleX = (self.bounds.size.width - circleDiameter) / 2 + circleRadius;
+        float circleY = (self.bounds.size.height - circleDiameter) / 2 + circleRadius;
+        
+        CGContextSetStrokeColorWithColor(context, self.terminalBackgroundColor.CGColor);
+        CGContextSetLineWidth(context, 2);
+        CGContextAddArc(context, circleX, circleY, circleRadius, 0, M_PI * 2, false);
+        CGContextStrokePath(context);
     }
     
     // Draw day number.
@@ -260,13 +281,9 @@
 }
 
 - (BOOL)isPickerDate:(CXDurationPickerDate)pickerDate {
-    if (_pickerDate.year == pickerDate.year
-        && _pickerDate.month == pickerDate.month
-        && _pickerDate.day == pickerDate.day) {
-        return YES;
-    }
-    
-    return NO;
+    return _pickerDate.year == pickerDate.year
+    && _pickerDate.month == pickerDate.month
+    && _pickerDate.day == pickerDate.day;
 }
 
 - (CGSize)labelSize:(NSAttributedString *)label {

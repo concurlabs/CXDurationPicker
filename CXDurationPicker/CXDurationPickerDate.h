@@ -48,7 +48,8 @@ typedef NS_ENUM(NSUInteger, CXDurationPickerDayType) {
     CXDurationPickerDayTypeEnd,
     CXDurationPickerDayTypeTransit,
     CXDurationPickerDayTypeNormal,
-    CXDurationPickerDayTypeSingle
+    CXDurationPickerDayTypeSingle,
+    CXDurationPickerDayTypeOverlap
 };
 
 typedef NS_ENUM(NSUInteger, CXDurationPickerType) {

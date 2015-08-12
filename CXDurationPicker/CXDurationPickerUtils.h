@@ -22,6 +22,7 @@
 
 + (NSDateComponents *)dateComponentsFromPickerDate:(CXDurationPickerDate)pickerDate;
 + (NSDate *)dateFromPickerDate:(CXDurationPickerDate)pickerDate;
++ (BOOL)isPickerDate:(CXDurationPickerDate)date1 equalTo:(CXDurationPickerDate)date2;
 + (CXDurationPickerDate)pickerDateFromDate:(NSDate *)date;
 + (CXDurationPickerDate)pickerDateShiftedByDays:(NSUInteger)days fromPickerDate:(CXDurationPickerDate)pickerDate;
 + (NSString *)stringFromPickerDate:(CXDurationPickerDate)pickerDate;

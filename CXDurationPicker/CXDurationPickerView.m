@@ -174,26 +174,6 @@
 
 - (void)monthView:(CXDurationPickerMonthView *)view daySelected:(CXDurationPickerDayView *)dayView {
     
-    // Duration Mode:
-    //   Did user select a zero-day range?
-    //
-    // Single Mode:
-    //   Did user select "today"?
-    //
-    if (self.mode == CXDurationPickerModeStartDate) {
-        if ([self isPickerDate:dayView.pickerDate equalTo:_endDate]) {
-            return;
-        }
-    } else if (self.mode == CXDurationPickerModeEndDate) {
-        if ([self isPickerDate:_startDate equalTo:dayView.pickerDate]) {
-            return;
-        }
-    } else if (self.mode == CXDurationPickerModeSingleDate) {
-        if ([self isPickerDate:_singleDate equalTo:dayView.pickerDate]) {
-            return;
-        }
-    }
-    
     // Did user select a date before "today"? If so, is this allowed?
     //
     if (self.mode == CXDurationPickerModeStartDate) {
@@ -477,13 +457,19 @@
     
     CXDurationPickerDayView *day;
     
-    day = (CXDurationPickerDayView *) [self.days firstObject];
+    if (self.days.count > 1) {
+        day = (CXDurationPickerDayView *) [self.days firstObject];
     
-    day.type = CXDurationPickerDayTypeStart;
+        day.type = CXDurationPickerDayTypeStart;
+    }
     
     day = (CXDurationPickerDayView *) [self.days lastObject];
     
-    day.type = CXDurationPickerDayTypeEnd;
+    if (self.days.count == 1) {
+        day.type = CXDurationPickerDayTypeOverlap;
+    } else {
+        day.type = CXDurationPickerDayTypeEnd;
+    }
     
     for (long i = 1, ii = [self.days count] - 1; i < ii; i++) {
         day = (CXDurationPickerDayView *) [self.days objectAtIndex:i];
