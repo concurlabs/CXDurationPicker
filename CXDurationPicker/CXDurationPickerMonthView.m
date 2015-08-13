@@ -377,7 +377,19 @@
 - (NSString *)monthNameFromDate:(NSDate *)date {
     NSDateFormatter* dateFormatter = [[NSDateFormatter alloc] init];
     
-    [dateFormatter setDateFormat:@"MMMM YYYY"];
+    // Must use yyyy not YYYY
+    //
+    // Explanation...
+    // YYYY means year of week
+    // yyyy means ordinary calendar year
+    //
+    // Case in point: 2016/01/01 using YYYY
+    // US region considers this week to be in 2016
+    // UK region considers this week to be in 2015
+    // As a result the calendar would display January 2015 incorrectly
+    // The reason is straddling days. Some regions say that there must be a minimum number of
+    // days straddling a week in the new year to be considered the first week of that new year
+    [dateFormatter setDateFormat:@"MMMM yyyy"];
     
     NSString *stringFromDate = [dateFormatter stringFromDate:date];
     
