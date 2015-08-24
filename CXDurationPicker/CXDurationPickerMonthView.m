@@ -286,15 +286,17 @@
         
         [v addGestureRecognizer:tap];
         
-        if (self.components.year < todayComponents.year) {
-            v.isDisabled = YES;
-        } else if (self.components.year <= todayComponents.year
-                   && self.components.month < todayComponents.month) {
-            v.isDisabled = YES;
-        } else if (self.components.year == todayComponents.year
-                   && self.components.month == todayComponents.month
-                   && i < todayComponents.day - 1) {
-            v.isDisabled = YES;
+        if (self.disableDaysBeforeToday) {
+            if (self.components.year < todayComponents.year) {
+                v.isDisabled = YES;
+            } else if (self.components.year <= todayComponents.year
+                       && self.components.month < todayComponents.month) {
+                v.isDisabled = YES;
+            } else if (self.components.year == todayComponents.year
+                       && self.components.month == todayComponents.month
+                       && i < todayComponents.day - 1) {
+                v.isDisabled = YES;
+            }
         } else {
             v.isDisabled = NO;
         }

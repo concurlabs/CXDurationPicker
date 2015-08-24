@@ -81,6 +81,8 @@
      singleDateChanged:(CXDurationPickerDate)pickerDate {
     
     self.singleDateViewLabel.text = [CXDurationPickerUtils stringFromPickerDate:pickerDate];
+    
+    NSLog(@"Selected single date of %@", [CXDurationPickerUtils stringFromPickerDate:pickerDate]);
 }
 
 - (void)durationPicker:(CXDurationPickerView *)durationPicker

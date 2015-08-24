@@ -131,6 +131,16 @@
     
     CXDurationPickerMonthView *v = [self monthViewForRow:row];
     
+    // Tell month view to disable days before today is user has requested it.
+    //
+    // The logic here is perhaps unnecessarily confusing...
+    //
+    if (self.allowSelectionsInPast == NO) {
+        v.disableDaysBeforeToday = YES;
+    } else {
+        v.disableDaysBeforeToday = NO;
+    }
+    
     v.backgroundColor = self.backgroundColor;
     
     v.dayLabelColor = self.dayLabelColor;
@@ -728,9 +738,6 @@
     }
     
     _type = type;
-    
-    //CXDurationPickerMonthView *monthView = [self.monthViews firstObject];
-    //[monthView dump];
 }
 
 - (void)setStartDate:(CXDurationPickerDate)startDate {
