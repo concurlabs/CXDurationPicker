@@ -228,8 +228,15 @@
     [self.dateLabel setText:self.dateString];
     
     [self addSubview:self.dateLabel];
-    
-    NSArray *days = @[@"SUN", @"MON", @"TUE", @"WED", @"THU", @"FRI", @"SAT", @"SUN"];
+
+    // Build a localized string array instead of hardcoded SUN,MON...FRI,SAT,SUN
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+    NSMutableArray *daysOfWeek = [[NSMutableArray alloc] init];
+    for (NSString *dayOfWeek in [dateFormatter shortWeekdaySymbols]) {
+        [daysOfWeek addObject:[dayOfWeek uppercaseString]];
+    }
+    // Add SUN to the end again - not sure why, but the hardcoded array had it there, so if it ain't broke...
+    [daysOfWeek addObject:daysOfWeek[0]];
     
     UILabel *dayLabel;
     UIFont *dayFont = [UIFont fontWithName:@"HelveticaNeue" size:self.weekTitleHeight];
@@ -250,7 +257,7 @@
         [dayLabel setTextAlignment:NSTextAlignmentCenter];
         [dayLabel setTextColor:self.dayLabelColor];
         [dayLabel setFont:dayFont];
-        [dayLabel setText:days[i]];
+        [dayLabel setText:daysOfWeek[i]];
         
         [self addSubview:dayLabel];
     }
