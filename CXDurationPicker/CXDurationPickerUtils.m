@@ -31,6 +31,7 @@
 
 + (NSDate *)dateFromPickerDate:(CXDurationPickerDate)pickerDate {
     NSCalendar *calendar = [NSCalendar currentCalendar];
+    [calendar setTimeZone:[NSTimeZone timeZoneWithAbbreviation:@"GMT"]];
     
     return [calendar dateFromComponents:[CXDurationPickerUtils dateComponentsFromPickerDate:pickerDate]];
 }
