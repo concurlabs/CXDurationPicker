@@ -169,8 +169,7 @@
     height += (self.dateLabel.frame.size.height + 10);
     height += (self.weekTitleHeight + 5);
     
-    NSDate *date = [self dateForFirstDayInSection:self.monthIndex];
-    NSUInteger numWeeks = [self numberOfWeeksForMonthOfDate:date];
+    NSUInteger numWeeks = [self numberOfWeekRowsNeeded];
     
     height += (numWeeks * self.cellHeight);
     
@@ -405,35 +404,19 @@
     return stringFromDate;
 }
 
-- (NSUInteger)numberOfWeeksForMonthOfDate:(NSDate *)date {
+- (int)numberOfWeekRowsNeeded
+{
+    int colIndex = (int)self.components.weekday - 1; // starting weekday column
+    int rowIndex = 4; // All months have 4 weeks / 28 days
     
-    NSDate *firstDayInMonth = [self.calendar
-                               dateFromComponents:[self.calendar components:NSCalendarUnitYear|NSCalendarUnitMonth fromDate:date]];
-    
-    NSDate *lastDayInMonth = [self.calendar dateByAddingComponents:((^{
-        NSDateComponents *dateComponents = [NSDateComponents new];
-        dateComponents.month = 1;
-        dateComponents.day = -1;
-        return dateComponents;
-    })()) toDate:firstDayInMonth options:0];
-    
-    NSDate *fromSunday = [self.calendar dateFromComponents:((^{
-        NSDateComponents *dateComponents = [self.calendar components:NSCalendarUnitWeekOfYear|NSCalendarUnitYearForWeekOfYear fromDate:firstDayInMonth];
-        dateComponents.weekday = 1;
-        return dateComponents;
-    })())];
-    
-    NSDate *toSunday = [self.calendar dateFromComponents:((^{
-        NSDateComponents *dateComponents = [self.calendar components:NSCalendarUnitWeekOfYear|NSCalendarUnitYearForWeekOfYear fromDate:lastDayInMonth];
-        dateComponents.weekday = 1;
-        return dateComponents;
-    })())];
-    
-    return 1 + [self.calendar components:NSCalendarUnitWeekOfMonth
-                                fromDate:fromSunday
-                                  toDate:toSunday
-                                 options:0].weekOfMonth;
-    
+    for (int i = 28; i < self.numDays; i++) {
+        colIndex++;
+        if (colIndex % 7 == 0) {
+            colIndex = 0;
+            rowIndex++;
+        }
+    }
+    return colIndex == 0 ? rowIndex : rowIndex+1;
 }
 
 - (CXDurationPickerMonth)monthPickerDateFromDate:(NSDate *)date {
