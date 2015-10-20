@@ -137,8 +137,14 @@
     //
     if (self.allowSelectionsInPast == NO) {
         v.disableDaysBeforeToday = YES;
+        if (!self.allowSelectionOfYesterdayAsStartDay) {
+            v.disableYesterday = YES;
+        } else {
+            v.disableYesterday = NO;
+        }
     } else {
         v.disableDaysBeforeToday = NO;
+        v.disableYesterday = NO;
     }
     
     v.backgroundColor = self.backgroundColor;
@@ -183,16 +189,50 @@
 #pragma mark - CXCalendarMonthViewDelegate
 
 - (void)monthView:(CXDurationPickerMonthView *)view daySelected:(CXDurationPickerDayView *)dayView {
-    
+
+    // Picker should not allow same day selection if flag is set to NO
+    //
+    // Duration Mode:
+    //   Did user select a zero-day range?
+    //
+    // Single Mode:
+    //   Did user select "today"?
+    //
+    if (!self.allowSelectionOnSameDay) {
+        if (self.mode == CXDurationPickerModeStartDate) {
+            if ([self isPickerDate:dayView.pickerDate equalTo:_endDate]) {
+                return;
+            }
+        } else if (self.mode == CXDurationPickerModeEndDate) {
+            if ([self isPickerDate:_startDate equalTo:dayView.pickerDate]) {
+                return;
+            }
+        } else if (self.mode == CXDurationPickerModeSingleDate) {
+            if ([self isPickerDate:_singleDate equalTo:dayView.pickerDate]) {
+                return;
+            }
+        }
+    }
+
     // Did user select a date before "today"? If so, is this allowed?
     //
     if (self.mode == CXDurationPickerModeStartDate) {
         if ([self isPickerDateInPast:dayView.pickerDate]) {
             if (!self.allowSelectionsInPast) {
-                if ([self.delegate respondsToSelector:@selector(durationPicker:didSelectDateInPast:forMode:)]) {
-                    [self.delegate durationPicker:self didSelectDateInPast:dayView.pickerDate forMode:_mode];
+                if ([self isPickerDateYesterday:dayView.pickerDate]) {
+                    if (!self.allowSelectionOfYesterdayAsStartDay) {
+                        if ([self.delegate respondsToSelector:@selector(durationPicker:didSelectDateInPast:forMode:)]) {
+                            [self.delegate durationPicker:self didSelectDateInPast:dayView.pickerDate forMode:_mode];
+                        }
+                        return;
+                    }
                 }
-                return;
+                else {
+                    if ([self.delegate respondsToSelector:@selector(durationPicker:didSelectDateInPast:forMode:)]) {
+                        [self.delegate durationPicker:self didSelectDateInPast:dayView.pickerDate forMode:_mode];
+                    }
+                    return;
+                }
             }
         }
     } else if (self.mode == CXDurationPickerModeEndDate) {
@@ -603,6 +643,11 @@
     }
     
     return NO;
+}
+
+- (BOOL)isPickerDateYesterday:(CXDurationPickerDate)pickerDate {
+    BOOL isYesterday = [CXDurationPickerUtils isPickerDateYesterday:pickerDate];
+    return isYesterday;
 }
 
 - (BOOL)isDurationValidForStartPickerDate:(CXDurationPickerDate)startPickerDate

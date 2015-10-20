@@ -47,6 +47,8 @@
 @property (nonatomic) CXDurationPickerMode mode;
 @property (nonatomic) CXDurationPickerType type;    
 @property (nonatomic) BOOL allowSelectionsInPast;
+@property (nonatomic) BOOL allowSelectionOnSameDay;
+@property (nonatomic) BOOL allowSelectionOfYesterdayAsStartDay;
 
 // Month-specific colors
 //

@@ -36,6 +36,7 @@
 @property (nonatomic) UIEdgeInsets padding;
 @property (nonatomic) CXDurationPickerMonth pickerMonth;
 @property (nonatomic) BOOL disableDaysBeforeToday;
+@property (nonatomic) BOOL disableYesterday;
 
 // Month-specific colors
 //

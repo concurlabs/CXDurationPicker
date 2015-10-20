@@ -3,6 +3,7 @@
 
 #import "CXDurationPickerDate.h"
 #import "CXDurationPickerUtils.h"
+#import "CXDurationPickerView.h"
 
 @interface CXDurationPickerDemoTests : XCTestCase
 
@@ -53,6 +54,53 @@
     XCTAssertEqual(c1.year, c2.year, "Year is not the same");
 }
 
+
+- (void)testUtilYesterday {
+    NSDate *today = [NSDate date];
+    NSDate *yesterday = [today dateByAddingTimeInterval: -86400.0];
+    NSCalendar *calendar = [NSCalendar currentCalendar];
+    
+    NSDateComponents *comps =
+    [calendar components:NSCalendarUnitYear | NSCalendarUnitMonth | NSCalendarUnitDay
+                fromDate:yesterday];
+    
+    CXDurationPickerDate pickerYesterday;
+    pickerYesterday.day = comps.day;
+    pickerYesterday.month = comps.month;
+    pickerYesterday.year = comps.year;
+    
+    BOOL isDateYesterday = [CXDurationPickerUtils isPickerDateYesterday:pickerYesterday];
+    
+    XCTAssert(isDateYesterday, "Date is not yesterday");
+
+    // Now give it todays date, and see if it still thinks it is yesterday
+    comps =
+    [calendar components:NSCalendarUnitYear | NSCalendarUnitMonth | NSCalendarUnitDay
+                fromDate:today];
+
+    pickerYesterday.day = comps.day;
+    pickerYesterday.month = comps.month;
+    pickerYesterday.year = comps.year;
+    
+    isDateYesterday = [CXDurationPickerUtils isPickerDateYesterday:pickerYesterday];
+    
+    XCTAssert(!isDateYesterday, "Date is yesterday");
+
+    // Now give it tomorrows date, and see if it still thinks it is yesterday
+    NSDate *tomorrow = [today dateByAddingTimeInterval: 86400.0];
+    comps =
+    [calendar components:NSCalendarUnitYear | NSCalendarUnitMonth | NSCalendarUnitDay
+                fromDate:tomorrow];
+    
+    pickerYesterday.day = comps.day;
+    pickerYesterday.month = comps.month;
+    pickerYesterday.year = comps.year;
+    
+    isDateYesterday = [CXDurationPickerUtils isPickerDateYesterday:pickerYesterday];
+    
+    XCTAssert(!isDateYesterday, "Date is yesterday");
+
+}
 /*
 - (void)testPerformanceExample {
     // This is an example of a performance test case.
