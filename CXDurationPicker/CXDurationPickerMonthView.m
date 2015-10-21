@@ -87,7 +87,16 @@
         NSLog(@"monthview layout: Nothing to do.");
         return;
     }
-    
+
+    NSDate *today = [NSDate date];
+    NSDateComponents *todayComponents = [[NSCalendar currentCalendar]
+                                         components:NSCalendarUnitDay | NSCalendarUnitMonth | NSCalendarUnitYear
+                                         fromDate:today];
+    NSDate *yesterday = [today dateByAddingTimeInterval: -86400.0];
+    NSDateComponents *yesterdayComponents = [[NSCalendar currentCalendar]
+                                             components:NSCalendarUnitDay | NSCalendarUnitMonth | NSCalendarUnitYear
+                                             fromDate:yesterday];
+
     float cellSize = self.bounds.size.width / 7;
     
     self.cellWidth = floor(cellSize);
@@ -142,7 +151,7 @@
         
         NSUInteger tag = 200 + i;
         
-        UIView *dayView = [self viewWithTag:tag];
+        CXDurationPickerDayView *dayView = (CXDurationPickerDayView*)[self viewWithTag:tag];
         
         dayView.frame = CGRectMake(x + self.monthOffset + xOffset,
                                    y + yOffset + yOffset2,
@@ -154,6 +163,26 @@
         if (colIndex % 7 == 0) {
             colIndex = 0;
             rowIndex++;
+        }
+        
+        if (self.disableDaysBeforeToday) {
+            if (self.components.year < todayComponents.year) {
+                dayView.isDisabled = YES;
+            } else if (self.components.year <= todayComponents.year
+                       && self.components.month < todayComponents.month) {
+                dayView.isDisabled = YES;
+            } else if (self.components.year == yesterdayComponents.year
+                       && self.components.month == yesterdayComponents.month
+                       && i == yesterdayComponents.day - 1
+                       && !self.disableYesterday) {
+                dayView.isDisabled = NO;
+            } else if (self.components.year == todayComponents.year
+                       && self.components.month == todayComponents.month
+                       && i < todayComponents.day - 1) {
+                dayView.isDisabled = YES;
+            }
+        } else {
+            dayView.isDisabled = NO;
         }
     }
 }
@@ -272,6 +301,10 @@
     NSDateComponents *todayComponents = [[NSCalendar currentCalendar]
                                          components:NSCalendarUnitDay | NSCalendarUnitMonth | NSCalendarUnitYear
                                          fromDate:today];
+    NSDate *yesterday = [today dateByAddingTimeInterval: -86400.0];
+    NSDateComponents *yesterdayComponents = [[NSCalendar currentCalendar]
+                                         components:NSCalendarUnitDay | NSCalendarUnitMonth | NSCalendarUnitYear
+                                         fromDate:yesterday];
     
     for (int i = 0; i < self.numDays; i++) {
         float xOffset = 0;
@@ -298,6 +331,11 @@
             } else if (self.components.year <= todayComponents.year
                        && self.components.month < todayComponents.month) {
                 v.isDisabled = YES;
+            } else if (self.components.year == yesterdayComponents.year
+                      && self.components.month == yesterdayComponents.month
+                      && i == yesterdayComponents.day - 1
+                      && !self.disableYesterday) {
+                v.isDisabled = NO;
             } else if (self.components.year == todayComponents.year
                        && self.components.month == todayComponents.month
                        && i < todayComponents.day - 1) {

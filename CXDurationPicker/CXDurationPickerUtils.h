@@ -27,5 +27,6 @@
 + (CXDurationPickerDate)pickerDateShiftedByDays:(NSUInteger)days fromPickerDate:(CXDurationPickerDate)pickerDate;
 + (NSString *)stringFromPickerDate:(CXDurationPickerDate)pickerDate;
 + (NSDate *)today;
++ (BOOL)isPickerDateYesterday:(CXDurationPickerDate)pickerDate;
 
 @end

@@ -91,4 +91,18 @@
     return [calendar dateFromComponents:components];
 }
 
++ (BOOL)isPickerDateYesterday:(CXDurationPickerDate)pickerDate {
+    NSDate *today = [self today];
+    NSDate *date = [self dateFromPickerDate:pickerDate];
+    
+    NSTimeInterval interval = [date timeIntervalSinceDate:today];
+    
+    // 86400 seconds = 24hrs
+    if ( interval >= -86400 && interval < 0) {
+        return YES;
+    }
+    
+    return NO;
+}
+
 @end
