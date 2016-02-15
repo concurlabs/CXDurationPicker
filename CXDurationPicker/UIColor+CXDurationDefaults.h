@@ -16,7 +16,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface UIColor (Defaults)
+@interface UIColor (CXDurationDefaults)
 
 // Month-specific colors
 //

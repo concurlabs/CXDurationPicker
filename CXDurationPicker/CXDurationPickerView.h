@@ -50,6 +50,7 @@
 @property (nonatomic) BOOL allowSelectionOnSameDay;
 @property (nonatomic) BOOL allowSelectionOfYesterdayAsStartDay;
 
+@property (nonatomic,strong)NSArray* blockedDays;
 // Month-specific colors
 //
 @property (strong, nonatomic) UIColor *dayLabelColor;
@@ -73,6 +74,8 @@
 
 @property (strong, nonatomic) UIColor *transitBackgroundColor;
 @property (strong, nonatomic) UIColor *transitForegroundColor;
+
+@property (nonatomic)BOOL roundedTermianls;
 
 - (void)scrollToStartMonth:(BOOL)animated;
 

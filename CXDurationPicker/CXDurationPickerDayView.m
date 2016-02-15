@@ -18,7 +18,7 @@
 
 #import "CXDurationPickerDayView.h"
 #import "CXDurationPickerUtils.h"
-#import "UIColor+Defaults.h"
+#import "UIColor+CXDurationDefaults.h"
 
 @interface CXDurationPickerDayView ()
 
@@ -46,6 +46,7 @@
     self.todayForegroundColor = [UIColor defaultTodayForegroundColor];
     self.transitBackgroundColor = [UIColor defaultTransitBackgroundColor];
     self.transitForegroundColor = [UIColor defaultTransitForegroundColor];
+    self.roundedTermianls = YES;
 }
 
 - (NSString *)description {
@@ -101,9 +102,22 @@
                                             self.bounds.size.height - 1));
     
     [self drawText:self.day];
+    
+    [self setIsAccessibilityElement:YES];
+    
+    if (self.accessibilityIdentifier.length == 0) {
+        
+        self.accessibilityIdentifier = [NSString stringWithFormat:@"%@ %@ %@",@(self.pickerDate.year).stringValue, @(self.pickerDate.month).stringValue, @(self.pickerDate.day).stringValue];
+        
+        NSLog(@"dateID:%@",self.accessibilityIdentifier);
+        self.accessibilityValue = @(self.type).stringValue;
+    }
+
+    
 }
 
 - (void)drawText:(NSString *)label {
+    [self setAccessibilityLabel:self.description];
     CGContextRef context = UIGraphicsGetCurrentContext();
     
     CTFontRef font = CTFontCreateUIFontForLanguage(kCTFontSystemFontType,
@@ -165,6 +179,7 @@
                                               rectangleY + 0.5,
                                               rectangleWidth - 1,
                                               rectangleHeight - 1));
+        
     } else if (self.type == CXDurationPickerDayTypeEnd) {
         float notBiggerThan = self.bounds.size.height * 0.60;
         float notSmallerThan = ascenderHeight + 5;
@@ -180,20 +195,30 @@
                                               rectangleY + 0.5,
                                               rectangleWidth - 1,
                                               rectangleHeight - 1));
+        
     } else if (self.type == CXDurationPickerDayTypeTransit) {
-        float notBiggerThan = self.bounds.size.height * 0.60;
-        float notSmallerThan = ascenderHeight + 5;
         
-        float rectangleHeight = fmaxf(notBiggerThan, notSmallerThan);
-        
-        float rectangleY = (self.bounds.size.height - rectangleHeight) / 2;
-        
-        CGContextSetFillColorWithColor(context, self.transitBackgroundColor.CGColor);
-        
-        CGContextFillRect(context, CGRectMake(0.5,
-                                              rectangleY + 0.5,
-                                              self.frame.size.width - 1,
-                                              rectangleHeight - 1));
+        if (self.roundedTermianls) {
+            float notBiggerThan = self.bounds.size.height * 0.60;
+            float notSmallerThan = ascenderHeight + 5;
+            
+            float rectangleHeight = fmaxf(notBiggerThan, notSmallerThan);
+            
+            float rectangleY = (self.bounds.size.height - rectangleHeight) / 2;
+            
+            CGContextSetFillColorWithColor(context, self.transitBackgroundColor.CGColor);
+            
+            CGContextFillRect(context, CGRectMake(0.5,
+                                                  rectangleY + 0.5,
+                                                  self.frame.size.width - 1,
+                                                  rectangleHeight - 1));
+        } else {
+            CGContextSetFillColorWithColor(context, self.transitBackgroundColor.CGColor);
+            
+            CGContextFillRect(context, CGRectMake(0.5, 0.5,
+                                                  self.bounds.size.width - 1,
+                                                  self.bounds.size.height - 1));
+        }
     }
     
     // Draw circle.
@@ -203,35 +228,57 @@
         || self.type == CXDurationPickerDayTypeSingle
         || self.type == CXDurationPickerDayTypeOverlap) {
         
-        float notBiggerThan = self.bounds.size.height * 0.60;
-        float notSmallerThan = ascenderHeight + 5;
-        
-        float circleDiameter = fmaxf(notBiggerThan, notSmallerThan);
-        
-        float circleX = (self.bounds.size.width - circleDiameter) / 2;
-        float circleY = (self.bounds.size.height - circleDiameter) / 2;
-        
-        CGContextSetFillColorWithColor(context, self.terminalBackgroundColor.CGColor);
-        
-        CGContextBeginPath(context);
-        CGContextAddEllipseInRect(context, CGRectMake(circleX, circleY, circleDiameter, circleDiameter));
-        CGContextDrawPath(context, kCGPathFill);
+        if (self.roundedTermianls) {
+            float notBiggerThan = self.bounds.size.height * 0.60;
+            float notSmallerThan = ascenderHeight + 5;
+            
+            float circleDiameter = fmaxf(notBiggerThan, notSmallerThan);
+            
+            float circleX = (self.bounds.size.width - circleDiameter) / 2;
+            float circleY = (self.bounds.size.height - circleDiameter) / 2;
+            
+            CGContextSetFillColorWithColor(context, self.terminalBackgroundColor.CGColor);
+            
+            CGContextBeginPath(context);
+            CGContextAddEllipseInRect(context, CGRectMake(circleX, circleY, circleDiameter, circleDiameter));
+            CGContextDrawPath(context, kCGPathFill);
+        } else {
+            CGContextSetFillColorWithColor(context, self.terminalBackgroundColor.CGColor);
+            
+            CGContextFillRect(context, CGRectMake(0.5, 0.5,
+                                                  self.bounds.size.width - 1,
+                                                  self.bounds.size.height - 1));
+        }
+
     }
     
     if (self.type == CXDurationPickerDayTypeOverlap) {
-        float notBiggerThan = self.bounds.size.height * 0.80;
-        float notSmallerThan = ascenderHeight + 7;
         
-        float circleDiameter = fmaxf(notBiggerThan, notSmallerThan);
-        float circleRadius = circleDiameter / 2;
+        if (self.roundedTermianls) {
+            float notBiggerThan = self.bounds.size.height * 0.80;
+            float notSmallerThan = ascenderHeight + 7;
+            
+            float circleDiameter = fmaxf(notBiggerThan, notSmallerThan);
+            float circleRadius = circleDiameter / 2;
+            
+            float circleX = (self.bounds.size.width - circleDiameter) / 2 + circleRadius;
+            float circleY = (self.bounds.size.height - circleDiameter) / 2 + circleRadius;
+            
+            CGContextSetStrokeColorWithColor(context, self.terminalBackgroundColor.CGColor);
+            CGContextSetLineWidth(context, 2);
+            CGContextAddArc(context, circleX, circleY, circleRadius, 0, M_PI * 2, false);
+            CGContextStrokePath(context);
+        } else {
+            CGContextSetFillColorWithColor(context, self.terminalBackgroundColor.CGColor);
+            
+            CGContextFillRect(context, CGRectMake(0.5, 0.5,
+                                                  self.bounds.size.width - 1,
+                                                  self.bounds.size.height - 1));
+        }
+
         
-        float circleX = (self.bounds.size.width - circleDiameter) / 2 + circleRadius;
-        float circleY = (self.bounds.size.height - circleDiameter) / 2 + circleRadius;
-        
-        CGContextSetStrokeColorWithColor(context, self.terminalBackgroundColor.CGColor);
-        CGContextSetLineWidth(context, 2);
-        CGContextAddArc(context, circleX, circleY, circleRadius, 0, M_PI * 2, false);
-        CGContextStrokePath(context);
+
+
     }
     
     // Draw day number.
@@ -250,6 +297,9 @@
     
     CFRelease(line);
     CFRelease(font);
+    
+    
+    self.accessibilityValue = @(self.type).stringValue;
 }
 
 - (BOOL)isAfter:(CXDurationPickerDate)date {
