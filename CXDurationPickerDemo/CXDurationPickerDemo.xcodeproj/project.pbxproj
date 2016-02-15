@@ -192,6 +192,7 @@
 				01987DDA1AAD5097006F012F /* Frameworks */,
 				01987DDB1AAD5097006F012F /* Resources */,
 				DC6FD7D1121C38DF0CB8313F /* Copy Pods Resources */,
+				F9802359F8ACD1E3FA860FCE /* Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -306,6 +307,21 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-CXDurationPickerDemo/Pods-CXDurationPickerDemo-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		F9802359F8ACD1E3FA860FCE /* Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-CXDurationPickerDemo/Pods-CXDurationPickerDemo-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
