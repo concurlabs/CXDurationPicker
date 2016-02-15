@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-#import "UIColor+Defaults.h"
+#import "UIColor+CXDurationDefaults.h"
 
 @implementation UIColor (Defaults)
 

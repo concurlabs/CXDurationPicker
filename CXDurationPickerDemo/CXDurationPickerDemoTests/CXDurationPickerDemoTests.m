@@ -4,7 +4,7 @@
 #import "CXDurationPickerDate.h"
 #import "CXDurationPickerUtils.h"
 #import "CXDurationPickerView.h"
-
+#import "CXDurationPickerDayView.h"
 @interface CXDurationPickerDemoTests : XCTestCase
 
 @end
@@ -101,13 +101,75 @@
     XCTAssert(!isDateYesterday, "Date is yesterday");
 
 }
-/*
-- (void)testPerformanceExample {
-    // This is an example of a performance test case.
-    [self measureBlock:^{
-        // Put the code you want to measure the time of here.
-    }];
+-(void)testDayViewCanBeInstanciated{
+    
+    CXDurationPickerDayView* view = [[CXDurationPickerDayView alloc]initWithFrame:CGRectMake(0, 0, 100, 100)];
+    
+    XCTAssertNotNil(view);
+    XCTAssertTrue(view.roundedTermianls); //Default rounded
 }
-*/
+
+-(void)testDrawInRec_typeStart{
+    
+    CXDurationPickerDayView* view = [[CXDurationPickerDayView alloc]initWithFrame:CGRectMake(0, 0, 100, 100)];
+    view.day = @"1";
+    view.type = CXDurationPickerDayTypeStart;
+    XCTAssertNoThrow([view drawRect:view.frame]);
+}
+-(void)testDrawInRec_typeEnd{
+    
+    CXDurationPickerDayView* view = [[CXDurationPickerDayView alloc]initWithFrame:CGRectMake(0, 0, 100, 100)];
+    view.day = @"1";
+    view.type = CXDurationPickerDayTypeEnd;
+    XCTAssertNoThrow([view drawRect:view.frame]);
+}
+
+-(void)testDrawInRec_typeTransit{
+    
+    CXDurationPickerDayView* view = [[CXDurationPickerDayView alloc]initWithFrame:CGRectMake(0, 0, 100, 100)];
+    view.day = @"1";
+    view.type = CXDurationPickerDayTypeTransit;
+    XCTAssertNoThrow([view drawRect:view.frame]);
+}
+
+-(void)testDrawInRec_typeNormal{
+    
+    CXDurationPickerDayView* view = [[CXDurationPickerDayView alloc]initWithFrame:CGRectMake(0, 0, 100, 100)];
+    view.day = @"1";
+    view.type = CXDurationPickerDayTypeTransit;
+    XCTAssertNoThrow([view drawRect:view.frame]);
+}
+
+-(void)testDrawInRec_typeSinge{
+    
+    CXDurationPickerDayView* view = [[CXDurationPickerDayView alloc]initWithFrame:CGRectMake(0, 0, 100, 100)];
+    view.day = @"1";
+    view.type = CXDurationPickerDayTypeSingle;
+    XCTAssertNoThrow([view drawRect:view.frame]);
+}
+
+-(void)testDrawInRec_typeOverlap{
+    
+    CXDurationPickerDayView* view = [[CXDurationPickerDayView alloc]initWithFrame:CGRectMake(0, 0, 100, 100)];
+    view.day = @"1";
+    view.type = CXDurationPickerDayTypeOverlap;
+    XCTAssertNoThrow([view drawRect:view.frame]);
+}
+
+-(NSArray*)generateDaysFromTomorrow:(NSUInteger)numberOfDay{
+    NSMutableArray* daysArray = [NSMutableArray new];
+    
+    NSDate *tomorrow = [NSDate dateWithTimeInterval:(24*60*60) sinceDate:[NSDate date]];
+    
+    [daysArray addObject:tomorrow];
+    
+    for (NSUInteger dayNo = 1; dayNo < numberOfDay; dayNo ++) {
+        NSDate *nextDay = [NSDate dateWithTimeInterval:(24*60*60) sinceDate:tomorrow];
+        [daysArray addObject:nextDay];
+    }
+    
+    return daysArray.copy;
+}
+
 
 @end

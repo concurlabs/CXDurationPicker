@@ -18,7 +18,7 @@
 #import "CXDurationPickerMonthView.h"
 #import "CXDurationPickerView.h"
 #import "CXDurationPickerUtils.h"
-#import "UIColor+Defaults.h"
+#import "UIColor+CXDurationDefaults.h"
 
 #define defaultTodayColor [UIColor colorWithRed:0.1f green:0.004f blue:0.3f alpha:0.3f]
 
@@ -52,7 +52,7 @@
     self.todayForegroundColor = [UIColor defaultTodayForegroundColor];
     self.transitBackgroundColor = [UIColor defaultTransitBackgroundColor];
     self.transitForegroundColor = [UIColor defaultTransitForegroundColor];
-    
+    self.roundedTermianls = YES;
     self.allowSelectionsInPast = NO;
     self.startDate = (CXDurationPickerDate) { 0, 0, 0 };
     self.endDate = (CXDurationPickerDate) { 0, 0, 0 };
@@ -81,6 +81,9 @@
     [super awakeFromNib];
     
     [self baseInit];
+    
+
+    
 }
 
 - (id)initWithFrame:(CGRect)frame {
@@ -96,6 +99,8 @@
 - (void)layoutSubviews {
     [super layoutSubviews];
     
+    [self addMonths];
+    
     self.table.frame = self.bounds;
     
     [self.table setNeedsLayout];
@@ -110,9 +115,11 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     // Infinite scroll. Load more months when we're "3" months from the end.
     //
+#ifndef COMPONENTS_DEMO
     if (indexPath.row == [tableView numberOfRowsInSection:0] - 3) {
         [self addMonthsAsync];
     }
+#endif
     
     UITableViewCell *cell = [tableView
                              dequeueReusableCellWithIdentifier:@"DurationPickerCell"];
@@ -146,6 +153,12 @@
         v.disableDaysBeforeToday = NO;
         v.disableYesterday = NO;
     }
+    
+    if (self.blockedDays && self.blockedDays.count > 0) {
+        v.blockedDays = self.blockedDays;
+    }
+    
+    v.roundedTermianls = self.roundedTermianls;
     
     v.backgroundColor = self.backgroundColor;
     
