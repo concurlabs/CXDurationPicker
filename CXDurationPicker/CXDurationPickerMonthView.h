@@ -63,7 +63,7 @@
 @property (strong, nonatomic) UIColor *transitBackgroundColor;
 @property (strong, nonatomic) UIColor *transitForegroundColor;
 
-@property (nonatomic)BOOL roundedTermianls;
+@property (nonatomic)BOOL roundedTerminals;
 
 - (BOOL)containsDate:(CXDurationPickerDate)pickerDate;
 - (CXDurationPickerDayView *)dayForPickerDate:(CXDurationPickerDate)pickerDate;

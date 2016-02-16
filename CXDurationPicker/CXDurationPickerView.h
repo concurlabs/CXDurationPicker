@@ -75,7 +75,7 @@
 @property (strong, nonatomic) UIColor *transitBackgroundColor;
 @property (strong, nonatomic) UIColor *transitForegroundColor;
 
-@property (nonatomic)BOOL roundedTermianls;
+@property (nonatomic)BOOL roundedTerminals;
 
 - (void)scrollToStartMonth:(BOOL)animated;
 

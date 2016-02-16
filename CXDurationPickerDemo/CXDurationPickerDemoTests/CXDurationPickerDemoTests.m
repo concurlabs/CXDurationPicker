@@ -106,7 +106,7 @@
     CXDurationPickerDayView* view = [[CXDurationPickerDayView alloc]initWithFrame:CGRectMake(0, 0, 100, 100)];
     
     XCTAssertNotNil(view);
-    XCTAssertTrue(view.roundedTermianls); //Default rounded
+    XCTAssertTrue(view.roundedTerminals); //Default rounded
 }
 
 -(void)testDrawInRec_typeStart{

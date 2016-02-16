@@ -46,7 +46,7 @@
     self.todayForegroundColor = [UIColor defaultTodayForegroundColor];
     self.transitBackgroundColor = [UIColor defaultTransitBackgroundColor];
     self.transitForegroundColor = [UIColor defaultTransitForegroundColor];
-    self.roundedTermianls = YES;
+    self.roundedTerminals = YES;
 }
 
 - (NSString *)description {
@@ -198,7 +198,7 @@
         
     } else if (self.type == CXDurationPickerDayTypeTransit) {
         
-        if (self.roundedTermianls) {
+        if (self.roundedTerminals) {
             float notBiggerThan = self.bounds.size.height * 0.60;
             float notSmallerThan = ascenderHeight + 5;
             
@@ -228,7 +228,7 @@
         || self.type == CXDurationPickerDayTypeSingle
         || self.type == CXDurationPickerDayTypeOverlap) {
         
-        if (self.roundedTermianls) {
+        if (self.roundedTerminals) {
             float notBiggerThan = self.bounds.size.height * 0.60;
             float notSmallerThan = ascenderHeight + 5;
             
@@ -254,7 +254,7 @@
     
     if (self.type == CXDurationPickerDayTypeOverlap) {
         
-        if (self.roundedTermianls) {
+        if (self.roundedTerminals) {
             float notBiggerThan = self.bounds.size.height * 0.80;
             float notSmallerThan = ascenderHeight + 7;
             

@@ -52,7 +52,7 @@
     self.todayForegroundColor = [UIColor defaultTodayForegroundColor];
     self.transitBackgroundColor = [UIColor defaultTransitBackgroundColor];
     self.transitForegroundColor = [UIColor defaultTransitForegroundColor];
-    self.roundedTermianls = YES;
+    self.roundedTerminals = YES;
     self.allowSelectionsInPast = NO;
     self.startDate = (CXDurationPickerDate) { 0, 0, 0 };
     self.endDate = (CXDurationPickerDate) { 0, 0, 0 };
@@ -158,7 +158,7 @@
         v.blockedDays = self.blockedDays;
     }
     
-    v.roundedTermianls = self.roundedTermianls;
+    v.roundedTerminals = self.roundedTerminals;
     
     v.backgroundColor = self.backgroundColor;
     

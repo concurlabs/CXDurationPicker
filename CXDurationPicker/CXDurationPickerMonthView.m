@@ -59,7 +59,7 @@
     
     self.calendar = [NSCalendar currentCalendar];
     
-    self.roundedTermianls = YES;
+    self.roundedTerminals = YES;
 }
 
 - (NSString *)description {
@@ -213,7 +213,7 @@
             }
         }
         
-        dayView.roundedTermianls = self.roundedTermianls;
+        dayView.roundedTerminals = self.roundedTerminals;
         
     }
 }
