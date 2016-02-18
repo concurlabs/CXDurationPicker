@@ -20,7 +20,7 @@
 #import "CXDurationPickerDayView.h"
 #import "CXDurationPickerMonthView.h"
 #import "CXDurationPickerUtils.h"
-#import "UIColor+Defaults.h"
+#import "UIColor+CXDurationDefaults.h"
 
 @interface CXDurationPickerMonthView ()
 @property (strong, nonatomic) NSDate *date;
@@ -49,6 +49,8 @@
     
     self.days = [[NSMutableArray alloc] init];
     
+    self.blockedDays = [NSArray new];
+    
     self.monthWidth = (floor(self.bounds.size.width / 7) * 7) - 6;
     
     self.monthOffset = (self.bounds.size.width - self.monthWidth) / 2;
@@ -56,12 +58,24 @@
     self.backgroundColor = [UIColor defaultMonthBackgroundColor];
     
     self.calendar = [NSCalendar currentCalendar];
+    
+    self.roundedTerminals = YES;
 }
 
 - (NSString *)description {
     return self.dateString;
 }
 
+-(void)setBlockedDays:(NSArray *)disabledDays{
+    NSMutableArray* componentArray = [NSMutableArray new];
+    for (NSDate* date in disabledDays) {
+        NSDateComponents *todayComponents = [[NSCalendar currentCalendar]
+                                             components:NSCalendarUnitDay | NSCalendarUnitMonth | NSCalendarUnitYear
+                                             fromDate:date];
+        [componentArray addObject:todayComponents];
+    }
+    _blockedDays = componentArray.copy;
+}
 - (id)initWithCoder:(NSCoder *)decoder {
     self = [super initWithCoder:decoder];
     
@@ -184,6 +198,23 @@
         } else {
             dayView.isDisabled = NO;
         }
+        
+        //Disable Day here
+        if (self.blockedDays.count > 0 ) {
+            for (NSDateComponents* blockedDayComponent in self.blockedDays) {
+                if (dayView.pickerDate.year == blockedDayComponent.year &&
+                    dayView.pickerDate.month == blockedDayComponent.month &&
+                    dayView.pickerDate.day == blockedDayComponent.day) {
+                    dayView.isDisabled = YES;
+                    dayView.type = CXDurationPickerDayTypeDisabled;
+                    break;
+                }
+                
+            }
+        }
+        
+        dayView.roundedTerminals = self.roundedTerminals;
+        
     }
 }
 
@@ -214,8 +245,10 @@
 - (void)daySelected:(UITapGestureRecognizer *)recognizer {
     if (self.delegate != nil) {
         CXDurationPickerDayView *dayView = (CXDurationPickerDayView *)recognizer.view;
+        if (!dayView.isDisabled) {
+            [self.delegate monthView:self daySelected:dayView];
+        }
         
-        [self.delegate monthView:self daySelected:dayView];
     }
 }
 
@@ -247,6 +280,9 @@
     self.dateString = [NSString stringWithFormat:@"%@", [self monthNameFromDate:self.date]];
     
     UIFont *dateFont = [UIFont fontWithName:@"HelveticaNeue" size:self.monthTitleHeight];
+    
+//    [self setIsAccessibilityElement:YES];
+//    self.accessibilityIdentifier = self.dateString;
     
     self.dateLabel = [[UILabel alloc] init];
     
@@ -344,6 +380,23 @@
         } else {
             v.isDisabled = NO;
         }
+        
+        
+//        //Disable Day here
+//        if (self.blockedDays.count > 0 ) {
+//            for (NSDateComponents* blockedDayComponent in self.blockedDays) {
+//                if (self.components.year == blockedDayComponent.year &&
+//                    self.components.month == blockedDayComponent.month &&
+//                    i == blockedDayComponent.day) {
+//                    v.isDisabled = YES;
+//                    
+//                    
+//                    break;
+//                }
+//                
+//            }
+//        }
+        
         
         if (self.components.year == todayComponents.year
             && self.components.month == todayComponents.month

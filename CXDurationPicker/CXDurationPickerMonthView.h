@@ -38,6 +38,7 @@
 @property (nonatomic) BOOL disableDaysBeforeToday;
 @property (nonatomic) BOOL disableYesterday;
 
+@property (nonatomic,strong)NSArray* blockedDays;
 // Month-specific colors
 //
 @property (strong, nonatomic) UIColor *dayLabelColor;
@@ -61,6 +62,8 @@
 
 @property (strong, nonatomic) UIColor *transitBackgroundColor;
 @property (strong, nonatomic) UIColor *transitForegroundColor;
+
+@property (nonatomic)BOOL roundedTerminals;
 
 - (BOOL)containsDate:(CXDurationPickerDate)pickerDate;
 - (CXDurationPickerDayView *)dayForPickerDate:(CXDurationPickerDate)pickerDate;

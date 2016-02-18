@@ -29,6 +29,8 @@
 
 // Colors
 //
+@property (nonatomic)BOOL roundedTerminals;
+
 @property (strong, nonatomic) UIColor *dayBackgroundColor;
 @property (strong, nonatomic) UIColor *dayForegroundColor;
 
