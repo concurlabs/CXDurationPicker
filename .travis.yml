@@ -6,6 +6,7 @@ xcode_sdk: iphonesimulator
 podfile: CXDurationPickerDemo/Podfile
 
 before_install:
+  - rvm use 2.2.4
   - gem install cocoapods -v '0.39.0'
   - gem install slather --no-ri --no-rdoc
 
