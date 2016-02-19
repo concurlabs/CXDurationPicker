@@ -1,20 +1,19 @@
 sudo: false
 language: objective-c
+osx_image: xcode7.2
 xcode_workspace: CXDurationPickerDemo/CXDurationPickerDemo.xcworkspace
 xcode_scheme: CXDurationPickerDemo
 xcode_sdk: iphonesimulator
 podfile: CXDurationPickerDemo/Podfile
 
 before_install:
-  - rvm install ruby-2.2.2
-  - gem install cocoapods -v '0.39.0'
   - gem install slather --no-ri --no-rdoc
 
-install: true
+# install: true
 
-before_script:
-  - pushd CXDurationPickerDemo
-  - pod install
-  - popd
+# before_script:
+#   - pushd CXDurationPickerDemo
+#   - pod install
+#   - popd
 
 after_success: slather
