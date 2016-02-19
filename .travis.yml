@@ -13,6 +13,8 @@ before_install:
 install: true
 
 before_script:
- - pod install
+  - pushd CXDurationPickerDemo
+  - pod install
+  - popd
 
 after_success: slather
