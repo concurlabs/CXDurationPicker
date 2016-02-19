@@ -8,12 +8,3 @@ podfile: CXDurationPickerDemo/Podfile
 
 before_install:
   - gem install slather --no-ri --no-rdoc
-
-# install: true
-
-# before_script:
-#   - pushd CXDurationPickerDemo
-#   - pod install
-#   - popd
-
-after_success: slather
