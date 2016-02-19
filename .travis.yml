@@ -1,13 +1,18 @@
-before_install:
-  - rvm install ruby-2.2.2
-  - gem install cocoapods -v '0.39.0'
-  - gem install slather --no-ri --no-rdoc
-  
-after_success: slather
-
 sudo: false
 language: objective-c
 xcode_workspace: CXDurationPickerDemo/CXDurationPickerDemo.xcworkspace
 xcode_scheme: CXDurationPickerDemo
 xcode_sdk: iphonesimulator
 podfile: CXDurationPickerDemo/Podfile
+
+before_install:
+  - rvm install ruby-2.2.2
+  - gem install cocoapods -v '0.39.0'
+  - gem install slather --no-ri --no-rdoc
+
+install: true
+
+script:
+ - pod install
+
+after_success: slather
