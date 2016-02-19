@@ -1,10 +1,10 @@
 PODS:
-  - CXTabView (0.1.1)
+  - CXTabView (0.3.2)
 
 DEPENDENCIES:
-  - CXTabView (~> 0.1.0)
+  - CXTabView (~> 0.3.2)
 
 SPEC CHECKSUMS:
-  CXTabView: 31492e6d9a91591a19d7213a71d33a2700aa9f7c
+  CXTabView: 07828630f993733fb9638d2aa95e773b40ea26f4
 
 COCOAPODS: 0.39.0

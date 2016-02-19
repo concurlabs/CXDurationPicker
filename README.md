@@ -11,7 +11,7 @@ Custom iOS view for picking a date range
 #### Podfile
 ```ruby
 platform :ios, '7.0'
-pod 'CXDurationPicker', "~> 0.14"
+pod 'CXDurationPicker', "~> 0.15.0"
 ```
 
 ## Usage
