@@ -49,7 +49,7 @@
     
     self.days = [[NSMutableArray alloc] init];
     
-    self.blockedDays = [NSArray new];
+    self.blockedDays = [NSMutableSet new];
     
     self.monthWidth = (floor(self.bounds.size.width / 7) * 7) - 6;
     
@@ -66,8 +66,8 @@
     return self.dateString;
 }
 
--(void)setBlockedDays:(NSArray *)disabledDays{
-    NSMutableArray* componentArray = [NSMutableArray new];
+-(void)assignBlockedDays:(NSArray *)disabledDays{
+    NSMutableSet* componentArray = [NSMutableSet new];
     for (NSDate* date in disabledDays) {
         NSDateComponents *todayComponents = [[NSCalendar currentCalendar]
                                              components:NSCalendarUnitDay | NSCalendarUnitMonth | NSCalendarUnitYear
@@ -76,6 +76,7 @@
     }
     _blockedDays = componentArray.copy;
 }
+
 - (id)initWithCoder:(NSCoder *)decoder {
     self = [super initWithCoder:decoder];
     
@@ -201,15 +202,10 @@
         
         //Disable Day here
         if (self.blockedDays.count > 0 ) {
-            for (NSDateComponents* blockedDayComponent in self.blockedDays) {
-                if (dayView.pickerDate.year == blockedDayComponent.year &&
-                    dayView.pickerDate.month == blockedDayComponent.month &&
-                    dayView.pickerDate.day == blockedDayComponent.day) {
-                    dayView.isDisabled = YES;
-                    dayView.type = CXDurationPickerDayTypeDisabled;
-                    break;
-                }
-                
+            NSDateComponents *dayComponent = [CXDurationPickerUtils dateComponentsFromPickerDate:dayView.pickerDate];
+            if ([self.blockedDays containsObject:dayComponent]) {
+                dayView.isDisabled = YES;
+                dayView.type = CXDurationPickerDayTypeDisabled;
             }
         }
         
@@ -380,24 +376,7 @@
         } else {
             v.isDisabled = NO;
         }
-        
-        
-//        //Disable Day here
-//        if (self.blockedDays.count > 0 ) {
-//            for (NSDateComponents* blockedDayComponent in self.blockedDays) {
-//                if (self.components.year == blockedDayComponent.year &&
-//                    self.components.month == blockedDayComponent.month &&
-//                    i == blockedDayComponent.day) {
-//                    v.isDisabled = YES;
-//                    
-//                    
-//                    break;
-//                }
-//                
-//            }
-//        }
-        
-        
+
         if (self.components.year == todayComponents.year
             && self.components.month == todayComponents.month
             && i == todayComponents.day - 1) {
