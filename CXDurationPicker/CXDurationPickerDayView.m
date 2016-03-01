@@ -103,6 +103,7 @@
     
     [self drawText:self.day];
     
+#ifdef COMPONENTS_DEMO
     [self setIsAccessibilityElement:YES];
     
     if (self.accessibilityIdentifier.length == 0) {
@@ -112,12 +113,14 @@
         NSLog(@"dateID:%@",self.accessibilityIdentifier);
         self.accessibilityValue = @(self.type).stringValue;
     }
-
+#endif
     
 }
 
 - (void)drawText:(NSString *)label {
+#ifdef COMPONENTS_DEMO
     [self setAccessibilityLabel:self.description];
+#endif
     CGContextRef context = UIGraphicsGetCurrentContext();
     
     CTFontRef font = CTFontCreateUIFontForLanguage(kCTFontSystemFontType,

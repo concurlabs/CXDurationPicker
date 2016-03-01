@@ -155,7 +155,7 @@
     }
     
     if (self.blockedDays && self.blockedDays.count > 0) {
-        v.blockedDays = self.blockedDays;
+        [v assignBlockedDays:self.blockedDays];
     }
     
     v.roundedTerminals = self.roundedTerminals;
