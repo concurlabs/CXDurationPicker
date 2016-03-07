@@ -142,7 +142,12 @@
     } else if (self.type == CXDurationPickerDayTypeTransit) {
         color = self.transitForegroundColor.CGColor;
     } else {
-        color = self.dayForegroundColor.CGColor;
+        if (self.isToday) {
+            color = self.todayForegroundColor.CGColor;
+        } else {
+            color = self.dayForegroundColor.CGColor;
+        }
+        
     }
     
     NSDictionary *attributesDict = [NSDictionary dictionaryWithObjectsAndKeys:
