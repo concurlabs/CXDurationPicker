@@ -76,7 +76,7 @@
 }
 
 + (UIColor *)defaultTodayForegroundColor {
-    return [UIColor whiteColor];
+    return [UIColor darkGrayColor];
 }
 
 + (UIColor *)defaultTransitBackgroundColor {
