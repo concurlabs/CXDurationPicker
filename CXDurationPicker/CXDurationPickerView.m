@@ -67,6 +67,7 @@
     [self.table setDelegate:self];
     
     self.table.allowsSelection = NO;
+    self.table.backgroundColor = [UIColor defaultMonthBackgroundColor];
     self.table.separatorStyle = UITableViewCellSeparatorStyleNone;
     self.table.showsVerticalScrollIndicator = NO;
     
@@ -81,9 +82,6 @@
     [super awakeFromNib];
     
     [self baseInit];
-    
-
-    
 }
 
 - (id)initWithFrame:(CGRect)frame {
@@ -127,6 +125,8 @@
     if (cell == nil) {
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"DurationPickerCell"];
     }
+    
+    cell.backgroundColor = [UIColor clearColor];
     
     UIView *oldMonthView = [[cell.contentView subviews] firstObject];
     
@@ -817,8 +817,7 @@
 }
 
 - (void)setBackgroundColor:(UIColor *)color {
-    [super setBackgroundColor:color];
-    
+    [self.table setBackgroundColor:color];
     [self.table reloadData];
 }
 

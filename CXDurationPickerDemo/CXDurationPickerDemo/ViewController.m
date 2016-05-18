@@ -49,6 +49,11 @@
 //
 //    [self.picker setStartPickerDate:d withDuration:5];
     
+    // An example that will change the picker's background color.
+    //
+    //self.view.backgroundColor = [UIColor greenColor];
+    //self.picker.backgroundColor = [UIColor clearColor];
+    
     self.picker.allowSelectionsInPast = YES;
     
     [self synchronizeComponents];
