@@ -74,14 +74,18 @@
     [self addMonths];
     
     [self initWithDefaultDuration];
-    
-    [self scrollToToday:NO];
 }
 
 - (void)awakeFromNib {
     [super awakeFromNib];
     
     [self baseInit];
+}
+
+- (void)didMoveToWindow {
+    [super didMoveToWindow];
+    
+    [self scrollToStartMonth:NO];
 }
 
 - (id)initWithFrame:(CGRect)frame {
