@@ -91,4 +91,9 @@
 - (void)setStartDate:(NSDate *)date withDuration:(NSUInteger)days;
 - (void)setStartPickerDate:(CXDurationPickerDate)pickerDate withDuration:(NSUInteger)days;
 
+- (void)clearCurrentDuration;
+- (void)clearSingle;
+- (BOOL)hasStartDate;
+- (BOOL)hasEndDate;
+- (BOOL)hasEitherStartOrEndDate;
 @end

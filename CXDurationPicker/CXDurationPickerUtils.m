@@ -20,6 +20,9 @@
 @implementation CXDurationPickerUtils
 
 + (NSDateComponents *)dateComponentsFromPickerDate:(CXDurationPickerDate)pickerDate {
+    
+    if (pickerDate.year == 0) return nil;
+
     NSDateComponents *components = [NSDateComponents new];
     
     components.year = pickerDate.year;
@@ -30,6 +33,9 @@
 }
 
 + (NSDate *)dateFromPickerDate:(CXDurationPickerDate)pickerDate {
+    
+    if (pickerDate.year == 0) return nil;
+    
     NSCalendar *calendar = [NSCalendar currentCalendar];
     
     return [calendar dateFromComponents:[CXDurationPickerUtils dateComponentsFromPickerDate:pickerDate]];
@@ -42,6 +48,9 @@
 }
 
 + (CXDurationPickerDate)pickerDateFromDate:(NSDate *)date {
+    
+    if (date == nil) return (CXDurationPickerDate){0,0,0};
+    
     NSCalendar *calendar = [NSCalendar currentCalendar];
     
     NSDateComponents *components = [calendar
@@ -70,6 +79,9 @@
 }
 
 + (NSString *)stringFromPickerDate:(CXDurationPickerDate)pickerDate {
+    
+    if (pickerDate.year == 0) return nil;
+
     NSDate *date = [CXDurationPickerUtils dateFromPickerDate:pickerDate];
     
     NSDateFormatter *formatter = [NSDateFormatter new];
