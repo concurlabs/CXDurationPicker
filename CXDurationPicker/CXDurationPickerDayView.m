@@ -284,9 +284,6 @@
                                                   self.bounds.size.height - 1));
         }
 
-        
-
-
     }
     
     // Draw day number.

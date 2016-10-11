@@ -72,8 +72,6 @@
     self.table.showsVerticalScrollIndicator = NO;
     
     [self addMonths];
-    
-    [self initWithDefaultDuration];
 }
 
 - (void)awakeFromNib {
@@ -320,7 +318,12 @@
 
 - (void)scrollToStartMonth:(BOOL)animated {
     dispatch_async(dispatch_get_main_queue(), ^{
-        NSIndexPath *path = [self indexPathForPickerDate:self.startDate];
+        NSIndexPath *path = nil;
+        if ([self hasStartDate]) {
+            path = [self indexPathForPickerDate:self.startDate];
+        } else {
+            path = [self indexPathForPickerDate:[self pickerDateForToday]];
+        }
         
         if (path) {
             [self.table scrollToRowAtIndexPath:path
@@ -377,6 +380,10 @@
     NSDate *d2 = [CXDurationPickerUtils dateFromPickerDate:self.endDate];
     NSDate *n1 = [CXDurationPickerUtils dateFromPickerDate:pickerDate];
     
+    // Do not let wrong date selection if there's no end date yet selected
+    if (d2 == nil) {
+        return NO;
+    }
     // Calculate number of days in current duration, accounting for days in month.
     //
     NSDateComponents *diff = [self.calendar
@@ -503,24 +510,24 @@
     CXDurationPickerDayView *oldDayView = [self dayForPickerDate:self.singleDate];
     
     oldDayView.type = CXDurationPickerDayTypeNormal;
-    
+     
     oldDayView = nil;
 }
 
 - (void)createDuration {
     // Quick sanity test.
-    //
-    if (self.startDate.year == 0) {
-        return;
-    }
     
-    if (self.endDate.year == 0) {
-        return;
+    if ([self hasEitherStartOrEndDate]) {
+        if ([self hasStartDate]) {
+            self.days = [self daysBetween:self.startDate and:self.startDate];
+        } else {
+            self.days = [self daysBetween:self.endDate and:self.endDate];
+        }
+    } else {
+        self.days = [self daysBetween:self.startDate and:self.endDate];
     }
     
     [self clearCurrentDuration];
-    
-    self.days = [self daysBetween:self.startDate and:self.endDate];
     
     CXDurationPickerDayView *day;
     
@@ -533,7 +540,11 @@
     day = (CXDurationPickerDayView *) [self.days lastObject];
     
     if (self.days.count == 1) {
-        day.type = CXDurationPickerDayTypeOverlap;
+        if ([self hasEitherStartOrEndDate]) {
+            day.type = CXDurationPickerDayTypeSingle;
+        } else {
+            day.type = CXDurationPickerDayTypeOverlap;
+        }
     } else {
         day.type = CXDurationPickerDayTypeEnd;
     }
@@ -543,6 +554,20 @@
         
         day.type = CXDurationPickerDayTypeTransit;
     }
+}
+
+- (BOOL)hasStartDate {
+    return ! (self.startDate.year == 0);
+}
+
+- (BOOL)hasEndDate {
+    return ! (self.endDate.year == 0);
+}
+
+- (BOOL)hasEitherStartOrEndDate {
+    if ([self hasStartDate] && ! [self hasEndDate]) return YES;
+    if ( ! [self hasStartDate] && [self hasEndDate]) return YES;
+    return NO;
 }
 
 - (void)createSingle {
@@ -624,17 +649,6 @@
     return days;
 }
 
-- (void)initWithDefaultDuration {
-    CXDurationPickerDate today = [self pickerDateForToday];
-    
-    _startDate = today;
-    
-    CXDurationPickerDate tomorrow = [self pickerDateForTomorrow];
-    
-    _endDate = tomorrow;
-    
-    [self createDuration];
-}
 
 - (BOOL)isPickerDate:(CXDurationPickerDate)startPickerDate
              equalTo:(CXDurationPickerDate)endPickerDate {
@@ -672,6 +686,8 @@
     
     NSDate *startDate = [CXDurationPickerUtils dateFromPickerDate:startPickerDate];
     NSDate *endDate = [CXDurationPickerUtils dateFromPickerDate:endPickerDate];
+    
+    if (endPickerDate.year == 0) return true;
     
     if ([startDate timeIntervalSinceDate:endDate] > 0) {
         return NO;
@@ -794,8 +810,6 @@
         self.mode = CXDurationPickerModeSingleDate;
     } else {
         [self clearSingle];
-        [self initWithDefaultDuration];
-        [self createDuration];
         self.mode = CXDurationPickerModeStartDate;
     }
     
