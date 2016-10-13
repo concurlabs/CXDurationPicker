@@ -123,7 +123,7 @@
 #endif
     CGContextRef context = UIGraphicsGetCurrentContext();
     
-    CTFontRef font = CTFontCreateUIFontForLanguage(kCTFontSystemFontType,
+    CTFontRef font = CTFontCreateUIFontForLanguage(kCTFontUIFontSystem,
                                                    self.bounds.size.height / 3, NULL);
     
     CGFloat ascenderHeight = CTFontGetAscent(font);

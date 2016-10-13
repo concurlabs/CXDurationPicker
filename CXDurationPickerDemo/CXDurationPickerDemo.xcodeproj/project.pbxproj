@@ -232,6 +232,7 @@
 				TargetAttributes = {
 					01987DDC1AAD5097006F012F = {
 						CreatedOnToolsVersion = 6.1.1;
+						DevelopmentTeam = C2UZCAZ8FK;
 					};
 					01987DF51AAD5097006F012F = {
 						CreatedOnToolsVersion = 6.1.1;
@@ -463,9 +464,11 @@
 			baseConfigurationReference = 42E9336D6E9B544FD5CDDDE0 /* Pods-CXDurationPickerDemo.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = C2UZCAZ8FK;
 				GCC_GENERATE_TEST_COVERAGE_FILES = YES;
 				GCC_INSTRUMENT_PROGRAM_FLOW_ARCS = YES;
 				INFOPLIST_FILE = CXDurationPickerDemo/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
@@ -476,9 +479,11 @@
 			baseConfigurationReference = 85E43D292B7B55B586BE704B /* Pods-CXDurationPickerDemo.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				DEVELOPMENT_TEAM = C2UZCAZ8FK;
 				GCC_GENERATE_TEST_COVERAGE_FILES = YES;
 				GCC_INSTRUMENT_PROGRAM_FLOW_ARCS = YES;
 				INFOPLIST_FILE = CXDurationPickerDemo/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
