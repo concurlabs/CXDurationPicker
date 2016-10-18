@@ -20,7 +20,7 @@
 #import "CXDurationPickerUtils.h"
 #import "UIColor+CXDurationDefaults.h"
 
-@interface CXDurationPickerDayView ()
+@interface CXDurationPickerDayView ()  <UIAccessibilityIdentification>
 
 @end
 
@@ -47,6 +47,19 @@
     self.transitBackgroundColor = [UIColor defaultTransitBackgroundColor];
     self.transitForegroundColor = [UIColor defaultTransitForegroundColor];
     self.roundedTerminals = YES;
+    self.accessibilityLabel = self.description;
+}
+
+- (NSString *)accessibilityLabel {
+    return self.description;
+}
+
+- (NSString *)accessibilityIdentifier {
+    return self.accessibilityLabel;
+}
+
+- (BOOL)isAccessibilityElement {
+    return YES;
 }
 
 - (NSString *)description {
