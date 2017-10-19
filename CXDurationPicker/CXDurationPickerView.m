@@ -345,6 +345,26 @@
     });
 }
 
+- (void)setEndDate:(CXDurationPickerDate)endDate {
+    _endDate = endDate;
+
+    [self createDuration];
+}
+
+- (void)setSingleDate:(CXDurationPickerDate)singleDate {
+    [self clearSingle];
+
+    CXDurationPickerDayView *dayView = [self dayForPickerDate:singleDate];
+
+    [self changeSingleDateForDayView:dayView];
+}
+
+- (void)setStartDate:(CXDurationPickerDate)startDate {
+    _startDate = startDate;
+
+    [self createDuration];
+}
+
 - (void)setStartDate:(NSDate *)date withDuration:(NSUInteger)days {
     CXDurationPickerDate pickerDate = [CXDurationPickerUtils pickerDateFromDate:date];
     
@@ -359,6 +379,18 @@
     _endDate = [CXDurationPickerUtils pickerDateShiftedByDays:days fromPickerDate:pickerDate];
     
     [self createDuration];
+}
+
+- (void)setType:(CXDurationPickerType)type {
+    if (type == CXDurationPickerTypeSingle) {
+        [self clearCurrentDuration];
+        self.mode = CXDurationPickerModeSingleDate;
+    } else {
+        [self clearSingle];
+        self.mode = CXDurationPickerModeStartDate;
+    }
+
+    _type = type;
 }
 
 - (void)shiftDurationToEndPickerDate:(CXDurationPickerDate)pickerDate {
@@ -495,7 +527,7 @@
     
     dayView.type = CXDurationPickerDayTypeSingle;
     
-    self.singleDate = dayView.pickerDate;
+    _singleDate = dayView.pickerDate;
 }
 
 - (void)clearCurrentDuration {
@@ -655,7 +687,15 @@
     
     NSDate *startDate = [CXDurationPickerUtils dateFromPickerDate:startPickerDate];
     NSDate *endDate = [CXDurationPickerUtils dateFromPickerDate:endPickerDate];
-    
+
+    if (startDate == nil) {
+        return NO;
+    }
+
+    if (endDate == nil) {
+        return NO;
+    }
+
     if ([startDate timeIntervalSinceDate:endDate] == 0) {
         return YES;
     }
@@ -795,31 +835,6 @@
     CXDurationPickerDate pickerDate = [CXDurationPickerUtils pickerDateFromDate:tomorrowDate];
     
     return pickerDate;
-}
-
-- (void)setEndDate:(CXDurationPickerDate)endDate {
-    _endDate = endDate;
-    
-    [self createDuration];
-}
-
-- (void)setType:(CXDurationPickerType)type {
-    if (type == CXDurationPickerTypeSingle) {
-        [self clearCurrentDuration];
-        [self createSingle];
-        self.mode = CXDurationPickerModeSingleDate;
-    } else {
-        [self clearSingle];
-        self.mode = CXDurationPickerModeStartDate;
-    }
-    
-    _type = type;
-}
-
-- (void)setStartDate:(CXDurationPickerDate)startDate {
-    _startDate = startDate;
-    
-    [self createDuration];
 }
 
 #pragma mark - Colors
