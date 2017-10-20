@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name                    = "CXDurationPicker"
-  s.version                 = "0.16.7"
+  s.version                 = "0.16.8"
   s.summary                 = "Custom UIView which allows user to select a date range from calendar."
   s.homepage                = "https://github.com/concurlabs/CXDurationPicker"
   s.license                 = "Apache 2"
