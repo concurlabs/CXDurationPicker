@@ -77,6 +77,17 @@
     _blockedDays = componentArray.copy;
 }
 
+- (void) assignHighlightedDays: (NSArray *) highlighted {
+    NSMutableSet* componentArray = [NSMutableSet new];
+    for (NSDate* date in highlighted) {
+        NSDateComponents *todayComponents = [[NSCalendar currentCalendar]
+                                             components:NSCalendarUnitDay | NSCalendarUnitMonth | NSCalendarUnitYear
+                                             fromDate:date];
+        [componentArray addObject:todayComponents];
+    }
+    _highlighted = componentArray.copy;
+}
+
 - (id)initWithCoder:(NSCoder *)decoder {
     self = [super initWithCoder:decoder];
     
@@ -206,6 +217,15 @@
             if ([self.blockedDays containsObject:dayComponent]) {
                 dayView.isDisabled = YES;
                 dayView.type = CXDurationPickerDayTypeDisabled;
+            }
+        }
+        
+        //Highlight Day here
+        if (self.highlighted.count > 0 ) {
+            NSDateComponents *dayComponent = [CXDurationPickerUtils dateComponentsFromPickerDate:dayView.pickerDate];
+            if ([self.highlighted containsObject:dayComponent]) {
+                dayView.isHighlighted = YES;
+                dayView.type = CXDurationPickerDayTypeHighlighted;
             }
         }
         

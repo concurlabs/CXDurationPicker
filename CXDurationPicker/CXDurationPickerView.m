@@ -160,6 +160,10 @@
         [v assignBlockedDays:self.blockedDays];
     }
     
+    if (self.highlightedDays && self.highlightedDays.count > 0) {
+        [v assignHighlightedDays:self.highlightedDays];
+    }
+    
     v.roundedTerminals = self.roundedTerminals;
     
     v.backgroundColor = self.backgroundColor;

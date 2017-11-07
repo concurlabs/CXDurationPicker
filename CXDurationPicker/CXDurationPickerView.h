@@ -51,6 +51,7 @@
 @property (nonatomic) BOOL allowSelectionOfYesterdayAsStartDay;
 
 @property (nonatomic,strong)NSArray* blockedDays;
+@property (nonatomic,strong)NSArray* highlightedDays;
 
 // Month-specific colors
 //

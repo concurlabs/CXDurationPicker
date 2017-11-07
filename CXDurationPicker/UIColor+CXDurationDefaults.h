@@ -44,5 +44,8 @@
 + (UIColor *)defaultTransitBackgroundColor;
 + (UIColor *)defaultTransitForegroundColor;
 
++ (UIColor *)defaultHighlightedDayForegroundColor;
++ (UIColor *)defaultHighlightedDayBackgroundColor;
+
 + (UIColor *)colorFromHexString:(NSString *)hexString;
 @end
