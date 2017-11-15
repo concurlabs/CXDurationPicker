@@ -91,13 +91,13 @@
 }
 
 + (UIColor *)defaultHighlightedDayForegroundColor {
-    return [UIColor darkGrayColor];
+    return [UIColor whiteColor];
 }
 
 + (UIColor *)defaultHighlightedDayBackgroundColor {
-    return [UIColor colorWithRed:41/255.0
-                           green:163/255.0
-                            blue:230/255.0
+    return [UIColor colorWithRed:3/255.0
+                           green:86/255.0
+                            blue:255/255.0
                            alpha:1.0];
 }
 
