@@ -241,6 +241,12 @@
     }
 }
 
+- (NSDate*) dayViewDate: (CXDurationPickerDayView*) dayView {
+    NSDateComponents *dayComponent = [CXDurationPickerUtils dateComponentsFromPickerDate:dayView.pickerDate];
+    NSCalendar* calendar = [NSCalendar currentCalendar];
+    return [calendar dateFromComponents:dayComponent];
+}
+
 - (BOOL)date:(NSDate*)date isBeforeBeginDate:(NSDate*)beginDate {
     NSCalendar *calendar = [NSCalendar currentCalendar];
     NSInteger comps = (NSCalendarUnitDay | NSCalendarUnitMonth | NSCalendarUnitYear);
