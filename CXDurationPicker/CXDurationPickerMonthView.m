@@ -220,6 +220,13 @@
             }
         }
         
+        //Disable Day here
+        NSDate* dayViewDate = [self dayViewDate:dayView];
+        if ([self date:dayViewDate isBeforeBeginDate:self.initialDate] || [self date:dayViewDate isAfter:self.finalDate]) {
+            dayView.isDisabled = YES;
+            dayView.type = CXDurationPickerDayTypeDisabled;
+        }
+        
         //Highlight Day here
         if (self.highlighted.count > 0 ) {
             NSDateComponents *dayComponent = [CXDurationPickerUtils dateComponentsFromPickerDate:dayView.pickerDate];
@@ -232,6 +239,36 @@
         dayView.roundedTerminals = self.roundedTerminals;
         
     }
+}
+
+- (BOOL)date:(NSDate*)date isBeforeBeginDate:(NSDate*)beginDate {
+    NSCalendar *calendar = [NSCalendar currentCalendar];
+    NSInteger comps = (NSCalendarUnitDay | NSCalendarUnitMonth | NSCalendarUnitYear);
+    
+    NSDateComponents *date1Components = [calendar components:comps fromDate: date];
+    NSDateComponents *date2Components = [calendar components:comps fromDate: beginDate];
+    
+    NSDate* date1 = [calendar dateFromComponents:date1Components];
+    NSDate* date2 = [calendar dateFromComponents:date2Components];
+    if ([date1 compare:date2] == NSOrderedSame) {
+        return false;
+    }
+    return ([date compare:beginDate] == NSOrderedAscending);
+}
+
+- (BOOL)date:(NSDate*)date isAfter:(NSDate*)endDate {
+    NSCalendar *calendar = [NSCalendar currentCalendar];
+    NSInteger comps = (NSCalendarUnitDay | NSCalendarUnitMonth | NSCalendarUnitYear);
+    
+    NSDateComponents *date1Components = [calendar components:comps fromDate: date];
+    NSDateComponents *date2Components = [calendar components:comps fromDate: endDate];
+    
+    NSDate* date1 = [calendar dateFromComponents:date1Components];
+    NSDate* date2 = [calendar dateFromComponents:date2Components];
+    if ([date1 compare:date2] == NSOrderedSame) {
+        return false;
+    }
+    return ([date compare:endDate] == NSOrderedDescending);
 }
 
 - (CGSize)sizeThatFits:(CGSize)size {

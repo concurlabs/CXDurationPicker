@@ -182,6 +182,8 @@
     v.todayForegroundColor = self.todayForegroundColor;
     v.transitBackgroundColor = self.transitBackgroundColor;
     v.transitForegroundColor = self.transitForegroundColor;
+    v.initialDate = self.initialDate;
+    v.finalDate = self.finalDate;
     
     [cell.contentView addSubview:v];
     

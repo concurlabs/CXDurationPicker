@@ -38,6 +38,8 @@
 @property (nonatomic) BOOL disableDaysBeforeToday;
 @property (nonatomic) BOOL disableYesterday;
 
+@property (nonatomic) NSDate* initialDate;
+@property (nonatomic) NSDate* finalDate;
 @property (nonatomic,strong)NSMutableSet* blockedDays;
 @property (nonatomic,strong)NSMutableSet* highlighted;
 // Month-specific colors
