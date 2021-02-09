@@ -434,7 +434,8 @@
 }
 
 - (NSDate *)dateForFirstDayInSection:(NSInteger)section {
-    section = section - 12;
+    // Month start from five years ago
+    section = section - 60;
     
     NSDate *now = [_calendar dateFromComponents:[_calendar components:NSCalendarUnitYear|NSCalendarUnitMonth
                                                              fromDate:[NSDate date]]];
