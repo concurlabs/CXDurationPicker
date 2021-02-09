@@ -38,7 +38,7 @@ If you have any feature requests/bugfixes etc. feel free to help out and send a 
 
 ## License
 
-Copyright 2015 Concur
+Copyright 2015 - 2021 Concur
 
 Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except in compliance with the License. You may obtain a copy of the License at
 
