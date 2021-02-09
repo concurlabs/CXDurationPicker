@@ -15,7 +15,7 @@ pod 'CXDurationPicker', "~> 0.16.9"
 ```
 
 ## Usage
-###Colors
+### Colors
 Calendar colors can be changed in code by setting the following properties on CXDurationPickerView.
 ![Screenshot](https://raw.github.com/concurlabs/CXDurationPicker/master/Screenshots/Screenshot2.png)
 
