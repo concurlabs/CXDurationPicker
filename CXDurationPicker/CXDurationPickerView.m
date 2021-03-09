@@ -496,7 +496,8 @@
 - (void)addMonths {
     NSUInteger latestMonthIndex = [self.monthViews count];
     
-    for (int i = 0; i < 24; i++) {
+    // This is to create 6 years month view
+    for (int i = 0; i < 72; i++) {
         CXDurationPickerMonthView *view = [[CXDurationPickerMonthView alloc] initWithFrame:self.bounds];
         
         view.padding = UIEdgeInsetsMake(5, 0, 20, 0);
