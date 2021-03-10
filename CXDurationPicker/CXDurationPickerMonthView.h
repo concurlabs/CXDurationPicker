@@ -38,7 +38,10 @@
 @property (nonatomic) BOOL disableDaysBeforeToday;
 @property (nonatomic) BOOL disableYesterday;
 
+@property (nonatomic) NSDate* initialDate;
+@property (nonatomic) NSDate* finalDate;
 @property (nonatomic,strong)NSMutableSet* blockedDays;
+@property (nonatomic,strong)NSMutableSet* highlighted;
 // Month-specific colors
 //
 @property (strong, nonatomic) UIColor *dayLabelColor;
@@ -68,4 +71,5 @@
 - (BOOL)containsDate:(CXDurationPickerDate)pickerDate;
 - (CXDurationPickerDayView *)dayForPickerDate:(CXDurationPickerDate)pickerDate;
 -(void)assignBlockedDays:(NSArray *)disabledDays;
+- (void) assignHighlightedDays: (NSArray *) highlighted;
 @end

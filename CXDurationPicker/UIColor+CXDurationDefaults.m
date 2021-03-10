@@ -90,6 +90,17 @@
     return [UIColor darkGrayColor];
 }
 
++ (UIColor *)defaultHighlightedDayForegroundColor {
+    return [UIColor whiteColor];
+}
+
++ (UIColor *)defaultHighlightedDayBackgroundColor {
+    return [UIColor colorWithRed:3/255.0
+                           green:86/255.0
+                            blue:255/255.0
+                           alpha:1.0];
+}
+
 + (UIColor *)colorFromHexString:(NSString *)hexString {
     unsigned rgbValue = 0;
     NSScanner *scanner = [NSScanner scannerWithString:hexString];

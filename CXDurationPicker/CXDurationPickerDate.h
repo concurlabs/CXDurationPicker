@@ -44,6 +44,7 @@ typedef NS_ENUM(NSUInteger, CXDurationPickerMode) {
 
 typedef NS_ENUM(NSUInteger, CXDurationPickerDayType) {
     CXDurationPickerDayTypeDisabled,
+    CXDurationPickerDayTypeHighlighted,
     CXDurationPickerDayTypeStart,
     CXDurationPickerDayTypeEnd,
     CXDurationPickerDayTypeTransit,

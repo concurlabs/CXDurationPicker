@@ -46,6 +46,8 @@
     self.todayForegroundColor = [UIColor defaultTodayForegroundColor];
     self.transitBackgroundColor = [UIColor defaultTransitBackgroundColor];
     self.transitForegroundColor = [UIColor defaultTransitForegroundColor];
+    self.highlightedDayForegroundColor = [UIColor defaultHighlightedDayForegroundColor];
+    self.highlightedDayBackgroundColor = [UIColor defaultHighlightedDayBackgroundColor];
     self.roundedTerminals = YES;
 }
 
@@ -81,6 +83,12 @@
                                                   self.bounds.size.height - 1));
         } else if (self.isDisabled) {
             CGContextSetFillColorWithColor(context, self.disabledDayBackgroundColor.CGColor);
+            
+            CGContextFillRect(context, CGRectMake(0.5, 0.5,
+                                                  self.bounds.size.width - 1,
+                                                  self.bounds.size.height - 1));
+        } else if (self.isHighlighted) {
+            CGContextSetFillColorWithColor(context, self.highlightedDayBackgroundColor.CGColor);
             
             CGContextFillRect(context, CGRectMake(0.5, 0.5,
                                                   self.bounds.size.width - 1,
@@ -139,6 +147,8 @@
         color = self.terminalForegroundColor.CGColor;
     } else if (self.isDisabled) {
         color = self.disabledDayForegroundColor.CGColor;
+    } else if (self.isHighlighted) {
+        color = self.highlightedDayForegroundColor.CGColor;
     } else if (self.type == CXDurationPickerDayTypeTransit) {
         color = self.transitForegroundColor.CGColor;
     } else {

@@ -160,6 +160,10 @@
         [v assignBlockedDays:self.blockedDays];
     }
     
+    if (self.highlightedDays && self.highlightedDays.count > 0) {
+        [v assignHighlightedDays:self.highlightedDays];
+    }
+    
     v.roundedTerminals = self.roundedTerminals;
     
     v.backgroundColor = self.backgroundColor;
@@ -178,6 +182,8 @@
     v.todayForegroundColor = self.todayForegroundColor;
     v.transitBackgroundColor = self.transitBackgroundColor;
     v.transitForegroundColor = self.transitForegroundColor;
+    v.initialDate = self.initialDate;
+    v.finalDate = self.finalDate;
     
     [cell.contentView addSubview:v];
     

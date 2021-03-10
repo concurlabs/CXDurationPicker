@@ -23,6 +23,7 @@
 
 @property (strong, nonatomic) NSString *day;
 @property (nonatomic) BOOL isDisabled;
+@property (nonatomic) BOOL isHighlighted;
 @property (nonatomic) BOOL isToday;
 @property (nonatomic) CXDurationPickerDate pickerDate;
 @property (nonatomic) CXDurationPickerDayType type;
@@ -36,6 +37,9 @@
 
 @property (strong, nonatomic) UIColor *disabledDayBackgroundColor;
 @property (strong, nonatomic) UIColor *disabledDayForegroundColor;
+
+@property (strong, nonatomic) UIColor *highlightedDayBackgroundColor;
+@property (strong, nonatomic) UIColor *highlightedDayForegroundColor;
 
 @property (strong, nonatomic) UIColor *gridColor;
 

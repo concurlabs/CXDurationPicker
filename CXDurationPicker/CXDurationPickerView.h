@@ -51,6 +51,7 @@
 @property (nonatomic) BOOL allowSelectionOfYesterdayAsStartDay;
 
 @property (nonatomic,strong)NSArray* blockedDays;
+@property (nonatomic,strong)NSArray* highlightedDays;
 
 // Month-specific colors
 //
@@ -75,6 +76,8 @@
 
 @property (strong, nonatomic) UIColor *transitBackgroundColor;
 @property (strong, nonatomic) UIColor *transitForegroundColor;
+@property NSDate* initialDate;
+@property NSDate* finalDate;
 
 @property (nonatomic)BOOL roundedTerminals;
 
